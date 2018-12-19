@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">School</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_welcome_main">Welcome to advanced schools</string>
+    <string name="msg_choose_main">Select an option to sign in</string>
+    <string name="label_main_student">Student</string>
+    <string name="label_main_teacher">Teacher</string>
+    <string name="label_main_parent">Parents</string>
+    <string name="title_parent_welcome">Log in to the parent</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="action_register_btn">Register</string>
+    <string name="title_student_welcome">Log in to the student</string>
+    <string name="hint_student_username">User name</string>
+    <string name="hint_student_password">Password</string>
+    <string name="action_choose">Choose</string>
+    <string name="title_activity_calender">CalenderActivity</string>
+
+
+    <string name="title_sign_as_student">Sign in as Student</string>
+    <string name="title_sign_as_parent">Sign in as Parent</string>
+    <string name="title_sign_as_teacher">Sign in as Teacher</string>
+    <string name="title_reset_password" translatable="false">Reset Password</string>
+    <string name="label_attendance">Attendance</string>
+    <string name="label_student_of_day">Student Of Day</string>
+    <string name="label_quiz">Quiz</string>
+    <string name="label_activities">Activities</string>
+    <string name="hint_security_number">Social Security Number</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_new_password" translatable="false">New Password</string>
+    <string name="hint_confirm_new_password" translatable="false">Confirm New Password</string>
+    <string name="action_login">Login</string>
+    <string name="confirm_login" translatable="false">Confirm</string>
+    <string name="action_check">Check</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_code" translatable="false">Code</string>
+    <string name="msg_have_sms">You have a sms message on this number</string>
+    <string name="title_students">Students</string>
+    <string name="tab_feeds">Feeds</string>
+    <string name="tab_schedule">Schedule</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_top_student">Student</string>
+    <string name="tab_level">Level</string>
+    <string name="tab_class">Class</string>
+    <string name="points">Points</string>
+    <string name="label_read_more">Read more</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="action_download">File download</string>
+    <string name="label_assignment_grade">Assignment Grade</string>
+    <string name="action_send">Send</string>
+    <string name="tab_new_assignment">New Assignment</string>
+    <string name="tab_past">Past</string>
+    <string name="point">Point</string>
+    <string name="describtion">Description</string>
+    <string name="file_download">File download</string>
+    <string name="finish_the_assignment">Finish The Assignment</string>
+    <string name="file_upload">File Upload</string>
+    <string name="upload">Upload</string>
+    <string name="send">Send</string>
+    <string name="hint_edit_text_type_something">Type Something</string>
+    <string name="msg_wrong_password">Data you entered not correct</string>
+    <string name="action_close">Close</string>
+    <string name="msg_wrong_code">Sorry you entered wrong code</string>
+    <string name="menu_home" translatable="false">Home</string>
+    <string name="menu_profile">Edit Profile</string>
+    <string name="menu_message">Message</string>
+    <string name="menu_about_us">About  us</string>
+    <string name="menu_gallary">Picture gallary</string>
+    <string name="menu_video">Videos</string>
+    <string name="menu_suggestions">Suggestions</string>
+    <string name="menu_contact_us">Contact us</string>
+    <string name="menu_log_out">LogOut</string>
+    <string name="label_from">From</string>
+    <string name="label_to">To</string>
+    <string name="no_permission" translatable="false">There is no a permission from the parent</string>
+    <string name="password">Password</string>
+    <string name="phone">phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="birthday">Birthday</string>
+    <string name="nationality">Nationality</string>
+    <string name="gender">Gender</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="msg_double_click" translatable="false">Please click BACK again to exit</string>
+    <string name="label_phone_number" translatable="false">Phone Number</string>
+    <string name="label_social_media" translatable="false">Social Media</string>
+    <string name="label_map" translatable="false">Map</string>
+    <string name="label_connection_error" translatable="false">Connection error</string>
+    <string name="label_server_error" translatable="false">Server error</string>
+    <string name="label_network_error" translatable="false">Network error</string>
+    <string name="label_time_out_error" translatable="false">Connection time our error</string>
+    <string name="label_parse_error" translatable="false">Parse error</string>
+    <string name="label_unknown_error" translatable="false">Unknown error</string>
+    <string name="label_points" translatable="false">Points</string>
+    <string name="done" translatable="false">done</string>
+    <string name="top_student" translatable="false">Top Student</string>
+    <string name="back_arrow" translatable="false">back_arrow</string>
+    <string name="mohamed_said" translatable="false">Mohamed Said</string>
+    <string name="_30_student" translatable="false">30 Student</string>
+    <string name="_10_points" translatable="false">10 Points</string>
+    <string name="_4_points" translatable="false">4 Points</string>
+    <string name="_2_points" translatable="false">2 Points</string>
+    <string name="_3_points" translatable="false">3 Points</string>
+    <string name="_1_points" translatable="false">1 Points</string>
+    <string name="dummy_data" translatable="false">-22 12:38:02.608 597-8879/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:02.828 597-7611/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:02.828 597-7611/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:02.898 597-8691/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:02.898 597-8691/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:02.988 25915-25947/? D/[ACT]:ao: processing priority = HIGH 01-22 12:38:02.988 25915-25947/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.word/files/aria/offlinestoragehigh.db 01-22 12:38:02.988 25915-25947/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.word/files/aria/offlinestoragehigh.db 01-22 12:38:02.988 25915-25947/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.word/files/aria/offlinestoragenormal.db 01-22 12:38:02.988 25915-25947/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.word/files/aria/offlinestoragelow.db 01-22 12:38:03.018 597-9056/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:03.018 597-9056/? E/FRIGATE_BIRD: Error : Permission error! 01-22 12:38:03.048 25952-25970/? D/[ACT]:ao: processing priority = HIGH 01-22 12:38:03.048 25952-25970/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.excel/files/aria/offlinestoragehigh.db 01-22 12:38:03.048 25952-25970/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.excel/files/aria/offlinestoragehigh.db 01-22 12:38:03.048 25952-25970/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.excel/files/aria/offlinestoragenormal.db 01-22 12:38:03.048 25952-25970/? W/System.err: stat failed: ENOENT (No such file or directory) : /data/user/0/com.microsoft.office.excel/files/aria/offlinestoragelow.db 01-22 12:38:03.078 25851-25904/? D/[ACT]:ao: processing priority = HIGH 01-22 12:38:03.078 25851-25904/? W/System.err: stat failed: ENOENT (No</string>
+    <string name="feed_describtion" translatable="false">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</string>
+    <string name="feed_title" translatable="false">Feed Title</string>
+    <string name="image" translatable="false">image</string>
+    <string name="home_icon" translatable="false">Home_icon</string>
+    <string name="item_1" translatable="false">Home</string>
+    <string name="item_2" translatable="false">Schedule</string>
+    <string name="item_3" translatable="false">Top Student</string>
+    <string name="item_4" translatable="false">Feeds</string>
+    <string name="picker" translatable="false">picker</string>
+    <string name="explode_java" translatable="false">Explode java</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="Open" translatable="false">open</string>
+    <string name="Close" translatable="false">close</string>
+    <string name="base_url" translatable="false">http://dp-itc.com:4322</string>
+    <string name="connection_time_out" translatable="false">15</string>
+    <string name="mohammed_said">mohammed_said</string>
+
+</resources>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dp.schoolandroid.view.ui.activity.StudentGradeActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_action_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/iv_student_photo"
+        android:layout_width="@dimen/dp100w"
+        android:layout_height="@dimen/dp100h"
+        android:layout_marginTop="12dp"
+        android:clickable="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user_temp"
+        app:civ_border_color="@color/colorGray"
+        app:civ_border_width="@dimen/dp4w"
+        app:civ_shadow="true"
+        app:civ_shadow_color="@color/colorGray"
+        app:civ_shadow_radius="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Student Name"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_student_photo" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/dp120h"
+        android:layout_height="@dimen/dp35h"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/btn_rounded_assignment"
+        android:text="file download"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <view
+        android:id="@+id/view9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Grade : 50"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Assignment Grade"
+        android:textColor="@color/colorBlack"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="@dimen/dp125h"
+        android:layout_height="@dimen/dp60h"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/ll_grade_background"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
+
+        <EditText
+            android:id="@+id/et_grade"
+            android:layout_width="@dimen/dp80h"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp15h"
+            android:paddingTop="@dimen/dp15h"
+            android:text="0"
+            android:textColor="@color/colorLightBlue" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="@dimen/dp2w"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp3w"
+            android:layout_toEndOf="@+id/et_grade"
+            android:background="@color/colorLightBlue" />
+
+        <ImageView
+            android:layout_width="@dimen/dp15h"
+            android:layout_height="@dimen/dp15h"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/dp5w"
+            android:layout_marginStart="@dimen/dp5w"
+            android:layout_marginTop="@dimen/dp5h"
+            android:layout_toEndOf="@+id/view1"
+            android:src="@drawable/ic_top_arrow" />
+
+        <ImageView
+            android:layout_width="@dimen/dp15h"
+            android:layout_height="@dimen/dp15h"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp5h"
+            android:layout_marginEnd="@dimen/dp5w"
+            android:layout_marginStart="@dimen/dp5w"
+            android:layout_marginTop="@dimen/dp5h"
+            android:layout_toEndOf="@+id/view1"
+            android:src="@drawable/ic_top_arrow" />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="@dimen/dp120h"
+        android:layout_height="@dimen/dp35h"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_rounded_assignment"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+</android.support.constraint.ConstraintLayout>

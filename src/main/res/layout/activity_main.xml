@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<data>
+    <variable
+        name="mainActivityData"
+        type="dp.schoolandroid.viewmodel.MainActiviyViewModel"/>
+</data>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context="dp.schoolandroid.view.ui.activity.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/dp120w"
+        android:layout_height="@dimen/dp100h"
+        android:layout_marginTop="@dimen/dp42h"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_colored_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp7h"
+        android:layout_marginStart="@dimen/dp7h"
+        android:layout_marginTop="@dimen/dp25h"
+        android:lines="1"
+        android:text="@string/title_welcome_main"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp255h"
+        android:layout_marginEnd="@dimen/dp7h"
+        android:layout_marginStart="@dimen/dp7h"
+        android:layout_marginTop="@dimen/dp7h"
+        android:lines="1"
+        android:text="@string/msg_choose_main"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/iv_main_student_image"
+        android:layout_width="@dimen/dp90w"
+        android:layout_height="@dimen/dp90w"
+        android:layout_marginEnd="@dimen/dp29w"
+        android:layout_marginStart="@dimen/dp21w"
+        android:layout_marginTop="@dimen/dp60h"
+        android:src="@drawable/img_checked_student"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_main_parent_image"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:onClick="handleSelectionEvent"/>
+
+    <TextView
+        android:id="@+id/tv_main_student_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp7h"
+        android:layout_marginEnd="@dimen/dp31w"
+        android:layout_weight="1"
+        android:text="@string/label_main_student"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_main_student_image"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/iv_main_parent_image"
+        android:layout_width="@dimen/dp90w"
+        android:layout_height="@dimen/dp90w"
+        android:src="@drawable/img_checked_parent"
+        android:layout_marginTop="@dimen/dp60h"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:onClick="handleSelectionEvent"/>
+
+    <TextView
+        android:id="@+id/tv_main_parent_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp7h"
+        android:layout_weight="1"
+        android:text="@string/label_main_parent"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_main_parent_image"
+        app:layout_constraintVertical_bias="0.007"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/iv_main_teacher_image"
+        android:layout_width="@dimen/dp90w"
+        android:layout_height="@dimen/dp90w"
+        android:layout_marginEnd="@dimen/dp21w"
+        android:layout_marginStart="@dimen/dp29w"
+        android:layout_marginTop="@dimen/dp60h"
+        android:src="@drawable/img_checked_teacher"
+        app:layout_constraintEnd_toStartOf="@+id/iv_main_parent_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:onClick="handleSelectionEvent"/>
+
+    <TextView
+        android:id="@+id/tv_main_teacher_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp7h"
+        android:layout_marginEnd="@dimen/dp225w"
+        android:layout_marginStart="@dimen/dp36w"
+        android:layout_weight="1"
+        android:text="@string/label_main_teacher"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_main_teacher_image"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_choose"
+        android:layout_width="@dimen/dp107w"
+        android:layout_height="@dimen/dp32h"
+        android:layout_marginEnd="@dimen/dp7h"
+        android:layout_marginStart="@dimen/dp7h"
+        android:layout_marginTop="@dimen/dp481h"
+        android:layout_marginBottom="@dimen/dp68h"
+        android:background="@drawable/btn_background_gray"
+        android:text="@string/action_choose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!--<ImageView
+        android:id="@+id/view_done"
+        android:visibility="invisible"
+        android:layout_width="@dimen/dp31w"
+        android:layout_height="@dimen/dp32h"
+        android:layout_marginBottom="@dimen/dp7h"
+        android:layout_marginEnd="@dimen/dp7h"
+        android:layout_marginStart="@dimen/dp7h"
+        android:background="@drawable/circle_white"
+        android:src="@drawable/ic_check_circle_white_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_choose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_choose"
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/done" />-->
+
+</android.support.constraint.ConstraintLayout>
+
+</layout>

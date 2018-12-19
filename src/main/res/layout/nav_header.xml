@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.joooonho.SelectableRoundedImageView
+        android:id="@+id/student_photo"
+        android:layout_width="@dimen/dp100w"
+        android:layout_height="@dimen/dp100w"
+        android:scaleType="centerCrop"
+        android:src="@drawable/layer_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sriv_border_color="@color/colorGray"
+        app:sriv_border_width="@dimen/dp5w"
+        app:sriv_oval="true" />
+
+    <TextView
+        android:id="@+id/tv_teacher_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        android:text="Mohammed Said"
+        android:textColor="@color/colorBlack"
+        android:textSize="17.7sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_photo" />
+
+    <TextView
+        android:id="@+id/tv_teacher_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:scaleType="centerCrop"
+        android:text="mohamed_said250@yahoo.com"
+        android:textColor="@color/colorBlack"
+        android:textSize="12.3sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teacher_name" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="37dp"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_teacher_email" />
+
+</android.support.constraint.ConstraintLayout>

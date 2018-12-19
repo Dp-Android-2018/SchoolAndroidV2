@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="dp.schoolandroid.viewmodel.TeacherLoginActivityViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="dp.schoolandroid.view.ui.activity.TeacherLoginActivity">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/dp100w"
+            android:layout_height="@dimen/dp100w"
+            android:layout_marginStart="@dimen/dp7h"
+            android:layout_marginTop="@dimen/dp37h"
+            android:layout_marginEnd="@dimen/dp7h"
+            android:src="@drawable/img_checked_teacher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/signIn_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp7h"
+            android:layout_marginTop="@dimen/dp21h"
+            android:layout_marginEnd="@dimen/dp7h"
+            android:lines="1"
+            android:text="@string/title_sign_as_teacher"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <EditText
+            android:id="@+id/teacher_phone_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp29w"
+            android:layout_marginTop="@dimen/dp50h"
+            android:layout_marginEnd="@dimen/dp29w"
+            android:backgroundTint="#000"
+            android:ems="10"
+            android:hint="@string/hint_phone"
+            android:inputType="phone"
+            android:text="@={viewModel.phoneNumber}"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signIn_textView" />
+
+        <ImageView
+            android:id="@+id/teacher_phone_entered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/dp7h"
+            android:layout_marginTop="@dimen/dp7h"
+            android:layout_marginBottom="@dimen/dp7h"
+            android:src="@drawable/ic_data_entered"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/teacher_phone_text"
+            app:layout_constraintEnd_toEndOf="@+id/teacher_phone_text"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/teacher_phone_text"
+            app:layout_constraintTop_toTopOf="@+id/teacher_phone_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/teacher_password_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp29w"
+            android:layout_marginTop="@dimen/dp14h"
+            android:layout_marginEnd="@dimen/dp29w"
+            android:backgroundTint="#000"
+            android:ems="10"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:text="@={viewModel.password}"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/teacher_phone_text" />
+
+        <ImageView
+            android:id="@+id/teacher_password_entered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/dp64w"
+            android:layout_marginTop="@dimen/dp7h"
+            android:layout_marginBottom="@dimen/dp7h"
+            android:src="@drawable/ic_data_entered"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/teacher_password_editText"
+            app:layout_constraintEnd_toEndOf="@+id/teacher_password_editText"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/teacher_password_editText"
+            app:layout_constraintTop_toTopOf="@+id/teacher_password_editText"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/forgetPasswordConstraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{viewModel::forgetPasswordConstraintLayout}"
+            app:layout_constraintTop_toBottomOf="@+id/teacher_password_editText">
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forget Password!"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="110dp"
+                android:layout_height="0.5dp"
+                android:background="@color/colorGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_teacher_login"
+            android:layout_width="@dimen/dp107w"
+            android:layout_height="@dimen/dp32h"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/btn_background_blue"
+            android:text="@string/action_login"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgetPasswordConstraintLayout"
+            android:onClick="@{viewModel::login}"/>
+
+        <ImageView
+            android:id="@+id/view_done"
+            android:layout_width="@dimen/dp31w"
+            android:layout_height="@dimen/dp32h"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_black"
+            android:contentDescription="@string/done"
+            android:src="@drawable/ic_check_circle_white_24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_teacher_login"
+            app:layout_constraintEnd_toEndOf="@+id/btn_teacher_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_teacher_login"
+            app:layout_constraintTop_toTopOf="@+id/btn_teacher_login"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

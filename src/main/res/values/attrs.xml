@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="AnimatedButtonView">
+        <attr name="abtn_text_color" format="reference"/>
+        <attr name="abtn_text" format="string"/>
+
+    </declare-styleable>
+</resources>
