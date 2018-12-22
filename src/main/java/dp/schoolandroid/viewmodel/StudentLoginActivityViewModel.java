@@ -15,11 +15,12 @@ import dp.schoolandroid.service.model.response.studentresponse.StudentResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.service.repository.remotes.ParentLoginRepository;
 import dp.schoolandroid.service.repository.remotes.StudentLoginRepository;
+import retrofit2.Response;
 
 public class StudentLoginActivityViewModel extends AndroidViewModel {
     public ObservableField<String> ssn;
     public ObservableField<String> password;
-    private LiveData<StudentResponse> studentLoginResponseLiveData = new MutableLiveData<>();
+    private LiveData<Response<StudentResponse>> studentLoginResponseLiveData = new MutableLiveData<>();
     private LiveData<ForgetPasswordResponse> forgetPasswordResponseLiveData;
     private Application application;
 
@@ -36,13 +37,8 @@ public class StudentLoginActivityViewModel extends AndroidViewModel {
         password.set("qwe123");
     }
 
-    public void login(View view) {
-        if (ValidationUtils.validateTexts(ssn.get(), ValidationUtils.TYPE_TEXT)
-                && ValidationUtils.validateTexts(password.get(), ValidationUtils.TYPE_PASSWORD)) {
-            studentLoginResponseLiveData = StudentLoginRepository.getInstance().loginAsStudent(application, ssn.get(), password.get());
-        } else {
-            Toast.makeText(application, "Error SSN or Password", Toast.LENGTH_SHORT).show();
-        }
+    public void handleloginStudent() {
+        studentLoginResponseLiveData = StudentLoginRepository.getInstance().loginAsStudent(application , ssn.get(), password.get());
     }
 
     public void forgetPasswordConstraintLayout(View view) {
@@ -53,7 +49,7 @@ public class StudentLoginActivityViewModel extends AndroidViewModel {
         }
     }
 
-    public LiveData<StudentResponse> getStudentLoginResponseLiveData() {
+    public LiveData<Response<StudentResponse>> getStudentLoginResponseLiveData() {
         return studentLoginResponseLiveData;
     }
 

@@ -29,25 +29,19 @@ public class StudentLoginRepository {
         return instance;
     }
 
-    public LiveData<StudentResponse> loginAsStudent(final Application application, String ssn, String password) {
-        final MutableLiveData<StudentResponse> data = new MutableLiveData<>();
+    public LiveData<Response<StudentResponse>> loginAsStudent(final Application application, String ssn, String password) {
+        final MutableLiveData<Response<StudentResponse>> data = new MutableLiveData<>();
         StudentRequest studentLoginRequest = getStudentLoginRequest(ssn, password);
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent("application/json",
                 "application/json", studentLoginRequest).enqueue(new Callback<StudentResponse>() {
             @Override
             public void onResponse(@NonNull Call<StudentResponse> call, @NonNull Response<StudentResponse> response) {
-                if (response.code()== 200){
-                    Toast.makeText(application, "Login Success", Toast.LENGTH_SHORT).show();
-                    data.setValue(response.body());
-                    startNewActivity(application);
-                }else {
-                    Toast.makeText(application, "Login code :"+response.code(), Toast.LENGTH_SHORT).show();
-                }
+                    data.setValue(response);
             }
 
             @Override
             public void onFailure(@NonNull Call<StudentResponse> call, @NonNull Throwable t) {
-                Toast.makeText(application, "Login code :"+t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
         return data;
