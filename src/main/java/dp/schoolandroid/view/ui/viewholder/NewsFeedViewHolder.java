@@ -2,12 +2,11 @@ package dp.schoolandroid.view.ui.viewholder;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
-
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.ItemFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
 import dp.schoolandroid.view.ui.activity.FeedDetailsActivity;
@@ -33,14 +32,11 @@ public class NewsFeedViewHolder extends RecyclerView.ViewHolder {
     private void initializeUi(ItemFeedBinding binding, final FeedModel feedModel) {
         ImageView ivFeedPhoto = binding.ivFeedPhoto;
         Picasso.get().load(feedModel.getImage()).into(ivFeedPhoto);
-        binding.tvFeedReadMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), FeedDetailsActivity.class);
-                Gson gson = new Gson();
-                intent.putExtra("DATA", gson.toJson(feedModel));
-                v.getContext().startActivity(intent);
-            }
+        binding.tvFeedReadMore.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), FeedDetailsActivity.class);
+            Gson gson = new Gson();
+            intent.putExtra(ConfigurationFile.Constants.DATA, gson.toJson(feedModel));
+            v.getContext().startActivity(intent);
         });
     }
 }

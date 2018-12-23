@@ -1,6 +1,5 @@
 package dp.schoolandroid.view.ui.activity;
 
-import android.app.Application;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -9,11 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
@@ -51,24 +49,21 @@ public class TeacherLoginActivity extends AppCompatActivity {
             viewModel.handleloginTeacher();
             observeTeacherLoginDataViewModel(viewModel);
         } else {
-            Toast.makeText(this, "Error Phone or Password", Toast.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     private void observeTeacherLoginDataViewModel(TeacherLoginActivityViewModel viewModel) {
-        viewModel.getTeacherLoginResponseLiveData().observe(this, new Observer<Response<TeacherResponse>>() {
-            @Override
-            public void onChanged(@Nullable Response<TeacherResponse> teacherResponseResponse) {
-                if (teacherResponseResponse != null) {
-                    if (teacherResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
-                        moveToHomeActivity();
-                        if (teacherResponseResponse.body() != null) {
-                            TeacherGetScheduleRepository.getInstance().setBearerToken("Bearer " + teacherResponseResponse.body().getTeacherData().getApiToken());
-                            NewsFeedRepository.getInstance().setBearerToken("Bearer " + teacherResponseResponse.body().getTeacherData().getApiToken());
-                        }
-                    } else {
-                        Toast.makeText(TeacherLoginActivity.this, "Error Code :" + teacherResponseResponse.code(), Toast.LENGTH_SHORT).show();
+        viewModel.getTeacherLoginResponseLiveData().observe(this, teacherResponseResponse -> {
+            if (teacherResponseResponse != null) {
+                if (teacherResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                    moveToHomeActivity();
+                    if (teacherResponseResponse.body() != null) {
+                        TeacherGetScheduleRepository.getInstance().setBearerToken( teacherResponseResponse.body().getTeacherData().getApiToken());
+                        NewsFeedRepository.getInstance().setBearerToken(teacherResponseResponse.body().getTeacherData().getApiToken());
                     }
+                } else {
+                    Snackbar.make(binding.getRoot(), getString(R.string.error_code) + teacherResponseResponse.code(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,20 +79,17 @@ public class TeacherLoginActivity extends AppCompatActivity {
             viewModel.handleForgetPasswordTeacher();
             observeTeacherForgetPasswordDataViewModel(viewModel);
         } else {
-            Toast.makeText(this, "Error Phone number", Toast.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), R.string.error_phone_number, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     private void observeTeacherForgetPasswordDataViewModel(TeacherLoginActivityViewModel viewModel) {
-        viewModel.getForgetPasswordResponseLiveData().observe(this, new Observer<Response<ForgetPasswordResponse>>() {
-            @Override
-            public void onChanged(@Nullable Response<ForgetPasswordResponse> forgetPasswordResponseResponse) {
-                if (forgetPasswordResponseResponse != null) {
-                    if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
-                        moveToPasswordActivity();
-                    } else {
-                        Toast.makeText(TeacherLoginActivity.this, "Please wait :)", Toast.LENGTH_SHORT).show();
-                    }
+        viewModel.getForgetPasswordResponseLiveData().observe(this, forgetPasswordResponseResponse -> {
+            if (forgetPasswordResponseResponse != null) {
+                if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                    moveToPasswordActivity();
+                } else {
+                    Snackbar.make(binding.getRoot(), R.string.please_wait, Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -106,7 +98,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private void moveToPasswordActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.TEACHER_ACTIVITY_CODE);
-        intent.putExtra(ConfigurationFile.Constants.TEACHER_PHONE_NUMBER, binding.teacherPhoneEditText.getText().toString());
+        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.teacherPhoneEditText.getText().toString());
         startActivity(intent);
     }
 }

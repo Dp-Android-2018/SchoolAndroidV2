@@ -3,16 +3,12 @@ package dp.schoolandroid.service.repository.remotes;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
-import dp.schoolandroid.view.ui.activity.ForgetPasswordActivity;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.TeacherRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,8 +30,8 @@ public class TeacherLoginRepository {
 
         TeacherRequest teacherLoginRequest = getTeacherLoginRequest(phoneNumber, password);
         final MutableLiveData<Response<TeacherResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher("application/json",
-                "application/json", teacherLoginRequest).enqueue(new Callback<TeacherResponse>() {
+        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
+                ConfigurationFile.Constants.ACCEPT, teacherLoginRequest).enqueue(new Callback<TeacherResponse>() {
             @Override
             public void onResponse(@NonNull Call<TeacherResponse> call, @NonNull Response<TeacherResponse> response) {
                 data.setValue(response);
@@ -52,8 +48,8 @@ public class TeacherLoginRepository {
 
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher("application/json",
-                "application/json", forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
+        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
+                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
             @Override
             public void onResponse(@NonNull Call<ForgetPasswordResponse> call, @NonNull Response<ForgetPasswordResponse> response) {
                     data.setValue(response);

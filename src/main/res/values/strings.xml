@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">School</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_welcome_main">Welcome to advanced schools</string>
@@ -94,7 +94,6 @@
     <string name="label_unknown_error" translatable="false">Unknown error</string>
     <string name="label_points" translatable="false">Points</string>
     <string name="done" translatable="false">done</string>
-    <string name="top_student" translatable="false">Top Student</string>
     <string name="back_arrow" translatable="false">back_arrow</string>
     <string name="mohamed_said" translatable="false">Mohamed Said</string>
     <string name="_30_student" translatable="false">30 Student</string>
@@ -121,5 +120,13 @@
     <string name="connection_time_out" translatable="false">15</string>
     <string name="mohammed_said" translatable="false">mohammed_said</string>
     <string name="on_this_number" translatable="false">on this number </string>
+    <string name="error_phone_or_password" translatable="false">Error Phone or Password</string>
+    <string name="error" translatable="false">Error :</string>
+    <string name="error_phone_number" translatable="false">Error Phone number</string>
+    <string name="please_wait" translatable="false">Please wait :)</string>
+    <string name="error_ssn_or_password" translatable="false">Error SSN or Password</string>
+    <string name="error_code" translatable="false">Error Code :</string>
+    <string name="schedule" translatable="false">Schedule</string>
+    <string name="top_student" translatable="false">Top Student</string>
 
 </resources>

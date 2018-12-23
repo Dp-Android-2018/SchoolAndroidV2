@@ -3,11 +3,7 @@ package dp.schoolandroid.view.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
-
 import dp.schoolandroid.service.model.global.SectionTimeModel;
 import dp.schoolandroid.service.model.global.TeacherSchedule;
 import dp.schoolandroid.view.ui.fragment.DayFragment;

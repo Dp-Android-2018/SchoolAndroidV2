@@ -1,15 +1,12 @@
 package dp.schoolandroid.view.ui.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
 import android.view.Window;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityChatBinding;

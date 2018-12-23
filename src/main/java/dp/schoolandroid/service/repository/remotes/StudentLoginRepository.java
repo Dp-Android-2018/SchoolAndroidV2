@@ -3,16 +3,12 @@ package dp.schoolandroid.service.repository.remotes;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
-import dp.schoolandroid.view.ui.activity.ForgetPasswordActivity;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.studentresponse.StudentResponse;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,8 +29,8 @@ public class StudentLoginRepository {
     public LiveData<Response<StudentResponse>> loginAsStudent(final Application application, String ssn, String password) {
         final MutableLiveData<Response<StudentResponse>> data = new MutableLiveData<>();
         StudentRequest studentLoginRequest = getStudentLoginRequest(ssn, password);
-        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent("application/json",
-                "application/json", studentLoginRequest).enqueue(new Callback<StudentResponse>() {
+        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.CONTENT_TYPE,
+                ConfigurationFile.Constants.ACCEPT, studentLoginRequest).enqueue(new Callback<StudentResponse>() {
             @Override
             public void onResponse(@NonNull Call<StudentResponse> call, @NonNull Response<StudentResponse> response) {
                 data.setValue(response);
@@ -51,8 +47,8 @@ public class StudentLoginRepository {
 
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent("application/json",
-                "application/json", forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
+        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.CONTENT_TYPE,
+                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
             @Override
             public void onResponse(@NonNull Call<ForgetPasswordResponse> call, @NonNull Response<ForgetPasswordResponse> response) {
                 data.setValue(response);

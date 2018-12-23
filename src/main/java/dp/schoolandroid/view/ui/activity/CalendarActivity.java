@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.ActivityCalendarBinding;
 import dp.schoolandroid.di.component.NetworkComponent;

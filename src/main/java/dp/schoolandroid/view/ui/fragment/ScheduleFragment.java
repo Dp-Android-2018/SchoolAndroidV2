@@ -1,6 +1,5 @@
 package dp.schoolandroid.view.ui.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,18 +11,17 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.FragmentScheduleBinding;
 import dp.schoolandroid.service.model.global.TeacherSchedule;
-import dp.schoolandroid.service.model.response.teacherresponse.TeacherScheduleResponse;
 import dp.schoolandroid.view.ui.adapter.TeacherSchedulePageViewAdapter;
 import dp.schoolandroid.viewmodel.MyCustomBarViewModel;
 import dp.schoolandroid.viewmodel.ScheduleFragmentViewModel;
 
 
 public class ScheduleFragment extends Fragment {
+    private final int PAGE_lIMIT = 1;
     FragmentScheduleBinding binding;
 
     public ScheduleFragment() {
@@ -48,7 +46,7 @@ public class ScheduleFragment extends Fragment {
 
     private void initUi() {
         binding.actionBar.setViewModel(new MyCustomBarViewModel(getContext()));
-        binding.actionBar.tvActionBarTitle.setText("Schedule");
+        binding.actionBar.tvActionBarTitle.setText(R.string.schedule);
         binding.actionBar.chatMenuImage.setVisibility(View.GONE);
     }
 
@@ -60,20 +58,21 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void observeViewModel(ScheduleFragmentViewModel viewModel) {
-        viewModel.getData().observe(this, new Observer<TeacherScheduleResponse>() {
-            @Override
-            public void onChanged(@Nullable TeacherScheduleResponse teacherScheduleResponse) {
-                if (teacherScheduleResponse != null) {
-                    TeacherSchedule weekData = teacherScheduleResponse.getData();
-                    initializeViewPager(weekData);
+        viewModel.getData().observe(this, teacherScheduleResponseResponse -> {
+            if (teacherScheduleResponseResponse != null && teacherScheduleResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                TeacherSchedule weekData = null;
+                if (teacherScheduleResponseResponse.body() != null) {
+                    weekData = teacherScheduleResponseResponse.body().getData();
                 }
+                initializeViewPager(weekData);
             }
         });
+
     }
 
     public void initializeViewPager(TeacherSchedule weekData) {
         ViewPager viewPager = binding.viewpagerSchedule;
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(PAGE_lIMIT);
         TeacherSchedulePageViewAdapter pageViewAdapter = new TeacherSchedulePageViewAdapter(getFragmentManager(), weekData);
         viewPager.setAdapter(pageViewAdapter);
         TabLayout tabLayout = binding.tlScheduleClass;

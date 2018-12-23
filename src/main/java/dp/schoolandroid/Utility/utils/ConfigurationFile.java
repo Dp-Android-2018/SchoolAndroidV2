@@ -34,10 +34,12 @@ public class ConfigurationFile {
     public static class Constants {
         public static final String API_KEY = "MUaJWwkyZOZKnbvZczGoFDt0sLyeS0eCkoKXtam00nobixvPC2BV2rcP3TKJSLYU";
         public static final String CONTENT_TYPE = "application/json";
+        public static final String ACCEPT = "application/json";
         public static final String ACTIVITY_NUMBER = "ACTIVITY_NAME";
-        public static final String PARENT_PHONE_NUMBER = "PPNUM";
-        public static final String STUDENT_PHONE_NUMBER = "SPNUM";
-        public static final String TEACHER_PHONE_NUMBER = "TPNUM";
+        public static final String PHONE_NUMBER = "PHONE_NUMBER";
+        public static final String API_TOKEN = "APITOKEN";
+        public static final String TYPE = "TYPE";
+        public static final String DATA = "DATA";
         public static final int SUCCESS_CODE = 200;
         public static final int TEACHER_ACTIVITY_CODE = 1;
         public static final int PARENT_ACTIVITY_CODE = 2;

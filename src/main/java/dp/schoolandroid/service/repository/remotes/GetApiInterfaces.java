@@ -1,7 +1,6 @@
 package dp.schoolandroid.service.repository.remotes;
 
 import android.app.Application;
-
 import dp.schoolandroid.application.MyApp;
 import dp.schoolandroid.di.component.NetworkComponent;
 

@@ -2,7 +2,6 @@ package dp.schoolandroid.view.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import dp.schoolandroid.R;
 /*
  * this class is shown when Error Connection happen

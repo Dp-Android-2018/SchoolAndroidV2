@@ -5,10 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
-import dp.schoolandroid.application.MyApp;
-import dp.schoolandroid.di.component.NetworkComponent;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherScheduleResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,29 +24,24 @@ public class TeacherGetScheduleRepository {
     }
 
     @SuppressLint("CheckResult")
-    public LiveData<TeacherScheduleResponse> getTeacherSchedule(final Application application) {
-        final MutableLiveData<TeacherScheduleResponse> data = new MutableLiveData<>();
+    public LiveData<Response<TeacherScheduleResponse>> getTeacherSchedule(final Application application) {
+        final MutableLiveData<Response<TeacherScheduleResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).getTeacherSchedule(bearerToken,
-                "application/json", "application/json").enqueue(new Callback<TeacherScheduleResponse>() {
+                ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).enqueue(new Callback<TeacherScheduleResponse>() {
             @Override
             public void onResponse(@NonNull Call<TeacherScheduleResponse> call, @NonNull Response<TeacherScheduleResponse> response) {
-                if (response.code()== 200){
-                    data.setValue(response.body());
-                }else {
-                    Toast.makeText(application, "Login code: "+response.code(), Toast.LENGTH_SHORT).show();
-                }
+                data.setValue(response);
             }
 
             @Override
             public void onFailure(@NonNull Call<TeacherScheduleResponse> call, @NonNull Throwable t) {
-                Toast.makeText(application, "Login code: "+t.getMessage(), Toast.LENGTH_SHORT).show();
-//                dayRecyclerViewAdapter.setDayData(getDummyData());
+
             }
         });
         return data;
     }
 
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken;
+        this.bearerToken = "Bearer "+bearerToken;
     }
 }

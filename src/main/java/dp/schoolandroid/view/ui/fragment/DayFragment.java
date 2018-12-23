@@ -12,13 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import java.util.ArrayList;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.FragmentDayBinding;
 import dp.schoolandroid.service.model.global.SectionTimeModel;
-import dp.schoolandroid.service.model.global.TeacherSchedule;
 import dp.schoolandroid.view.ui.adapter.DayRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.DayFragmentViewModel;
 

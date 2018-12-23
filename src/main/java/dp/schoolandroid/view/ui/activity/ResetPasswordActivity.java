@@ -4,14 +4,15 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.ActivityResetPasswordBinding;
 import dp.schoolandroid.viewmodel.ResetPasswordActivityViewModel;
 
 /*
  * this class is responsible for initialize reset password activity
  * */
+
 public class ResetPasswordActivity extends AppCompatActivity {
     ActivityResetPasswordBinding binding;
     ResetPasswordActivityViewModel viewModel;
@@ -25,8 +26,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void initializeUi() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reset_password);
         viewModel = ViewModelProviders.of(this).get(ResetPasswordActivityViewModel.class);
-        String apiToken = getIntent().getStringExtra("APITOKEN");
-        int type = getIntent().getIntExtra("TYPE", 0);
+        String apiToken = getIntent().getStringExtra(ConfigurationFile.Constants.API_TOKEN);
+        int type = getIntent().getIntExtra(ConfigurationFile.Constants.TYPE, 0);
         viewModel.setApiToken(apiToken);
         viewModel.setType(type);
         binding.setViewModel(viewModel);

@@ -10,7 +10,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.ActivityMainBinding;
 import dp.schoolandroid.viewmodel.MainActiviyViewModel;
@@ -47,14 +46,11 @@ public class MainActivity extends AppCompatActivity {
         mBinding.btnChoose.setBackgroundResource(R.drawable.btn_background_white);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void handleSelectionTypeEvent() {
-        mBinding.btnChoose.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
-                if (mSelectedTab != -1) {
-                    startNextActivity();
-                }
+        mBinding.btnChoose.setOnClickListener(v -> {
+            if (mSelectedTab != -1) {
+                startNextActivity();
             }
         });
     }
@@ -74,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 loginIntent = new Intent(MainActivity.this, ParentLoginActivity.class);
                 break;
             default:
-                loginIntent = null;
         }
         if (loginIntent != null) {
             startActivity(loginIntent, options.toBundle());

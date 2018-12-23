@@ -5,10 +5,6 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.Toast;
-
-import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.service.repository.remotes.TeacherLoginRepository;

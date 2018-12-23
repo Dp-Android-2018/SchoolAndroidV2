@@ -1,8 +1,11 @@
 package dp.schoolandroid.service.model.global;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class FeedModel {
+public class FeedModel implements Parcelable{
 
     public FeedModel(String title, String subTitle, String image, String details) {
         this.title = title;
@@ -54,4 +57,33 @@ public class FeedModel {
     public void setDetails(String details) {
         this.details = details;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.subTitle);
+        dest.writeString(this.image);
+        dest.writeString(this.details);
+    }
+    public FeedModel(Parcel in) {
+        title = in.readString();
+        subTitle = in.readString();
+        image = in.readString();
+        details = in.readString();
+    }
+    public static final Creator<FeedModel> CREATOR = new Creator<FeedModel>() {
+        @Override
+        public FeedModel createFromParcel(Parcel in) {
+            return new FeedModel(in);
+        }
+        @Override
+        public FeedModel[] newArray(int size) {
+            return new FeedModel[size];
+        }
+    };
+
 }

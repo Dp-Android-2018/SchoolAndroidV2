@@ -7,16 +7,17 @@ import android.support.annotation.NonNull;
 
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherScheduleResponse;
 import dp.schoolandroid.service.repository.remotes.TeacherGetScheduleRepository;
+import retrofit2.Response;
 
 public class ScheduleFragmentViewModel extends AndroidViewModel {
-    private final LiveData<TeacherScheduleResponse> data;
+    private final LiveData<Response<TeacherScheduleResponse>> data;
 
     public ScheduleFragmentViewModel(@NonNull Application application) {
         super(application);
         data=TeacherGetScheduleRepository.getInstance().getTeacherSchedule(application);
     }
 
-    public LiveData<TeacherScheduleResponse> getData() {
+    public LiveData<Response<TeacherScheduleResponse>> getData() {
         return data;
     }
 

@@ -3,11 +3,9 @@ package dp.schoolandroid.view.ui.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.ActivityAssignementDescribtionLayoutBinding;
 import dp.schoolandroid.viewmodel.TopStudentDetailsActivityViewModel;
@@ -28,12 +26,9 @@ public class TopStudentDetailsActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(TopStudentDetailsActivityViewModel.class);
         binding.setViewModel(viewModel);
         btn_send = binding.btnSend;
-        btn_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TopStudentDetailsActivity.this, FeedDetailsActivity.class);
-                startActivity(intent);
-            }
+        btn_send.setOnClickListener(v -> {
+            Intent intent = new Intent(TopStudentDetailsActivity.this, FeedDetailsActivity.class);
+            startActivity(intent);
         });
     }
 
