@@ -16,12 +16,13 @@ import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.service.repository.remotes.ParentLoginRepository;
 import dp.schoolandroid.service.repository.remotes.StudentLoginRepository;
 import dp.schoolandroid.service.repository.remotes.TeacherLoginRepository;
+import retrofit2.Response;
 
 public class ParentLoginActivityViewModel extends AndroidViewModel {
     public ObservableField<String> phoneNumber;
     public ObservableField<String> password;
-    private LiveData<ForgetPasswordResponse> forgetPasswordResponseLiveData;
-    private LiveData<ParentResponse> parentLoginResponseLiveData = new MutableLiveData<>();
+    private LiveData<Response<ForgetPasswordResponse>> forgetPasswordResponseLiveData;
+    private LiveData<Response<ParentResponse>> parentLoginResponseLiveData = new MutableLiveData<>();
     private Application application;
 
     public ParentLoginActivityViewModel(@NonNull Application application) {
@@ -37,28 +38,20 @@ public class ParentLoginActivityViewModel extends AndroidViewModel {
         password.set("qwe123");
     }
 
-    public void login(View view) {
-        if (ValidationUtils.validateTexts(phoneNumber.get(), ValidationUtils.TYPE_PHONE)
-                && ValidationUtils.validateTexts(password.get(), ValidationUtils.TYPE_PASSWORD)) {
-            parentLoginResponseLiveData = ParentLoginRepository.getInstance().loginAsParent(application, phoneNumber.get(), password.get());
-        } else {
-            Toast.makeText(application, "Error Phone or Password", Toast.LENGTH_SHORT).show();
-        }
+
+    public void handleloginParent() {
+        parentLoginResponseLiveData = ParentLoginRepository.getInstance().loginAsParent(application, phoneNumber.get(), password.get());
     }
 
-    public void forgetPasswordConstraintLayout(View view) {
-        if (ValidationUtils.validateTexts(phoneNumber.get(), ValidationUtils.TYPE_PHONE)) {
-            forgetPasswordResponseLiveData = ParentLoginRepository.getInstance().forgetPasswordParent(application, phoneNumber.get());
-        } else {
-            Toast.makeText(application, "Error Phone number", Toast.LENGTH_SHORT).show();
-        }
+    public void handleForgetPasswordParent() {
+        forgetPasswordResponseLiveData = ParentLoginRepository.getInstance().forgetPasswordParent(application, phoneNumber.get());
     }
 
-    public LiveData<ParentResponse> getParentLoginResponseLiveData() {
+    public LiveData<Response<ParentResponse>> getParentLoginResponseLiveData() {
         return parentLoginResponseLiveData;
     }
 
-    public LiveData<ForgetPasswordResponse> getForgetPasswordResponseLiveData() {
+    public LiveData<Response<ForgetPasswordResponse>> getForgetPasswordResponseLiveData() {
         return forgetPasswordResponseLiveData;
     }
 }

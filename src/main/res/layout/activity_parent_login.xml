@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <EditText
-            android:id="@+id/teacher_phone_text"
+            android:id="@+id/parent_phone_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp29w"
@@ -75,15 +75,15 @@
             android:layout_marginBottom="@dimen/dp7h"
             android:src="@drawable/ic_data_entered"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/teacher_phone_text"
-            app:layout_constraintEnd_toEndOf="@+id/teacher_phone_text"
+            app:layout_constraintBottom_toBottomOf="@+id/parent_phone_editText"
+            app:layout_constraintEnd_toEndOf="@+id/parent_phone_editText"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/teacher_phone_text"
-            app:layout_constraintTop_toTopOf="@+id/teacher_phone_text"
+            app:layout_constraintStart_toStartOf="@+id/parent_phone_editText"
+            app:layout_constraintTop_toTopOf="@+id/parent_phone_editText"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/teacher_password_editText"
+            android:id="@+id/parent_password_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp29w"
@@ -98,7 +98,7 @@
             android:textColorHint="#000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/teacher_phone_text" />
+            app:layout_constraintTop_toBottomOf="@+id/parent_phone_editText" />
 
         <ImageView
             android:id="@+id/teacher_password_entered"
@@ -110,11 +110,11 @@
             android:layout_marginBottom="@dimen/dp7h"
             android:src="@drawable/ic_data_entered"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/teacher_password_editText"
-            app:layout_constraintEnd_toEndOf="@+id/teacher_password_editText"
+            app:layout_constraintBottom_toBottomOf="@+id/parent_password_editText"
+            app:layout_constraintEnd_toEndOf="@+id/parent_password_editText"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/teacher_password_editText"
-            app:layout_constraintTop_toTopOf="@+id/teacher_password_editText"
+            app:layout_constraintStart_toStartOf="@+id/parent_password_editText"
+            app:layout_constraintTop_toTopOf="@+id/parent_password_editText"
             app:layout_constraintVertical_bias="0.0" />
 
         <android.support.constraint.ConstraintLayout
@@ -122,10 +122,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
-            android:onClick="@{viewModel::forgetPasswordConstraintLayout}"
+            android:onClick="forgetPasswordParentValidation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/teacher_password_editText">
+            app:layout_constraintTop_toBottomOf="@+id/parent_password_editText">
 
             <TextView
                 android:id="@+id/textView31"
@@ -159,7 +159,7 @@
             android:layout_height="@dimen/dp32h"
             android:layout_marginTop="32dp"
             android:background="@drawable/btn_background_blue"
-            android:onClick="@{viewModel::login}"
+            android:onClick="parentLogin"
             android:text="@string/action_login"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"

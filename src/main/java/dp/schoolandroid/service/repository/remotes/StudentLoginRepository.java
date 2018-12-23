@@ -20,7 +20,8 @@ import retrofit2.Response;
 public class StudentLoginRepository {
     private static StudentLoginRepository instance;
 
-    private StudentLoginRepository(){}
+    private StudentLoginRepository() {
+    }
 
     public static StudentLoginRepository getInstance() {
         if (instance == null) {
@@ -36,37 +37,29 @@ public class StudentLoginRepository {
                 "application/json", studentLoginRequest).enqueue(new Callback<StudentResponse>() {
             @Override
             public void onResponse(@NonNull Call<StudentResponse> call, @NonNull Response<StudentResponse> response) {
-                    data.setValue(response);
+                data.setValue(response);
             }
 
             @Override
             public void onFailure(@NonNull Call<StudentResponse> call, @NonNull Throwable t) {
-
             }
         });
         return data;
     }
 
-    public LiveData<ForgetPasswordResponse> forgetPasswordStudent(final Application application, final String phoneNumber) {
+    public LiveData<Response<ForgetPasswordResponse>> forgetPasswordStudent(final Application application, final String phoneNumber) {
 
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber);
-        final MutableLiveData<ForgetPasswordResponse> data = new MutableLiveData<>();
+        final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent("application/json",
                 "application/json", forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
             @Override
             public void onResponse(@NonNull Call<ForgetPasswordResponse> call, @NonNull Response<ForgetPasswordResponse> response) {
-                if (response.code() == 200){
-                    data.setValue(response.body());
-                    startPasswordActivity(application,phoneNumber);
-                }else {
-                        Toast.makeText(application, "Error : "+response.code(), Toast.LENGTH_SHORT).show();
-                }
+                data.setValue(response);
             }
 
             @Override
             public void onFailure(@NonNull Call<ForgetPasswordResponse> call, @NonNull Throwable t) {
-                data.setValue(null);
-                Toast.makeText(application, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
         return data;
@@ -78,25 +71,10 @@ public class StudentLoginRepository {
         return teacherLoginRequest;
     }
 
-    private void startPasswordActivity(Application application, String phoneNumber) {
-        Toast.makeText(application, "Done", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(application, ForgetPasswordActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("ACTIVITY_NAME", 3);
-        intent.putExtra("SPNUM",phoneNumber);
-        application.startActivity(intent);
-    }
-
     private StudentRequest getStudentLoginRequest(String ssn, String password) {
         StudentRequest studentLoginRequest = new StudentRequest();
         studentLoginRequest.setSsn(ssn);
         studentLoginRequest.setPassword(password);
         return studentLoginRequest;
-    }
-
-    private void startNewActivity(Application application){
-        Intent intent=new Intent(application,HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        application.startActivity(intent);
     }
 }

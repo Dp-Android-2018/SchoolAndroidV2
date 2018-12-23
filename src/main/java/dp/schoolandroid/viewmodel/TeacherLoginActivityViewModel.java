@@ -12,12 +12,13 @@ import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.service.repository.remotes.TeacherLoginRepository;
+import retrofit2.Response;
 
 public class TeacherLoginActivityViewModel extends AndroidViewModel {
     public ObservableField<String> phoneNumber;
     public ObservableField<String> password;
-    private LiveData<TeacherResponse> teacherLoginResponseLiveData;
-    private LiveData<ForgetPasswordResponse> forgetPasswordResponseLiveData;
+    private LiveData<Response<TeacherResponse>> teacherLoginResponseLiveData;
+    private LiveData<Response<ForgetPasswordResponse>> forgetPasswordResponseLiveData;
     private Application application;
 
     public TeacherLoginActivityViewModel(@NonNull Application application) {
@@ -33,28 +34,19 @@ public class TeacherLoginActivityViewModel extends AndroidViewModel {
         password.set("qwe123");
     }
 
-    public void login(View view) {
-        if (ValidationUtils.validateTexts(phoneNumber.get(), ValidationUtils.TYPE_PHONE)
-                && ValidationUtils.validateTexts(password.get(), ValidationUtils.TYPE_PASSWORD)) {
-            teacherLoginResponseLiveData = TeacherLoginRepository.getInstance().loginAsTeacher(application, phoneNumber.get(), password.get());
-        } else {
-            Toast.makeText(application, "Error Phone or Password", Toast.LENGTH_SHORT).show();
-        }
+    public void handleloginTeacher() {
+        teacherLoginResponseLiveData = TeacherLoginRepository.getInstance().loginAsTeacher(application, phoneNumber.get(), password.get());
     }
 
-    public void forgetPasswordConstraintLayout(View view) {
-        if (ValidationUtils.validateTexts(phoneNumber.get(), ValidationUtils.TYPE_PHONE)) {
-            forgetPasswordResponseLiveData = TeacherLoginRepository.getInstance().forgetPasswordTeacher(application, phoneNumber.get());
-        } else {
-            Toast.makeText(application, "Error Phone number", Toast.LENGTH_SHORT).show();
-        }
+    public void handleForgetPasswordTeacher() {
+        forgetPasswordResponseLiveData = TeacherLoginRepository.getInstance().forgetPasswordTeacher(application, phoneNumber.get());
     }
 
-    public LiveData<TeacherResponse> getTeacherLoginResponseLiveData() {
+    public LiveData<Response<TeacherResponse>> getTeacherLoginResponseLiveData() {
         return teacherLoginResponseLiveData;
     }
 
-    public LiveData<ForgetPasswordResponse> getForgetPasswordResponseLiveData() {
+    public LiveData<Response<ForgetPasswordResponse>> getForgetPasswordResponseLiveData() {
         return forgetPasswordResponseLiveData;
     }
 }

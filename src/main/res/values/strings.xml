@@ -119,6 +119,7 @@
     <string name="Close" translatable="false">close</string>
     <string name="base_url" translatable="false">http://dp-itc.com:4322</string>
     <string name="connection_time_out" translatable="false">15</string>
-    <string name="mohammed_said">mohammed_said</string>
+    <string name="mohammed_said" translatable="false">mohammed_said</string>
+    <string name="on_this_number" translatable="false">on this number </string>
 
 </resources>

@@ -2,22 +2,22 @@ package dp.schoolandroid.view.ui.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.ActivityForgetPasswordBinding;
 import dp.schoolandroid.viewmodel.ForgetPasswordViewModel;
+
 /*
-* this class is responsible for Forget Password Activity
-* */
+ * this class is responsible for Forget Password Activity
+ * */
 public class ForgetPasswordActivity extends AppCompatActivity {
     ActivityForgetPasswordBinding binding;
     ForgetPasswordViewModel viewModel;
-    int activityType;
+    int membershipType;
     String phoneNumber;
-    String onThisNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +27,22 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void initializeUi() {
-        activityType = getIntent().getIntExtra("ACTIVITY_NAME", 0);
+        membershipType = getIntent().getIntExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, 0);
         phoneNumber = null;
-        onThisNumber ="on this number ";
         viewModel = ViewModelProviders.of(this).get(ForgetPasswordViewModel.class);
-        viewModel.setType(activityType);
+        viewModel.setType(membershipType);
         initializeViewModel();
     }
 
     private void initializeViewModel() {
-        switch (activityType) {
-            case 1:
+        switch (membershipType) {
+            case ConfigurationFile.Constants.TEACHER_ACTIVITY_CODE:
                 activtyTypeIsTeacher();
                 break;
-            case 2:
+            case ConfigurationFile.Constants.PARENT_ACTIVITY_CODE:
                 activtyTypeIsParent();
                 break;
-            case 3:
+            case ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE:
                 activtyTypeIsStudent();
                 break;
         }
@@ -52,22 +51,19 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void activtyTypeIsStudent() {
-        phoneNumber = getIntent().getStringExtra("SPNUM");
-        onThisNumber+=phoneNumber;
-        binding.numberTextView.setText(onThisNumber);
+        phoneNumber = getIntent().getStringExtra(ConfigurationFile.Constants.STUDENT_PHONE_NUMBER);
+        binding.numberTextView.setText(phoneNumber);
         binding.forgetPasswordImageView.setImageResource(R.drawable.img_checked_student);
     }
 
     private void activtyTypeIsParent() {
-        phoneNumber = getIntent().getStringExtra("PPNUM");
-        onThisNumber+=phoneNumber;
-        binding.numberTextView.setText(onThisNumber);
+        phoneNumber = getIntent().getStringExtra(ConfigurationFile.Constants.PARENT_PHONE_NUMBER);
+        binding.numberTextView.setText(phoneNumber);
         binding.forgetPasswordImageView.setImageResource(R.drawable.img_checked_parent);
     }
 
     private void activtyTypeIsTeacher() {
-        phoneNumber = getIntent().getStringExtra("TPNUM");
-        onThisNumber+=phoneNumber;
-        binding.numberTextView.setText(onThisNumber);
+        phoneNumber = getIntent().getStringExtra(ConfigurationFile.Constants.TEACHER_PHONE_NUMBER);
+        binding.numberTextView.setText(phoneNumber);
     }
 }

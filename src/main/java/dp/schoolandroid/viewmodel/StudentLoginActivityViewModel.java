@@ -21,7 +21,7 @@ public class StudentLoginActivityViewModel extends AndroidViewModel {
     public ObservableField<String> ssn;
     public ObservableField<String> password;
     private LiveData<Response<StudentResponse>> studentLoginResponseLiveData = new MutableLiveData<>();
-    private LiveData<ForgetPasswordResponse> forgetPasswordResponseLiveData;
+    private LiveData<Response<ForgetPasswordResponse>> forgetPasswordResponseLiveData;
     private Application application;
 
     public StudentLoginActivityViewModel(@NonNull Application application) {
@@ -41,19 +41,15 @@ public class StudentLoginActivityViewModel extends AndroidViewModel {
         studentLoginResponseLiveData = StudentLoginRepository.getInstance().loginAsStudent(application , ssn.get(), password.get());
     }
 
-    public void forgetPasswordConstraintLayout(View view) {
-        if (ValidationUtils.validateTexts(ssn.get(), ValidationUtils.TYPE_PHONE)) {
-            forgetPasswordResponseLiveData = StudentLoginRepository.getInstance().forgetPasswordStudent(application, ssn.get());
-        } else {
-            Toast.makeText(application, "Error Phone number", Toast.LENGTH_SHORT).show();
-        }
+    public void handleFofgetPasswordStudent() {
+        forgetPasswordResponseLiveData = StudentLoginRepository.getInstance().forgetPasswordStudent(application, ssn.get());
     }
 
     public LiveData<Response<StudentResponse>> getStudentLoginResponseLiveData() {
         return studentLoginResponseLiveData;
     }
 
-    public LiveData<ForgetPasswordResponse> getForgetPasswordResponseLiveData() {
+    public LiveData<Response<ForgetPasswordResponse>> getForgetPasswordResponseLiveData() {
         return forgetPasswordResponseLiveData;
     }
 }
