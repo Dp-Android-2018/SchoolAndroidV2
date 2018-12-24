@@ -4,14 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.ParentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.parentresponse.ParentResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class ParentLoginRepository {
@@ -32,33 +31,20 @@ public class ParentLoginRepository {
         final MutableLiveData<Response<ParentResponse>> data = new MutableLiveData<>();
         ParentRequest parentLoginRequest = getParenttLoginRequest(phone, password);
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsParent(ConfigurationFile.Constants.CONTENT_TYPE,
-                ConfigurationFile.Constants.ACCEPT, parentLoginRequest).enqueue(new Callback<ParentResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ParentResponse> call, @NonNull Response<ParentResponse> response) {
-                data.setValue(response);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ParentResponse> call, @NonNull Throwable t) {
-            }
-        });
+                ConfigurationFile.Constants.ACCEPT, parentLoginRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
         return data;
     }
 
+    @SuppressLint("CheckResult")
     public LiveData<Response<ForgetPasswordResponse>> forgetPasswordParent(final Application application, final String phoneNumber) {
         ForgetPasswordRequest forgetPasswordRequest = getParentPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordParent(ConfigurationFile.Constants.CONTENT_TYPE,
-                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ForgetPasswordResponse> call, @NonNull Response<ForgetPasswordResponse> response) {
-                data.setValue(response);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ForgetPasswordResponse> call, @NonNull Throwable t) {
-            }
-        });
+                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -70,8 +56,8 @@ public class ParentLoginRepository {
 
     private ParentRequest getParenttLoginRequest(String phone, String password) {
         ParentRequest parenttLoginRequest = new ParentRequest();
-        parenttLoginRequest.setPhone(phone);
-        parenttLoginRequest.setPassword(password);
+        parenttLoginRequest.setParentPhone(phone);
+        parenttLoginRequest.setParentPassword(password);
         return parenttLoginRequest;
     }
 }

@@ -65,7 +65,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             if (forgetPasswordResponseResponse != null) {
                 if (forgetPasswordResponseResponse.code() == 200) {
                     if (forgetPasswordResponseResponse.body() != null) {
-                        startResetPasswordActivity(forgetPasswordResponseResponse.body().getMessage(), membershipType);
+                        startResetPasswordActivity(forgetPasswordResponseResponse.body().getForgetPasswordResponseMessage(), membershipType);
                     }
                 } else {
                     Toast.makeText(ForgetPasswordActivity.this, getString(R.string.error) + forgetPasswordResponseResponse.code(), Toast.LENGTH_SHORT).show();

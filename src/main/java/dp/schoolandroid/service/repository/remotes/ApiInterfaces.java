@@ -26,36 +26,36 @@ import retrofit2.http.Path;
 public interface ApiInterfaces {
 
     @POST("/api/teacher/login")
-    Call<TeacherResponse> loginAsTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body TeacherRequest teacherLoginRequest);
+    Observable<Response<TeacherResponse>> loginAsTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body TeacherRequest teacherLoginRequest);
 
     @POST("/api/student/login")
-    Call<StudentResponse> loginAsStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body StudentRequest studentLoginRequest);
+    Observable<Response<StudentResponse>> loginAsStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body StudentRequest studentLoginRequest);
 
     @POST("/api/parent/login")
-    Call<ParentResponse> loginAsParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ParentRequest parentLoginRequest);
+    Observable<Response<ParentResponse>> loginAsParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ParentRequest parentLoginRequest);
 
     @GET("/api/teacher/schedule")
-    Call<TeacherScheduleResponse> getTeacherSchedule(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
+    Observable<Response<TeacherScheduleResponse>> getTeacherSchedule(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
 
     @GET("/api/feed")
-    Call<FeedsResponse> getNewsFeed(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
+    Observable<Response<FeedsResponse>> getNewsFeed(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
 
     @POST("/api/teacher/forget")
-    Call<ForgetPasswordResponse> forgetPasswordTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> forgetPasswordTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/teacher/forget/token")
-    Call<ForgetPasswordResponse> generatePasswordResetTokenTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/parent/forget")
-    Call<ForgetPasswordResponse> forgetPasswordParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> forgetPasswordParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/parent/forget/token")
-    Call<ForgetPasswordResponse> generatePasswordResetTokenParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/student/forget")
-    Call<ForgetPasswordResponse> forgetPasswordStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> forgetPasswordStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/student/forget/token")
-    Call<ForgetPasswordResponse> generatePasswordResetTokenStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+    Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
 }

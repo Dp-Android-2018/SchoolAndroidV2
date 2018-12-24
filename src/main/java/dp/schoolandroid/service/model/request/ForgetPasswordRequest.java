@@ -3,6 +3,7 @@ package dp.schoolandroid.service.model.request;
 import com.google.gson.annotations.SerializedName;
 
 public class ForgetPasswordRequest {
+
     @SerializedName("phone")
     private String phone;
 

@@ -38,6 +38,7 @@ public class ConfigurationFile {
         public static final String ACTIVITY_NUMBER = "ACTIVITY_NAME";
         public static final String PHONE_NUMBER = "PHONE_NUMBER";
         public static final String API_TOKEN = "APITOKEN";
+        public static final String BEARER = "Bearer ";
         public static final String TYPE = "TYPE";
         public static final String DATA = "DATA";
         public static final int SUCCESS_CODE = 200;

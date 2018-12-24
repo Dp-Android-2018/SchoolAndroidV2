@@ -6,9 +6,9 @@ import dp.schoolandroid.service.model.response.ResponseData;
 
 public class ParentResponse {
     @SerializedName("data")
-    private ResponseData responseData;
+    private ResponseData parentResponseData;
 
-    public ResponseData getTeacherData() {
-        return responseData;
+    public ResponseData getParentResponseData() {
+        return parentResponseData;
     }
 }

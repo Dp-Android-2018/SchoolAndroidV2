@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityHomeBinding;
@@ -65,33 +66,37 @@ public class HomeActivity extends AppCompatActivity {
     private void setNavigationItemSelectedListener() {
         navigationView.setNavigationItemSelectedListener(item -> {
             closeDrawer();
-            switch (item.getItemId()) {
-                case R.id.menu_home:
-                    break;
-                case R.id.menu_edit_profile:
-                    openProfileActivity();
-                    break;
-                case R.id.menu_message:
-                    openChatActivity();
-                    break;
-                case R.id.menu_about_us:
-                    openAboutUsActivity();
-                    break;
-                case R.id.menu_picture_gallery:
-                    openPictureGalleryActivity();
-                    break;
-                case R.id.menu_suggestions:
-                    openSuggestionsActivity();
-                    break;
-                case R.id.menu_contact_us:
-                    openContactUsActivity();
-                    break;
-                case R.id.menu_logOut:
-                    logout();
-                    break;
-            }
+            makeActionOnNavigationItem(item.getItemId());
             return true;
         });
+    }
+
+    private void makeActionOnNavigationItem(int itemId) {
+        switch (itemId) {
+            case R.id.menu_home:
+                break;
+            case R.id.menu_edit_profile:
+                openProfileActivity();
+                break;
+            case R.id.menu_message:
+                openChatActivity();
+                break;
+            case R.id.menu_about_us:
+                openAboutUsActivity();
+                break;
+            case R.id.menu_picture_gallery:
+                openPictureGalleryActivity();
+                break;
+            case R.id.menu_suggestions:
+                openSuggestionsActivity();
+                break;
+            case R.id.menu_contact_us:
+                openContactUsActivity();
+                break;
+            case R.id.menu_logOut:
+                logout();
+                break;
+        }
     }
 
     private void logout() {

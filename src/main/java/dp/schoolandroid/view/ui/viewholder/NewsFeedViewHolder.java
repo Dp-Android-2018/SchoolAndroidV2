@@ -31,11 +31,10 @@ public class NewsFeedViewHolder extends RecyclerView.ViewHolder {
 
     private void initializeUi(ItemFeedBinding binding, final FeedModel feedModel) {
         ImageView ivFeedPhoto = binding.ivFeedPhoto;
-        Picasso.get().load(feedModel.getImage()).into(ivFeedPhoto);
+        Picasso.get().load(feedModel.getNewsFeedImage()).into(ivFeedPhoto);
         binding.tvFeedReadMore.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FeedDetailsActivity.class);
-            Gson gson = new Gson();
-            intent.putExtra(ConfigurationFile.Constants.DATA, gson.toJson(feedModel));
+            intent.putExtra(ConfigurationFile.Constants.DATA, feedModel);
             v.getContext().startActivity(intent);
         });
     }

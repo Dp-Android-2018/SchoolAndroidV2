@@ -9,9 +9,9 @@ import dp.schoolandroid.service.model.global.FeedModel;
 public class FeedsResponse {
 
     @SerializedName("data")
-    private ArrayList<FeedModel> data;
+    private ArrayList<FeedModel> newsFeedResponseData;
 
-    public ArrayList<FeedModel> getData() {
-        return data;
+    public ArrayList<FeedModel> getNewsFeedResponseData() {
+        return newsFeedResponseData;
     }
 }

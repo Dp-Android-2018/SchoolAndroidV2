@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class StudentRequest {
     @SerializedName("ssn")
-    private String ssn;
+    private String studentSSN;
 
     @SerializedName("password")
-    private String password;
+    private String studentPassword;
 
-    public String getPassword() {
-        return password;
+    public String getStudentPassword() {
+        return studentPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStudentPassword(String password) {
+        this.studentPassword = password;
     }
 
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    public void setStudentSSN(String ssn) {
+        this.studentSSN = ssn;
     }
 
-    public String getSsn() {
-        return ssn;
+    public String getStudentSSN() {
+        return studentSSN;
     }
 }

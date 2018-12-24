@@ -14,7 +14,7 @@ public class GetApiInterfaces {
         return instance;
     }
 
-    public ApiInterfaces getApiInterfaces(Application application) {
+    ApiInterfaces getApiInterfaces(Application application) {
         NetworkComponent daggerNetworkComponent = ((MyApp) application).getDaggerNetworkComponent();
         return daggerNetworkComponent.getRetrofitApiInterfaces();
     }

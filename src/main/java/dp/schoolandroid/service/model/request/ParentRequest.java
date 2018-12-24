@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class ParentRequest {
     @SerializedName("phone")
-    private String phone;
+    private String parentPhone;
 
     @SerializedName("password")
-    private String password;
+    private String parentPassword;
 
-    public String getPhone() {
-        return phone;
+    public String getParentPhone() {
+        return parentPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setParentPhone(String phone) {
+        this.parentPhone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getParentPassword() {
+        return parentPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setParentPassword(String password) {
+        this.parentPassword = password;
     }
 }

@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
-import android.widget.Toast;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.service.model.response.FeedsResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class NewsFeedRepository {
@@ -25,30 +24,18 @@ public class NewsFeedRepository {
     }
 
     @SuppressLint("CheckResult")
-    public LiveData<FeedsResponse> getNewsFeed(final Application application) {
-        final MutableLiveData<FeedsResponse> data = new MutableLiveData<>();
+    public LiveData<Response<FeedsResponse>> getNewsFeed(final Application application) {
+        setBearerToken(application);
+        final MutableLiveData<Response<FeedsResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).getNewsFeed(bearerToken,
-                ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).enqueue(new Callback<FeedsResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<FeedsResponse> call, @NonNull Response<FeedsResponse> response) {
-                if (response.code() ==200){
-                    data.setValue(response.body());
-                }else {
-                    Toast.makeText(application, "Login code: "+response.code(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<FeedsResponse> call, @NonNull Throwable t) {
-                Toast.makeText(application, "Login code: "+t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
         return data;
     }
 
-    public void setBearerToken(String bearerToken) {
-        this.bearerToken = "Bearer "+bearerToken;
+    private void setBearerToken(Application application) {
+        CustomUtils customUtils=new CustomUtils(application);
+        this.bearerToken = ConfigurationFile.Constants.BEARER+customUtils.getSavedTeacherData().getTeacherData().getApiToken();
     }
-
-
 }

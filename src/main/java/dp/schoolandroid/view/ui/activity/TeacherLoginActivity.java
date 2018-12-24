@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityTeacherLoginBinding;
@@ -59,14 +60,19 @@ public class TeacherLoginActivity extends AppCompatActivity {
                 if (teacherResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToHomeActivity();
                     if (teacherResponseResponse.body() != null) {
-                        TeacherGetScheduleRepository.getInstance().setBearerToken( teacherResponseResponse.body().getTeacherData().getApiToken());
-                        NewsFeedRepository.getInstance().setBearerToken(teacherResponseResponse.body().getTeacherData().getApiToken());
+                        saveTeacherDataToSharedPreferences(teacherResponseResponse.body());
                     }
                 } else {
                     Snackbar.make(binding.getRoot(), getString(R.string.error_code) + teacherResponseResponse.code(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void saveTeacherDataToSharedPreferences(TeacherResponse body) {
+        CustomUtils customUtils=new CustomUtils(getApplication());
+        customUtils.clearSharedPref();
+        customUtils.saveTeacherDataToPrefs(body);
     }
 
     private void moveToHomeActivity() {

@@ -7,55 +7,48 @@ import com.google.gson.annotations.SerializedName;
 
 public class FeedModel implements Parcelable{
 
-    public FeedModel(String title, String subTitle, String image, String details) {
-        this.title = title;
-        this.subTitle = subTitle;
-        this.image = image;
-        this.details = details;
-    }
-
     @SerializedName("title")
-    private String title;
+    private String newsFeedTitle;
 
     @SerializedName("sub_title")
-    private String subTitle;
+    private String newsFeedSubTitle;
 
     @SerializedName("image")
-    private String image;
+    private String newsFeedImage;
 
     @SerializedName("details")
-    private String details;
+    private String newsFeedDetails;
 
-    public String getTitle() {
-        return title;
+    public String getNewsFeedTitle() {
+        return newsFeedTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNewsFeedTitle(String newsFeedTitle) {
+        this.newsFeedTitle = newsFeedTitle;
     }
 
-    public String getSubTitle() {
-        return subTitle;
+    public String getNewsFeedSubTitle() {
+        return newsFeedSubTitle;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+    public void setNewsFeedSubTitle(String newsFeedSubTitle) {
+        this.newsFeedSubTitle = newsFeedSubTitle;
     }
 
-    public String getImage() {
-        return image;
+    public String getNewsFeedImage() {
+        return newsFeedImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setNewsFeedImage(String newsFeedImage) {
+        this.newsFeedImage = newsFeedImage;
     }
 
-    public String getDetails() {
-        return details;
+    public String getNewsFeedDetails() {
+        return newsFeedDetails;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setNewsFeedDetails(String newsFeedDetails) {
+        this.newsFeedDetails = newsFeedDetails;
     }
 
     @Override
@@ -64,16 +57,16 @@ public class FeedModel implements Parcelable{
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeString(this.subTitle);
-        dest.writeString(this.image);
-        dest.writeString(this.details);
+        dest.writeString(this.newsFeedTitle);
+        dest.writeString(this.newsFeedSubTitle);
+        dest.writeString(this.newsFeedImage);
+        dest.writeString(this.newsFeedDetails);
     }
     public FeedModel(Parcel in) {
-        title = in.readString();
-        subTitle = in.readString();
-        image = in.readString();
-        details = in.readString();
+        newsFeedTitle = in.readString();
+        newsFeedSubTitle = in.readString();
+        newsFeedImage = in.readString();
+        newsFeedDetails = in.readString();
     }
     public static final Creator<FeedModel> CREATOR = new Creator<FeedModel>() {
         @Override

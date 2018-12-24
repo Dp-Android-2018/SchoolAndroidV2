@@ -1,16 +1,16 @@
 package dp.schoolandroid.service.repository.remotes;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.studentresponse.StudentResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class StudentLoginRepository {
@@ -26,38 +26,26 @@ public class StudentLoginRepository {
         return instance;
     }
 
+    @SuppressLint("CheckResult")
     public LiveData<Response<StudentResponse>> loginAsStudent(final Application application, String ssn, String password) {
         final MutableLiveData<Response<StudentResponse>> data = new MutableLiveData<>();
         StudentRequest studentLoginRequest = getStudentLoginRequest(ssn, password);
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.CONTENT_TYPE,
-                ConfigurationFile.Constants.ACCEPT, studentLoginRequest).enqueue(new Callback<StudentResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<StudentResponse> call, @NonNull Response<StudentResponse> response) {
-                data.setValue(response);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<StudentResponse> call, @NonNull Throwable t) {
-            }
-        });
+                ConfigurationFile.Constants.ACCEPT, studentLoginRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
         return data;
     }
 
+    @SuppressLint("CheckResult")
     public LiveData<Response<ForgetPasswordResponse>> forgetPasswordStudent(final Application application, final String phoneNumber) {
 
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.CONTENT_TYPE,
-                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).enqueue(new Callback<ForgetPasswordResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ForgetPasswordResponse> call, @NonNull Response<ForgetPasswordResponse> response) {
-                data.setValue(response);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ForgetPasswordResponse> call, @NonNull Throwable t) {
-            }
-        });
+                ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -69,8 +57,8 @@ public class StudentLoginRepository {
 
     private StudentRequest getStudentLoginRequest(String ssn, String password) {
         StudentRequest studentLoginRequest = new StudentRequest();
-        studentLoginRequest.setSsn(ssn);
-        studentLoginRequest.setPassword(password);
+        studentLoginRequest.setStudentSSN(ssn);
+        studentLoginRequest.setStudentPassword(password);
         return studentLoginRequest;
     }
 }

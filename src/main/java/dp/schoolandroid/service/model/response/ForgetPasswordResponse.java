@@ -5,46 +5,46 @@ import com.google.gson.annotations.SerializedName;
 public class ForgetPasswordResponse {
 
     @SerializedName("message")
-    private String message;
+    private String forgetPasswordResponseMessage;
 
     @SerializedName("token")
-    private String token;
+    private String forgetPasswordResponseToken;
 
     @SerializedName("error")
-    private String error;
+    private String forgetPasswordResponseError;
 
     @SerializedName("seconds_left")
-    private String secondsLeft;
+    private String forgetPasswordResponseSecondsLeft;
 
-    public String getMessage() {
-        return message;
+    public String getForgetPasswordResponseMessage() {
+        return forgetPasswordResponseMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setForgetPasswordResponseMessage(String message) {
+        this.forgetPasswordResponseMessage = message;
     }
 
-    public String getToken() {
-        return token;
+    public String getForgetPasswordResponseToken() {
+        return forgetPasswordResponseToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setForgetPasswordResponseToken(String forgetPasswordResponseToken) {
+        this.forgetPasswordResponseToken = forgetPasswordResponseToken;
     }
 
-    public String getError() {
-        return error;
+    public String getForgetPasswordResponseError() {
+        return forgetPasswordResponseError;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setForgetPasswordResponseError(String forgetPasswordResponseError) {
+        this.forgetPasswordResponseError = forgetPasswordResponseError;
     }
 
-    public String getSecondsLeft() {
-        return secondsLeft;
+    public String getForgetPasswordResponseSecondsLeft() {
+        return forgetPasswordResponseSecondsLeft;
     }
 
-    public void setSecondsLeft(String secondsLeft) {
-        this.secondsLeft = secondsLeft;
+    public void setForgetPasswordResponseSecondsLeft(String forgetPasswordResponseSecondsLeft) {
+        this.forgetPasswordResponseSecondsLeft = forgetPasswordResponseSecondsLeft;
     }
 }

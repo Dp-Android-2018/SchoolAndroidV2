@@ -6,9 +6,9 @@ import dp.schoolandroid.service.model.global.TeacherSchedule;
 
 public class TeacherScheduleResponse {
     @SerializedName("data")
-    private TeacherSchedule data;
+    private TeacherSchedule teacherScheduleData;
 
-    public TeacherSchedule getData() {
-        return data;
+    public TeacherSchedule getTeacherScheduleData() {
+        return teacherScheduleData;
     }
 }

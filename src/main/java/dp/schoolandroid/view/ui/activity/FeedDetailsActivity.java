@@ -27,11 +27,10 @@ public class FeedDetailsActivity extends AppCompatActivity {
     //this function is to inialize Ui
     private void initializeUi() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feed_details);
-        Gson gson = new Gson();
-        FeedModel feedModel = gson.fromJson(getIntent().getStringExtra(ConfigurationFile.Constants.DATA), FeedModel.class);
+        FeedModel feedModel = getIntent().getParcelableExtra(ConfigurationFile.Constants.DATA);
         FeedDetailsActivityViewModel viewModel = new FeedDetailsActivityViewModel(feedModel);
         ImageView ivFeedPhoto = binding.ivFeedDetailsPhoto;
-        Picasso.get().load(feedModel.getImage()).into(ivFeedPhoto);
+        Picasso.get().load(feedModel.getNewsFeedImage()).into(ivFeedPhoto);
         binding.setViewModel(viewModel);
     }
 }

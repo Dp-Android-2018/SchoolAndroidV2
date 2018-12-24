@@ -3,13 +3,6 @@ package dp.schoolandroid.service.model.global;
 import com.google.gson.annotations.SerializedName;
 
 public class SectionTimeModel {
-    public SectionTimeModel(String className, String grade, String studentsCount, String from, String to) {
-        this.className = className;
-        this.grade = grade;
-        this.studentsCount = studentsCount;
-        this.from = from;
-        this.to = to;
-    }
 
     @SerializedName("id")
     private String arrayId;
