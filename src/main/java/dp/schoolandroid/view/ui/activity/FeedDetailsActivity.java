@@ -13,7 +13,7 @@ import dp.schoolandroid.service.model.global.FeedModel;
 import dp.schoolandroid.viewmodel.FeedDetailsActivityViewModel;
 
 /*
- * this class is responsible for get Feed Details
+ * this class is responsible for get and set up Feed Details
  */
 public class FeedDetailsActivity extends AppCompatActivity {
     ActivityFeedDetailsBinding binding;
@@ -24,7 +24,6 @@ public class FeedDetailsActivity extends AppCompatActivity {
         initializeUi();
     }
 
-    //this function is to inialize Ui
     private void initializeUi() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feed_details);
         FeedModel feedModel = getIntent().getParcelableExtra(ConfigurationFile.Constants.DATA);

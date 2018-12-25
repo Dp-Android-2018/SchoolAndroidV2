@@ -10,14 +10,6 @@ import android.view.ViewGroup;
 import dp.schoolandroid.R;
 
 public class StudentAttendanceFragment extends Fragment {
-    public static StudentAttendanceFragment newInstance() {
-        return new StudentAttendanceFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

@@ -16,7 +16,11 @@ import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityParentLoginBinding;
 import dp.schoolandroid.viewmodel.ParentLoginActivityViewModel;
-
+/*
+ * this class is responsible for get and set up Parent Login
+ * make actions when clicking on login
+ * make actions when clicking on forget password
+ */
 public class ParentLoginActivity extends AppCompatActivity {
     ParentLoginActivityViewModel viewModel;
     ActivityParentLoginBinding binding;
@@ -51,6 +55,8 @@ public class ParentLoginActivity extends AppCompatActivity {
             if (parentResponseResponse != null) {
                 if (parentResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToHomeActivity();
+                }else {
+                    Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                 }
             }
     });
@@ -59,6 +65,7 @@ public class ParentLoginActivity extends AppCompatActivity {
     private void moveToHomeActivity(){
         Intent intent=new Intent(this,HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
@@ -76,7 +83,7 @@ public class ParentLoginActivity extends AppCompatActivity {
             if (forgetPasswordResponseResponse != null) {
                 if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToPasswordActivity();
-                } else {
+                } else{
                     Snackbar.make(binding.getRoot(), R.string.please_wait, Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -88,5 +95,6 @@ public class ParentLoginActivity extends AppCompatActivity {
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.PARENT_ACTIVITY_CODE);
         intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.parentPhoneEditText.getText().toString());
         startActivity(intent);
+        finish();
     }
 }

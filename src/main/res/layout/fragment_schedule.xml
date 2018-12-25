@@ -1,10 +1,4 @@
 <layout>
-    <data>
-        <variable
-            name="viewModel"
-            type="dp.schoolandroid.viewmodel.ScheduleFragmentViewModel"/>
-    </data>
-
 <android.support.constraint.ConstraintLayout
     android:id="@+id/scheduleFragmentConstraintLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"

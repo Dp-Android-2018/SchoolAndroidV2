@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,9 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 
+import javax.inject.Inject;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityHomeBinding;
+import dp.schoolandroid.di.component.DaggerFragmentComponent;
+import dp.schoolandroid.di.component.FragmentComponent;
 import dp.schoolandroid.view.ui.fragment.BaseFragmentWithData;
 import dp.schoolandroid.view.ui.fragment.ScheduleFragment;
 import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
@@ -27,13 +30,19 @@ import dp.schoolandroid.viewmodel.HomeActivityViewModel;
 
 /*
  * this class is responsible for get and set up home Details
+ * make actions when clicking on navigation drawer
+ * make actions when clicking on Bottom navigation view
  */
 public class HomeActivity extends AppCompatActivity {
+
+    @Inject BaseFragmentWithData baseFragmentWithData;
+    @Inject ScheduleFragment scheduleFragment;
+    @Inject TopStudentFragment topStudentFragment;
+
     ActivityHomeBinding binding;
     public static DrawerLayout drawer;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
-    private Intent intent;
     private Fragment selectedFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -41,12 +50,22 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
+        SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
+        setupFragmentComponent();
+        initializeViewModel();
+        setNavigationDrawer();
+        setBottonNavigationView();
+    }
+
+    private void initializeViewModel() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         HomeActivityViewModel viewModel = ViewModelProviders.of(this).get(HomeActivityViewModel.class);
         binding.setViewModel(viewModel);
-        SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
-        setNavigationDrawer();
-        setBottonNavigationView();
+    }
+
+    private void setupFragmentComponent() {
+        FragmentComponent component=DaggerFragmentComponent.create();
+        component.inject(this);
     }
 
     //this function is to setup navigetion drawer
@@ -74,24 +93,25 @@ public class HomeActivity extends AppCompatActivity {
     private void makeActionOnNavigationItem(int itemId) {
         switch (itemId) {
             case R.id.menu_home:
+                openIntent(HomeActivity.class);
                 break;
             case R.id.menu_edit_profile:
-                openProfileActivity();
+                openIntent(ProfileActivity.class);
                 break;
             case R.id.menu_message:
-                openChatActivity();
+                openIntent(ChatActivity.class);
                 break;
             case R.id.menu_about_us:
-                openAboutUsActivity();
+                openIntent(AboutUsActivity.class);
                 break;
             case R.id.menu_picture_gallery:
-                openPictureGalleryActivity();
+                openIntent(PictureGalleryActivity.class);
                 break;
             case R.id.menu_suggestions:
-                openSuggestionsActivity();
+                openIntent(SuggestionActivity.class);
                 break;
             case R.id.menu_contact_us:
-                openContactUsActivity();
+                openIntent(ContactUsActivity.class);
                 break;
             case R.id.menu_logOut:
                 logout();
@@ -99,30 +119,14 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void openIntent(Class activityClass) {
+        Intent intent = new Intent(HomeActivity.this, activityClass);
+        startActivity(intent);
+    }
+
     private void logout() {
-    }
-
-    private void openContactUsActivity() {
-    }
-
-    private void openSuggestionsActivity() {
-    }
-
-    private void openPictureGalleryActivity() {
-    }
-
-    private void openAboutUsActivity() {
-
-    }
-
-    private void openChatActivity() {
-        intent = new Intent(HomeActivity.this, ChatActivity.class);
-        startActivity(intent);
-    }
-
-    private void openProfileActivity() {
-        intent = new Intent(HomeActivity.this, ProfileActivity.class);
-        startActivity(intent);
+        openIntent(MainActivity.class);
+        finish();
     }
 
     @Override
@@ -145,24 +149,19 @@ public class HomeActivity extends AppCompatActivity {
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    //this function is to setup bottom navigation view
     public void setBottonNavigationView() {
-        final BottomNavigationView bottomNavigationView = binding.navigation;
-        bottomNavigationView.setOnNavigationItemSelectedListener
+        binding.navigation.setOnNavigationItemSelectedListener
                 (
                         item -> {
                             switch (item.getItemId()) {
                                 case R.id.action_item1:
-                                    item.setIcon(R.drawable.ic_home_on);
-                                    selectedFragment = BaseFragmentWithData.newInstance();
+                                    selectedFragment = baseFragmentWithData;
                                     break;
                                 case R.id.action_item2:
-                                    item.setIcon(R.drawable.ic_calender_on);
-                                    selectedFragment = new ScheduleFragment();
+                                    selectedFragment = scheduleFragment;
                                     break;
                                 case R.id.action_item3:
-                                    item.setIcon(R.drawable.ic_student_on);
-                                    selectedFragment = TopStudentFragment.newInstance();
+                                    selectedFragment = topStudentFragment;
                                     break;
                             }
                             openSelectedFragment();
@@ -179,7 +178,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void manuallyDisplayFirstFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, BaseFragmentWithData.newInstance());
+        transaction.replace(R.id.frame_layout, baseFragmentWithData);
         transaction.commit();
     }
 }

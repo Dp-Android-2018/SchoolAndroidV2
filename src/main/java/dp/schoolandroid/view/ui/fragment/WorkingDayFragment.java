@@ -12,10 +12,6 @@ import dp.schoolandroid.R;
 
 public class WorkingDayFragment extends Fragment {
 
-    public static WorkingDayFragment newInstance() {
-        return new WorkingDayFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -49,7 +49,11 @@
         <activity android:name=".view.ui.activity.StudentGradeActivity" />
         <activity android:name=".view.ui.activity.EditPasswordActivity" />
         <activity android:name=".view.ui.activity.ForgetPasswordActivity" />
-        <activity android:name=".view.ui.activity.ResetPasswordActivity"></activity>
+        <activity android:name=".view.ui.activity.ResetPasswordActivity"/>
+        <activity android:name=".view.ui.activity.AboutUsActivity" />
+        <activity android:name=".view.ui.activity.ContactUsActivity" />
+        <activity android:name=".view.ui.activity.PictureGalleryActivity" />
+        <activity android:name=".view.ui.activity.SuggestionActivity" />
     </application>
 
 </manifest>

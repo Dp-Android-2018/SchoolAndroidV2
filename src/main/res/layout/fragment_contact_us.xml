@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dp.schoolandroid.view.ui.fragment.ContactUsFragment">
+    tools:context="dp.schoolandroid.view.ui.activity.ContactUsActivity">
 
     <TextView
         android:id="@+id/tv_contact_us_phones"

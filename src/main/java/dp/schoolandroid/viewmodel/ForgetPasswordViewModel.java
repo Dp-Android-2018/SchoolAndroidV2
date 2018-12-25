@@ -5,14 +5,14 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.repository.remotes.ForgetPasswordRepository;
 import retrofit2.Response;
 
 public class ForgetPasswordViewModel extends AndroidViewModel {
     private Application application;
-    private int type;
-    private String phoneNumber;
     public ObservableField<String> code;
     private LiveData<Response<ForgetPasswordResponse>> forgetPasswordResponseLiveData;
 
@@ -26,15 +26,15 @@ public class ForgetPasswordViewModel extends AndroidViewModel {
         code = new ObservableField<>();
     }
 
-    public void handleCheckCode(){
-        switch (type) {
-            case 1:
+    public void handleCheckCode(int membershipType,String phoneNumber){
+        switch (membershipType) {
+            case ConfigurationFile.Constants.TEACHER_ACTIVITY_CODE:
                 forgetPasswordResponseLiveData = ForgetPasswordRepository.getInstance().generatePasswordResetTokenTeacher(application, phoneNumber, code.get());
                 break;
-            case 2:
+            case ConfigurationFile.Constants.PARENT_ACTIVITY_CODE:
                 forgetPasswordResponseLiveData = ForgetPasswordRepository.getInstance().generatePasswordResetTokenParent(application, phoneNumber, code.get());
                 break;
-            case 3:
+            case ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE:
                 forgetPasswordResponseLiveData = ForgetPasswordRepository.getInstance().generatePasswordResetTokenStudent(application, phoneNumber, code.get());
                 break;
         }
@@ -42,14 +42,6 @@ public class ForgetPasswordViewModel extends AndroidViewModel {
 
     public LiveData<Response<ForgetPasswordResponse>> getForgetPasswordResponseLiveData() {
         return forgetPasswordResponseLiveData;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }
 

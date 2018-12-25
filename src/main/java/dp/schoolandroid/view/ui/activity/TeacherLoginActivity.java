@@ -1,33 +1,30 @@
 package dp.schoolandroid.view.ui.activity;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityTeacherLoginBinding;
-import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
-import dp.schoolandroid.service.repository.remotes.NewsFeedRepository;
-import dp.schoolandroid.service.repository.remotes.TeacherGetScheduleRepository;
 import dp.schoolandroid.viewmodel.TeacherLoginActivityViewModel;
-import retrofit2.Response;
 
 /*
- * this class is responsible for initialize the Teacher Login Activity
- * */
+ * this class is responsible for get and set up teacher Login
+ * make actions when clicking on login
+ * make actions when clicking on forget password
+ */
 public class TeacherLoginActivity extends AppCompatActivity {
     ActivityTeacherLoginBinding binding;
     TeacherLoginActivityViewModel viewModel;
@@ -63,14 +60,14 @@ public class TeacherLoginActivity extends AppCompatActivity {
                         saveTeacherDataToSharedPreferences(teacherResponseResponse.body());
                     }
                 } else {
-                    Snackbar.make(binding.getRoot(), getString(R.string.error_code) + teacherResponseResponse.code(), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void saveTeacherDataToSharedPreferences(TeacherResponse body) {
-        CustomUtils customUtils=new CustomUtils(getApplication());
+        CustomUtils customUtils = new CustomUtils(getApplication());
         customUtils.clearSharedPref();
         customUtils.saveTeacherDataToPrefs(body);
     }
@@ -78,6 +75,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private void moveToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void teacherForgetPasswordClicked(View view) {
@@ -106,5 +104,6 @@ public class TeacherLoginActivity extends AppCompatActivity {
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.TEACHER_ACTIVITY_CODE);
         intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.teacherPhoneEditText.getText().toString());
         startActivity(intent);
+        finish();
     }
 }

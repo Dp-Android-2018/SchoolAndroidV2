@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.ParentRequest;
+import dp.schoolandroid.service.model.request.ResetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.request.TeacherRequest;
 import dp.schoolandroid.service.model.response.FeedsResponse;
@@ -46,16 +47,25 @@ public interface ApiInterfaces {
     @POST("/api/teacher/forget/token")
     Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
+    @POST("/api/teacher/forget/reset/{token}")
+    Observable<Response<ForgetPasswordResponse>> resetPasswordTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Path("token") String token, @Body ResetPasswordRequest resetPasswordRequest);
+
     @POST("/api/parent/forget")
     Observable<Response<ForgetPasswordResponse>> forgetPasswordParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/parent/forget/token")
     Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
+    @POST("/api/parent/forget/reset/{token}")
+    Observable<Response<ForgetPasswordResponse>> resetPasswordParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Path("token") String token, @Body ResetPasswordRequest resetPasswordRequest);
+
     @POST("/api/student/forget")
     Observable<Response<ForgetPasswordResponse>> forgetPasswordStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
 
     @POST("/api/student/forget/token")
     Observable<Response<ForgetPasswordResponse>> generatePasswordResetTokenStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
+
+    @POST("/api/student/forget/reset/{token}")
+    Observable<Response<ForgetPasswordResponse>> resetPasswordStudent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Path("token") String token, @Body ResetPasswordRequest resetPasswordRequest);
 
 }

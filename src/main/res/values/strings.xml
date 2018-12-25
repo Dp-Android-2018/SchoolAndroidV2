@@ -123,6 +123,8 @@
     <string name="error_phone_or_password" translatable="false">Error Phone or Password</string>
     <string name="error" translatable="false">Error :</string>
     <string name="error_phone_number" translatable="false">Error Phone number</string>
+    <string name="error_password" translatable="false">Password must be at min 6 characters</string>
+    <string name="password_not_match" translatable="false">Passwords are not the same</string>
     <string name="please_wait" translatable="false">Please wait :)</string>
     <string name="error_ssn_or_password" translatable="false">Error SSN or Password</string>
     <string name="error_code" translatable="false">Error Code :</string>

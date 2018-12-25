@@ -22,8 +22,10 @@ import dp.schoolandroid.viewmodel.StudentLoginActivityViewModel;
 import retrofit2.Response;
 
 /*
- * this class is responsible for student login activity
- * */
+ * this class is responsible for get and set up student Login
+ * make actions when clicking on login
+ * make actions when clicking on forget password
+ */
 public class StudentLoginActivity extends AppCompatActivity {
     ActivityStudentLoginBinding binding;
     StudentLoginActivityViewModel viewModel;
@@ -37,7 +39,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
     }
 
-    //here initializing the Viewmodel
     private void initViewModel() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_login);
         viewModel = ViewModelProviders.of(this).get(StudentLoginActivityViewModel.class);
@@ -54,7 +55,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         }
     }
 
-    //this function is responsible for observing the coming login data from viewmodel
     public void ObserverStudentLoginViewModel(StudentLoginActivityViewModel viewModel) {
         if (viewModel != null) {
             LiveData<Response<StudentResponse>> studentLoginResponseLiveData = viewModel.getStudentLoginResponseLiveData();
@@ -62,6 +62,8 @@ public class StudentLoginActivity extends AppCompatActivity {
                 if (studentResponseResponse != null) {
                     if (studentResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                         moveToHomeActivity();
+                    }else {
+                        Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -70,6 +72,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void moveToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void forgetPasswordStudentValidation(View view) {
@@ -81,7 +84,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         }
     }
 
-    //this function is responsible for observing the coming forget password data from viewmodel
     public void ObserverStudentForgetPasswordViewModel(StudentLoginActivityViewModel viewModel) {
         if (viewModel != null) {
             LiveData<Response<ForgetPasswordResponse>> studentLoginResponseLiveData = viewModel.getForgetPasswordResponseLiveData();
@@ -102,5 +104,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE);
         intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.studentPhoneEditText.getText().toString());
         startActivity(intent);
+        finish();
     }
 }

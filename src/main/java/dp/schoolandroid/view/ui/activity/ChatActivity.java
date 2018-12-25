@@ -12,8 +12,8 @@ import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityChatBinding;
 import dp.schoolandroid.viewmodel.ChatActivityViewModel;
 /*
-* this class is responsible for chat activity
-*/
+ * this class is responsible for get and set up Chat Activity
+ */
 public class ChatActivity extends AppCompatActivity {
     ChatActivityViewModel viewModel;
     ActivityChatBinding binding;

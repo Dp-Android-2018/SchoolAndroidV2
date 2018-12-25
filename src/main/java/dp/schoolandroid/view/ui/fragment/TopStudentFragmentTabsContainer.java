@@ -11,10 +11,6 @@ import dp.schoolandroid.R;
 
 public class TopStudentFragmentTabsContainer extends Fragment {
 
-    public static TopStudentFragmentTabsContainer newInstance() {
-        return new TopStudentFragmentTabsContainer();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,15 +11,6 @@ import dp.schoolandroid.R;
 
 public class StudentQuizFragment extends Fragment {
 
-    public static StudentQuizFragment newInstance() {
-        return new StudentQuizFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

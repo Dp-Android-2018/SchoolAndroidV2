@@ -18,6 +18,9 @@ import android.widget.LinearLayout;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import javax.inject.Inject;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
@@ -27,13 +30,17 @@ import dp.schoolandroid.view.ui.activity.HomeActivity;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.BaseFragmentWithDataViewModel;
 
-
+/*
+* this class is responsible for setting up the base fragment of home activity
+* set data into it
+* set the picture  image
+* */
 public class BaseFragmentWithData extends Fragment {
     FragmentBaseWithDataBinding binding;
     NewsFeedRecyclerViewAdapter classRecyclerViewAdapter;
 
-    public static BaseFragmentWithData newInstance() {
-        return new BaseFragmentWithData();
+    @Inject
+    public BaseFragmentWithData() {
     }
 
     @Override
@@ -56,7 +63,6 @@ public class BaseFragmentWithData extends Fragment {
         super.onActivityCreated(savedInstanceState);
         final BaseFragmentWithDataViewModel viewModel = ViewModelProviders.of(this).get(BaseFragmentWithDataViewModel.class);
         observeViewModel(viewModel);
-
     }
 
     private void observeViewModel(BaseFragmentWithDataViewModel viewModel) {

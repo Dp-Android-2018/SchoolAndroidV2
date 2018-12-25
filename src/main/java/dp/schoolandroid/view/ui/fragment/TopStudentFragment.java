@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import javax.inject.Inject;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.FragmentTopStudentBinding;
 import dp.schoolandroid.viewmodel.FragmentTopStudentViewModel;
@@ -17,13 +20,8 @@ public class TopStudentFragment extends Fragment {
     FragmentTopStudentBinding binding;
     FragmentTopStudentViewModel viewModel;
 
-    public static TopStudentFragment newInstance() {
-        return new TopStudentFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Inject
+    public TopStudentFragment() {
     }
 
     @Override

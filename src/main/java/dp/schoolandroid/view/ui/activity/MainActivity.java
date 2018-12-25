@@ -11,9 +11,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.databinding.ActivityMainBinding;
+import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.viewmodel.MainActiviyViewModel;
-
+/*
+*initialize the start activity
+* make actions when choosing options*/
 public class MainActivity extends AppCompatActivity {
     private final int TEACHER_SELECTOR = 1, STUDENT_SELECTOR = 2, PARENT_SELECTOR = 3;
     private ActivityMainBinding mBinding = null;
@@ -22,9 +26,13 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bindView();
-        handleSelectionTypeEvent();
+            super.onCreate(savedInstanceState);
+            bindView();
+            handleSelectionTypeEvent();
+    }
+    private boolean checkSharedPreferences() {
+        CustomUtils customUtils = new CustomUtils(getApplication());
+        return customUtils.getSavedTeacherData() != null;
     }
 
     private void bindView() {
@@ -57,23 +65,26 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startNextActivity() {
-        Intent loginIntent = null;
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
         switch (mSelectedTab) {
             case TEACHER_SELECTOR:
-                loginIntent = new Intent(MainActivity.this, TeacherLoginActivity.class);
+                startIntent(TeacherLoginActivity.class);
                 break;
             case STUDENT_SELECTOR:
-                loginIntent = new Intent(MainActivity.this, StudentLoginActivity.class);
+                startIntent(StudentLoginActivity.class);
                 break;
             case PARENT_SELECTOR:
-                loginIntent = new Intent(MainActivity.this, ParentLoginActivity.class);
+                startIntent(ParentLoginActivity.class);
                 break;
             default:
         }
-        if (loginIntent != null) {
-            startActivity(loginIntent, options.toBundle());
-        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startIntent(Class activityClass) {
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+        Intent intent = new Intent(MainActivity.this, activityClass);
+        startActivity(intent, options.toBundle());
+        finish();
     }
 
     private void handleTextLabelColor() {

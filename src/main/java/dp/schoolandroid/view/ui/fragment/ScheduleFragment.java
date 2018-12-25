@@ -12,7 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import javax.inject.Inject;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.FragmentScheduleBinding;
@@ -26,11 +26,8 @@ public class ScheduleFragment extends Fragment {
     private final int PAGE_lIMIT = 1;
     FragmentScheduleBinding binding;
 
+    @Inject
     public ScheduleFragment() {
-    }
-
-    public static ScheduleFragment newInstance() {
-        return new ScheduleFragment();
     }
 
     @Override
