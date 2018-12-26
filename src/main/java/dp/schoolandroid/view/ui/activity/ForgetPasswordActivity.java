@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
@@ -20,6 +19,7 @@ import dp.schoolandroid.viewmodel.ForgetPasswordViewModel;
  * make actions when clicking on Check button
  * start Reset Password Activity
  */
+
 public class ForgetPasswordActivity extends AppCompatActivity {
     ActivityForgetPasswordBinding binding;
     ForgetPasswordViewModel viewModel;

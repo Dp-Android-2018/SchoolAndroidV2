@@ -1,3 +1,5 @@
+<layout>
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:weightSum="5"
+        android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
@@ -79,12 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@mipmap/ic_instgram" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_google_plus" />
 
         <ImageView
             android:layout_width="0dp"
@@ -115,10 +111,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-    <com.google.android.gms.maps.MapView
+    <fragment
         android:id="@+id/mv_contact_us_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,3 +123,4 @@
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 </android.support.constraint.ConstraintLayout>
+</layout>

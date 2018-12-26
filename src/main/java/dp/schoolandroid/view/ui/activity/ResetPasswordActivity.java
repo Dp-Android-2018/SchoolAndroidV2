@@ -1,28 +1,23 @@
 package dp.schoolandroid.view.ui.activity;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityResetPasswordBinding;
-import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
-import dp.schoolandroid.service.repository.remotes.ResetPasswordRepository;
-import dp.schoolandroid.viewmodel.ForgetPasswordViewModel;
 import dp.schoolandroid.viewmodel.ResetPasswordActivityViewModel;
-import retrofit2.Response;
 
 /*
  * this class is responsible for initialize reset password activity
+ * observing the coming live data from viewModel
+ * opening the login activity for the membership after succes resetting password
  * */
 
 public class ResetPasswordActivity extends AppCompatActivity {

@@ -11,6 +11,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+/*
+* this class is responsible for initialize Forget Password Repository
+* generating Password Reset Token for Teacher
+* generating Password Reset Token for parent
+* generating Password Reset Token for student
+* */
 public class ForgetPasswordRepository {
     private static ForgetPasswordRepository instance;
 

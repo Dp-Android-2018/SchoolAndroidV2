@@ -15,10 +15,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
-
 import javax.inject.Inject;
-
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityHomeBinding;
 import dp.schoolandroid.di.component.DaggerFragmentComponent;
@@ -33,6 +32,7 @@ import dp.schoolandroid.viewmodel.HomeActivityViewModel;
  * make actions when clicking on navigation drawer
  * make actions when clicking on Bottom navigation view
  */
+
 public class HomeActivity extends AppCompatActivity {
 
     @Inject BaseFragmentWithData baseFragmentWithData;
@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
-        setupFragmentComponent();
+        setupDaggerFragmentComponent();
         initializeViewModel();
         setNavigationDrawer();
         setBottonNavigationView();
@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
     }
 
-    private void setupFragmentComponent() {
+    private void setupDaggerFragmentComponent() {
         FragmentComponent component=DaggerFragmentComponent.create();
         component.inject(this);
     }
@@ -125,8 +125,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void logout() {
+        clearSharedPreferences();
         openIntent(MainActivity.class);
         finish();
+    }
+
+    private void clearSharedPreferences() {
+        CustomUtils customUtils = new CustomUtils(getApplication());
+        customUtils.clearSharedPref();
     }
 
     @Override

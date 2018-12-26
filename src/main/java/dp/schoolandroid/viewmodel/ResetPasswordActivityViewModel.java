@@ -12,7 +12,13 @@ import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.repository.remotes.ForgetPasswordRepository;
 import dp.schoolandroid.service.repository.remotes.ResetPasswordRepository;
 import retrofit2.Response;
-
+/*
+ * this class is responsible for initialize Reset Password Activity ViewModel
+ * checking for the membership type
+ * if teacher : reset Password Teacher
+ * if student : reset Password student
+ * if parent : reset Password parent
+ * */
 public class ResetPasswordActivityViewModel extends AndroidViewModel {
     public ObservableField<String> password;
     public ObservableField<String> passwordConfirmation;

@@ -10,7 +10,13 @@ import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.repository.remotes.ForgetPasswordRepository;
 import retrofit2.Response;
-
+/*
+* this class is responsible for setup Forget Password ViewModel
+* checking which membership type is reseting it's password
+* if teacher : generate Password Reset Token Teacher
+* if student : generate Password Reset Token student
+* if parent : generate Password Reset Token parent
+* */
 public class ForgetPasswordViewModel extends AndroidViewModel {
     private Application application;
     public ObservableField<String> code;

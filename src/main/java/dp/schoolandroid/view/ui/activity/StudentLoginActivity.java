@@ -102,7 +102,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void moveToPasswordActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE);
-        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.studentPhoneEditText.getText().toString());
+        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, "Your phone Number :)");
         startActivity(intent);
         finish();
     }

@@ -30,6 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDMgu01yqga2ma844kZP5lUUNCdfCSjyE8"/>
         <activity android:name=".view.ui.activity.StudentLoginActivity" />
         <activity android:name=".view.ui.activity.ParentLoginActivity" />
         <activity android:name=".view.ui.activity.TeacherLoginActivity" />

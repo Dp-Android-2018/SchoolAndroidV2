@@ -17,7 +17,9 @@ import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
 import dp.schoolandroid.viewmodel.MainActiviyViewModel;
 /*
 *initialize the start activity
-* make actions when choosing options*/
+* make actions when choosing options
+* */
+
 public class MainActivity extends AppCompatActivity {
     private final int TEACHER_SELECTOR = 1, STUDENT_SELECTOR = 2, PARENT_SELECTOR = 3;
     private ActivityMainBinding mBinding = null;
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (checkSharedPreferences()){
+            Intent intent=new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
+        }
             super.onCreate(savedInstanceState);
             bindView();
             handleSelectionTypeEvent();
