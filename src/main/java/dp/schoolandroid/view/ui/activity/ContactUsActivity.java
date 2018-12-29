@@ -3,8 +3,10 @@ package dp.schoolandroid.view.ui.activity;
 import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,8 +40,10 @@ import retrofit2.Response;
 
 public class ContactUsActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
-
-    ContactUsActivityViewModel viewModel;
+    private ContactInfoResponseModel contactInfoResponseModel;
+    private ContactUsActivityViewModel viewModel;
+    private double lat;
+    private double lng;
     FragmentContactUsBinding binding;
     SupportMapFragment map;
 
@@ -54,7 +59,7 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
     }
 
     private void setupViewModel() {
-        viewModel=ViewModelProviders.of(this).get(ContactUsActivityViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ContactUsActivityViewModel.class);
         binding.setViewModel(viewModel);
         observeViewModel();
     }
@@ -64,17 +69,66 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
             if (contactInfoResponseModelResponse != null) {
                 if (contactInfoResponseModelResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     if (contactInfoResponseModelResponse.body() != null) {
-                        initializeUiWithData(contactInfoResponseModelResponse.body().getContactInfo());
+                        contactInfoResponseModel = contactInfoResponseModelResponse.body().getContactInfo();
+                        initializeUiWithData();
                     }
-                } else{
+                } else {
                     Snackbar.make(binding.getRoot(), R.string.error, Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void initializeUiWithData(ContactInfoResponseModel contactInfo) {
+    private void initializeUiWithData() {
+        initializePhoneNumbers();
+        initializeLatLng();
+        facebookClicked();
+        twitterClicked();
+        instagramClicked();
+        linkedinClicked();
+    }
 
+    private void initializePhoneNumbers() {
+        StringBuilder phoneNumbers = new StringBuilder();
+        for (int i = 0; i < contactInfoResponseModel.getCompanyPhoneNumbers().size(); i++) {
+            phoneNumbers.append(contactInfoResponseModel.getCompanyPhoneNumbers().get(i)).append("\n");
+        }
+        binding.tvContactUsPhones.setText(phoneNumbers.toString());
+    }
+
+    private void initializeLatLng() {
+        lat = Double.parseDouble(contactInfoResponseModel.getLocationLatitude());
+        lng = Double.parseDouble(contactInfoResponseModel.getLocationLongitude());
+    }
+
+    private void linkedinClicked() {
+        binding.linkedInImageView.setOnClickListener(v -> {
+            openUrl(contactInfoResponseModel.getCompanySocialNetworks().getLinkedinLink());
+        });
+    }
+
+    private void instagramClicked() {
+        binding.instagramImageView.setOnClickListener(v -> {
+            openUrl(contactInfoResponseModel.getCompanySocialNetworks().getInstagramLink());
+        });
+    }
+
+    private void twitterClicked() {
+        binding.twitterImageView.setOnClickListener(v -> {
+            openUrl(contactInfoResponseModel.getCompanySocialNetworks().getTwitterLink());
+        });
+    }
+
+    private void facebookClicked() {
+        binding.facebookImageView.setOnClickListener(v -> {
+            openUrl(contactInfoResponseModel.getCompanySocialNetworks().getFacebookLink());
+        });
+    }
+
+    private void openUrl(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     private void setupGooglePlayMap() {
@@ -89,13 +143,15 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(47.17, 27.5699), 16));
+        LatLng schoolLocation = new LatLng(-lat, lng);
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(schoolLocation, 16));
         googleMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                 .anchor(0.0f, 1.0f)
                 .title("Saudi Arabia")
-                .position(new LatLng(47.17, 27.5699)));
+                .snippet("The most populous city.")
+                .position(schoolLocation));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

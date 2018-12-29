@@ -13,10 +13,10 @@ public class ContactInfoResponseModel {
     private String locationLongitude;
 
     @SerializedName("social_networks")
-    private ArrayList<SocialNetworksModel> companySocialNetworks;
+    private SocialNetworksModel companySocialNetworks;
 
     @SerializedName("phone_numbers")
-    private ArrayList<Integer> companyPhoneNumbers;
+    private ArrayList<String> companyPhoneNumbers;
 
     public String getLocationLatitude() {
         return locationLatitude;
@@ -34,19 +34,19 @@ public class ContactInfoResponseModel {
         this.locationLongitude = locationLongitude;
     }
 
-    public ArrayList<SocialNetworksModel> getCompanySocialNetworks() {
+    public SocialNetworksModel getCompanySocialNetworks() {
         return companySocialNetworks;
     }
 
-    public void setCompanySocialNetworks(ArrayList<SocialNetworksModel> companySocialNetworks) {
+    public void setCompanySocialNetworks(SocialNetworksModel companySocialNetworks) {
         this.companySocialNetworks = companySocialNetworks;
     }
 
-    public ArrayList<Integer> getCompanyPhoneNumbers() {
+    public ArrayList<String> getCompanyPhoneNumbers() {
         return companyPhoneNumbers;
     }
 
-    public void setCompanyPhoneNumbers(ArrayList<Integer> companyPhoneNumbers) {
+    public void setCompanyPhoneNumbers(ArrayList<String> companyPhoneNumbers) {
         this.companyPhoneNumbers = companyPhoneNumbers;
     }
 }
