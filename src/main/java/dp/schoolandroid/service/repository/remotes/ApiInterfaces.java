@@ -2,11 +2,13 @@ package dp.schoolandroid.service.repository.remotes;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import dp.schoolandroid.service.model.global.ContactInfoResponseModel;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.ParentRequest;
 import dp.schoolandroid.service.model.request.ResetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.request.TeacherRequest;
+import dp.schoolandroid.service.model.response.ContactUsResponse;
 import dp.schoolandroid.service.model.response.FeedsResponse;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.parentresponse.ParentResponse;
@@ -49,6 +51,9 @@ public interface ApiInterfaces {
 
     @POST("/api/teacher/forget/reset/{token}")
     Observable<Response<ForgetPasswordResponse>> resetPasswordTeacher(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Path("token") String token, @Body ResetPasswordRequest resetPasswordRequest);
+
+    @GET("/api/teacher/contact")
+    Observable<Response<ContactUsResponse>> getContactInfoForTeacher(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
 
     @POST("/api/parent/forget")
     Observable<Response<ForgetPasswordResponse>> forgetPasswordParent(@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ForgetPasswordRequest forgetPasswordRequest);
