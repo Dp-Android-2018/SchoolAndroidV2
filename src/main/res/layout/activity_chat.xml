@@ -3,11 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewModel"
-            type="dp.schoolandroid.viewmodel.ChatActivityViewModel"/>
-    </data>
 
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"

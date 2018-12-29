@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+
+import javax.inject.Inject;
+
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -17,14 +20,20 @@ import retrofit2.Response;
 * generating Password Reset Token for parent
 * generating Password Reset Token for student
 * */
+
 public class ForgetPasswordRepository {
-    private static ForgetPasswordRepository instance;
+
+    /*private static ForgetPasswordRepository instance;
 
     public static ForgetPasswordRepository getInstance() {
         if (instance == null) {
             instance = new ForgetPasswordRepository();
         }
         return instance;
+    }*/
+
+    @Inject
+    public ForgetPasswordRepository() {
     }
 
     @SuppressLint("CheckResult")

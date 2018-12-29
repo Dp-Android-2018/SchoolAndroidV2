@@ -1,7 +1,6 @@
 package dp.schoolandroid.view.ui.activity;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
@@ -13,8 +12,6 @@ import android.view.View;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.databinding.ActivityMainBinding;
-import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
-import dp.schoolandroid.viewmodel.MainActiviyViewModel;
 /*
 *initialize the start activity
 * make actions when choosing options
@@ -43,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void bindView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        MainActiviyViewModel dataviewModel = ViewModelProviders.of(this).get(MainActiviyViewModel.class);
-        mBinding.setMainActivityData(dataviewModel);
     }
 
     public void handleSelectionEvent(View view) {

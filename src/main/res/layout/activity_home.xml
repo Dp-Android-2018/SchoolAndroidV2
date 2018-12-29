@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="dp.schoolandroid.view.ui.activity.HomeActivity">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="dp.schoolandroid.viewmodel.HomeActivityViewModel" />
-    </data>
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/main_activity"
         android:layout_width="match_parent"

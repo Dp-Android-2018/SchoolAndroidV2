@@ -63,8 +63,6 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
                 .title("My Home")
                 .snippet("Mo");
         mMarker = mMap.addMarker(options);
-
-
     }
 
     @Override

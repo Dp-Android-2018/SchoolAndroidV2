@@ -10,7 +10,6 @@ import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.ItemFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
 import dp.schoolandroid.view.ui.activity.FeedDetailsActivity;
-import dp.schoolandroid.viewmodel.ItemFeedViewModel;
 
 public class NewsFeedViewHolder extends RecyclerView.ViewHolder {
     private ItemFeedBinding binding;
@@ -21,17 +20,19 @@ public class NewsFeedViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindClass(FeedModel feedModel) {
-        if (binding.getViewModel() == null) {
-            binding.setViewModel(new ItemFeedViewModel(feedModel));
-        } else {
-            binding.getViewModel().feedModel = feedModel;
-        }
-        initializeUi(binding, feedModel);
+        binding.tvFeedTitle.setText(feedModel.getNewsFeedTitle());
+        binding.tvFeedSubTitle.setText(feedModel.getNewsFeedSubTitle());
+        binding.tvFeedDetails.setText(feedModel.getNewsFeedDetails());
+        initializingImageUi(binding, feedModel);
     }
 
-    private void initializeUi(ItemFeedBinding binding, final FeedModel feedModel) {
+    private void initializingImageUi(ItemFeedBinding binding, final FeedModel feedModel) {
         ImageView ivFeedPhoto = binding.ivFeedPhoto;
         Picasso.get().load(feedModel.getNewsFeedImage()).into(ivFeedPhoto);
+        readMoreClickListener(feedModel);
+    }
+
+    private void readMoreClickListener(final FeedModel feedModel) {
         binding.tvFeedReadMore.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FeedDetailsActivity.class);
             intent.putExtra(ConfigurationFile.Constants.DATA, feedModel);

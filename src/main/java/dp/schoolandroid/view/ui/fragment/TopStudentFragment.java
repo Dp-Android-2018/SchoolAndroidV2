@@ -1,6 +1,5 @@
 package dp.schoolandroid.view.ui.fragment;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,12 +12,10 @@ import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.FragmentTopStudentBinding;
-import dp.schoolandroid.viewmodel.FragmentTopStudentViewModel;
 import dp.schoolandroid.viewmodel.MyCustomBarViewModel;
 
 public class TopStudentFragment extends Fragment {
     FragmentTopStudentBinding binding;
-    FragmentTopStudentViewModel viewModel;
 
     @Inject
     public TopStudentFragment() {
@@ -33,8 +30,6 @@ public class TopStudentFragment extends Fragment {
     }
 
     private void initUI() {
-        viewModel=ViewModelProviders.of(this).get(FragmentTopStudentViewModel.class);
-        binding.setViewModel(viewModel);
         binding.topStudentActionBar.setViewModel(new MyCustomBarViewModel(getContext()));
         binding.topStudentActionBar.chatMenuImage.setVisibility(View.GONE);
         binding.topStudentActionBar.tvActionBarTitle.setText(R.string.top_student);

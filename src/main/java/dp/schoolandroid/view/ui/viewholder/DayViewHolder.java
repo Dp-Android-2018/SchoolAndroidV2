@@ -3,7 +3,6 @@ package dp.schoolandroid.view.ui.viewholder;
 import android.support.v7.widget.RecyclerView;
 import dp.schoolandroid.databinding.ItemScheduleBinding;
 import dp.schoolandroid.service.model.global.SectionTimeModel;
-import dp.schoolandroid.viewmodel.ItemScheduleViewModel;
 
 public class DayViewHolder extends RecyclerView.ViewHolder {
     private ItemScheduleBinding binding;
@@ -14,10 +13,10 @@ public class DayViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindDay(SectionTimeModel sectionTimeModel) {
-        if (binding.getViewModel() == null) {
-            binding.setViewModel(new ItemScheduleViewModel(sectionTimeModel));
-        } else {
-            binding.getViewModel().sectionTimeModel = sectionTimeModel;
-        }
+        binding.tvScheduleClassName.setText(sectionTimeModel.getClassName());
+        binding.tvScheduleClassGrade.setText(sectionTimeModel.getGrade());
+        binding.tvScheduleClassNumberOfStudents.setText(sectionTimeModel.getStudentsCount());
+        binding.tvItemToFrom.setText(sectionTimeModel.getTo());
+        binding.tvItemScheduleFrom.setText(sectionTimeModel.getFrom());
     }
 }

@@ -1,9 +1,4 @@
 <layout>
-    <data>
-        <variable
-            name="viewModel"
-            type="dp.schoolandroid.viewmodel.FragmentTopStudentViewModel"/>
-    </data>
 
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
