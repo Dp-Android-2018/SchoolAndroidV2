@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 import javax.inject.Inject;
+import dp.schoolandroid.view.ui.fragment.NewsFeedFragment;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
@@ -33,9 +34,14 @@ import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
-    @Inject BaseFragmentWithData baseFragmentWithData;
-    @Inject ScheduleFragment scheduleFragment;
-    @Inject TopStudentFragment topStudentFragment;
+    @Inject
+    BaseFragmentWithData baseFragmentWithData;
+    @Inject
+    ScheduleFragment scheduleFragment;
+    @Inject
+    TopStudentFragment topStudentFragment;
+    @Inject
+    NewsFeedFragment newsFeedFragment;
 
     ActivityHomeBinding binding;
     public static DrawerLayout drawer;
@@ -60,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupDaggerFragmentComponent() {
-        FragmentComponent component=DaggerFragmentComponent.create();
+        FragmentComponent component = DaggerFragmentComponent.create();
         component.inject(this);
     }
 
@@ -155,21 +161,29 @@ public class HomeActivity extends AppCompatActivity {
         binding.navigation.setOnNavigationItemSelectedListener
                 (
                         item -> {
-                            switch (item.getItemId()) {
-                                case R.id.action_item1:
-                                    selectedFragment = baseFragmentWithData;
-                                    break;
-                                case R.id.action_item2:
-                                    selectedFragment = scheduleFragment;
-                                    break;
-                                case R.id.action_item3:
-                                    selectedFragment = topStudentFragment;
-                                    break;
-                            }
+                            setSelectedFragment(item.getItemId());
                             openSelectedFragment();
                             return true;
                         });
         manuallyDisplayFirstFragment();
+    }
+
+    private void setSelectedFragment(int itemId) {
+        switch (itemId) {
+            case R.id.action_item1:
+                selectedFragment = baseFragmentWithData;
+                break;
+            case R.id.action_item2:
+                selectedFragment = scheduleFragment;
+                break;
+            case R.id.action_item3:
+                selectedFragment = topStudentFragment;
+                break;
+            case R.id.action_item4:
+                selectedFragment = newsFeedFragment;
+                break;
+        }
+
     }
 
     private void openSelectedFragment() {

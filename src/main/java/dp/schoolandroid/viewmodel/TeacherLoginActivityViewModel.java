@@ -7,7 +7,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
-import dp.schoolandroid.service.repository.remotes.TeacherLoginRepository;
+import dp.schoolandroid.service.repository.remotes.TeacherRepository;
 import retrofit2.Response;
 
 public class TeacherLoginActivityViewModel extends AndroidViewModel {
@@ -31,11 +31,11 @@ public class TeacherLoginActivityViewModel extends AndroidViewModel {
     }
 
     public void handleloginTeacher() {
-        teacherLoginResponseLiveData = TeacherLoginRepository.getInstance().loginAsTeacher(application, phoneNumber.get(), password.get());
+        teacherLoginResponseLiveData = TeacherRepository.getInstance().loginAsTeacher(application, phoneNumber.get(), password.get());
     }
 
     public void handleForgetPasswordTeacher() {
-        forgetPasswordResponseLiveData = TeacherLoginRepository.getInstance().forgetPasswordTeacher(application, phoneNumber.get());
+        forgetPasswordResponseLiveData = TeacherRepository.getInstance().forgetPasswordTeacher(application, phoneNumber.get());
     }
 
     public LiveData<Response<TeacherResponse>> getTeacherLoginResponseLiveData() {

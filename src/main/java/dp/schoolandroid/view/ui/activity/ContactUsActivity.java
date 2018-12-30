@@ -30,6 +30,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
@@ -56,6 +58,14 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupViewModel();
         setupGooglePlayMap();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void setupViewModel() {
@@ -143,14 +153,14 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng schoolLocation = new LatLng(-lat, lng);
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(schoolLocation, 16));
+        LatLng schoolLocation = new LatLng(lat, lng);
+//        LatLng sydney = new LatLng(-33.867, 151.206);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(schoolLocation, 13));
         googleMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                 .anchor(0.0f, 1.0f)
                 .title("Saudi Arabia")
-                .snippet("The most populous city.")
+                .snippet("The most beautiful city.")
                 .position(schoolLocation));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

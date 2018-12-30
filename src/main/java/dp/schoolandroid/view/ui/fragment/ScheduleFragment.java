@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.FragmentScheduleBinding;
 import dp.schoolandroid.service.model.global.TeacherSchedule;
+import dp.schoolandroid.view.ui.activity.HomeActivity;
 import dp.schoolandroid.view.ui.adapter.TeacherSchedulePageViewAdapter;
 import dp.schoolandroid.viewmodel.MyCustomBarViewModel;
 import dp.schoolandroid.viewmodel.ScheduleFragmentViewModel;
@@ -39,14 +41,13 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false);
-        initUi();
+        setupToolbar();
         return binding.getRoot();
     }
 
-    private void initUi() {
-        binding.actionBar.setViewModel(new MyCustomBarViewModel(getContext()));
-        binding.actionBar.tvActionBarTitle.setText(R.string.schedule);
-        binding.actionBar.chatMenuImage.setVisibility(View.GONE);
+    private void setupToolbar() {
+        binding.scheduleFragmentToolbar.setNavigationIcon(R.drawable.ic_action_menu);
+        binding.scheduleFragmentToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
     }
 
     @Override

@@ -48,6 +48,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -138,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/phoneNumberTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -193,7 +194,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/emailTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -248,7 +249,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/addressTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -303,7 +304,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/birthdayTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -358,7 +359,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/nationalityTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -411,6 +412,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
 
             <TextView
+                android:id="@+id/genderTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

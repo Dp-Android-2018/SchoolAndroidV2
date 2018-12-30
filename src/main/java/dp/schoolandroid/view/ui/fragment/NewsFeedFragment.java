@@ -12,75 +12,50 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
-import dp.schoolandroid.Utility.utils.CustomUtils;
-import dp.schoolandroid.databinding.FragmentBaseWithDataBinding;
+import dp.schoolandroid.databinding.FragmentNewsFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
 import dp.schoolandroid.view.ui.activity.HomeActivity;
-import dp.schoolandroid.view.ui.adapter.ClassRecyclerViewAdapter;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.BaseFragmentWithDataViewModel;
+import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
 
-/*
-* this class is responsible for setting up the base fragment of home activity
-* set data into it
-* set the picture  image
-* */
-public class BaseFragmentWithData extends Fragment {
-    FragmentBaseWithDataBinding binding;
-    ClassRecyclerViewAdapter classRecyclerViewAdapter;
+
+public class NewsFeedFragment extends Fragment {
+    NewsFeedRecyclerViewAdapter newsFeedRecyclerViewAdapter;
+    FragmentNewsFeedBinding binding;
 
     @Inject
-    public BaseFragmentWithData() {
+    public NewsFeedFragment() {
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_with_data, container, false);
-        setTeacherData();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_feed, container, false);
         setupToolbar();
-        setupCollapsingToolbarTitle();
         return binding.getRoot();
     }
-
     private void setupToolbar() {
-        binding.baseFragmentToolbar.setNavigationIcon(R.drawable.ic_action_menu);
-        binding.baseFragmentToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
-    }
-
-    private void setupCollapsingToolbarTitle() {
-        binding.collapsingToolbar.setTitle(binding.tvTeacherName.getText().toString());
-        binding.collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.colorWhite));
-        binding.collapsingToolbar.setExpandedTitleColor(View.INVISIBLE);
-    }
-
-    private void setTeacherData() {
-        CustomUtils customUtils = new CustomUtils(Objects.requireNonNull(getActivity()).getApplication());
-        binding.tvTeacherName.setText(customUtils.getSavedTeacherData().getTeacherData().getName());
-        binding.tvTeacherEmail.setText(customUtils.getSavedTeacherData().getTeacherData().getEmail());
-        ImageView teacherPhoto = binding.rivTeacherPhoto;
-        Picasso.get().load(customUtils.getSavedTeacherData().getTeacherData().getImage()).into(teacherPhoto);
+        binding.newsFeedToolbar.setNavigationIcon(R.drawable.ic_action_menu);
+        binding.newsFeedToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final BaseFragmentWithDataViewModel viewModel = ViewModelProviders.of(this).get(BaseFragmentWithDataViewModel.class);
+        final NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
         observeViewModel(viewModel);
     }
 
-    private void observeViewModel(BaseFragmentWithDataViewModel viewModel) {
+    private void observeViewModel(NewsFeedFragmentViewModel viewModel) {
         viewModel.getData().observe(this, feedsResponseResponse -> {
             if (feedsResponseResponse != null) {
                 if (feedsResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
@@ -98,8 +73,9 @@ public class BaseFragmentWithData extends Fragment {
     }
 
     private void initializeRecyclerViewAdapter(ArrayList<FeedModel> feedModels) {
-        classRecyclerViewAdapter = new ClassRecyclerViewAdapter(feedModels);
-        binding.baseClassRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
-        binding.baseClassRecyclerView.setAdapter(classRecyclerViewAdapter);
+        newsFeedRecyclerViewAdapter = new NewsFeedRecyclerViewAdapter(feedModels);
+        binding.newsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
+        binding.newsFeedRecyclerView.setAdapter(newsFeedRecyclerViewAdapter);
     }
+
 }

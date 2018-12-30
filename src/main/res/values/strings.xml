@@ -130,6 +130,7 @@
     <string name="error_code" translatable="false">Error Code :</string>
     <string name="schedule" translatable="false">Schedule</string>
     <string name="top_student" translatable="false">Top Student</string>
+    <string name="contact_us" translatable="false">Contact Us</string>
     <string name="no_classes" translatable="false">There is no classes at that day</string>
     <string name="no_week_data" translatable="false">There is no Data at that week</string>
 

@@ -26,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                app:collapsedTitleGravity="center_horizontal"
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:scaleType="centerCrop"
                         android:text="@string/mohammed_said"
@@ -92,12 +93,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:scaleType="centerCrop"
                         android:text="mohamed_said250@yahoo.com"
                         android:textColor="@color/colorWhite"
                         android:textSize="12.3sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.502"
                         app:layout_constraintStart_toStartOf="parent"
@@ -105,29 +108,13 @@
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/baseFragmentToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:elevation="7dp"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                    <ImageView
-                        android:id="@+id/action_menu_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="18.7dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/back_arrow"
-                        android:src="@drawable/ic_action_menu"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.053"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.v7.widget.Toolbar>
-
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
@@ -140,6 +127,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            tools:listitem="@layout/item_feed" />
+            tools:listitem="@layout/item_class" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

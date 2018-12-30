@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.FragmentTopStudentBinding;
+import dp.schoolandroid.view.ui.activity.HomeActivity;
 import dp.schoolandroid.viewmodel.MyCustomBarViewModel;
 
 public class TopStudentFragment extends Fragment {
@@ -25,15 +27,12 @@ public class TopStudentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_top_student,container,false);
-        initUI();
+        setupToolbar();
         return binding.getRoot();
     }
 
-    private void initUI() {
-        binding.topStudentActionBar.setViewModel(new MyCustomBarViewModel(getContext()));
-        binding.topStudentActionBar.chatMenuImage.setVisibility(View.GONE);
-        binding.topStudentActionBar.tvActionBarTitle.setText(R.string.top_student);
+    private void setupToolbar() {
+        binding.topStudentFragmentToolbar.setNavigationIcon(R.drawable.ic_action_menu);
+        binding.topStudentFragmentToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
     }
-
-
 }
