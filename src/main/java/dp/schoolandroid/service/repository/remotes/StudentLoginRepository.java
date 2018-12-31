@@ -5,6 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -33,7 +34,10 @@ public class StudentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, studentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(studentResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(studentResponseResponse);
+                });
         return data;
     }
 
@@ -45,7 +49,10 @@ public class StudentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(forgetPasswordResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(forgetPasswordResponseResponse);
+                });
         return data;
     }
 

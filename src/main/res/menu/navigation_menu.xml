@@ -2,37 +2,39 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/menu_home"
-        android:icon="@drawable/ic_home_on"
-        android:title="Home"/>
+        android:icon="@drawable/ic_home_off"
+        android:title="@string/menu_home"/>
 
     <item android:id="@+id/menu_edit_profile"
         android:icon="@drawable/ic_menu_profile"
-        android:title="Edit Profile"/>
+        android:title="@string/menu_edit_profile"/>
 
     <item android:id="@+id/menu_message"
         android:icon="@drawable/ic_menu_message"
-        android:title="Message"/>
+        android:title="@string/menu_message"/>
 
     <item android:id="@+id/menu_about_us"
         android:icon="@drawable/ic_menu_about_us"
-        android:title="About us"/>
+        android:title="@string/menu_about_us"/>
 
     <item android:id="@+id/menu_picture_gallery"
         android:icon="@drawable/ic_menu_gallary"
-        android:title="Picture gallery"/>
+        android:title="@string/menu_gallery"/>
+
+    <item android:id="@+id/menu_videos"
+        android:icon="@drawable/ic_menu_videos"
+        android:title="@string/menu_videos"/>
 
     <item android:id="@+id/menu_suggestions"
         android:icon="@drawable/ic_menu_suggestion"
-        android:title="Suggestions"/>
+        android:title="@string/menu_suggestions"/>
 
     <item android:id="@+id/menu_contact_us"
         android:icon="@drawable/ic_menu_contact_us"
-        android:title="Contact Us"/>
+        android:title="@string/menu_contact_us"/>
 
     <item android:id="@+id/menu_logOut"
         android:icon="@drawable/ic_menu_log_out"
-        android:title="LogOut"/>
-
-
+        android:title="@string/menu_logout"/>
 
 </menu>

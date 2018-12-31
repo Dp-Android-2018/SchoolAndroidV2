@@ -1,6 +1,7 @@
 package dp.schoolandroid.view.ui.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,8 +25,12 @@ import javax.inject.Inject;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
+import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
+import dp.schoolandroid.databinding.ActivityConnectionErrorBinding;
 import dp.schoolandroid.databinding.FragmentBaseWithDataBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
+import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
 import dp.schoolandroid.view.ui.activity.HomeActivity;
 import dp.schoolandroid.view.ui.adapter.ClassRecyclerViewAdapter;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
@@ -45,13 +50,18 @@ public class BaseFragmentWithData extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_with_data, container, false);
-        setTeacherData();
-        setupToolbar();
-        setupCollapsingToolbarTitle();
-        return binding.getRoot();
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_with_data, container, false);
+            setTeacherData();
+            setupToolbar();
+            setupCollapsingToolbarTitle();
+            return binding.getRoot();
     }
 
     private void setupToolbar() {
@@ -76,6 +86,7 @@ public class BaseFragmentWithData extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        SharedUtils.getInstance().showProgressDialog(getContext());
         final BaseFragmentWithDataViewModel viewModel = ViewModelProviders.of(this).get(BaseFragmentWithDataViewModel.class);
         observeViewModel(viewModel);
     }

@@ -35,6 +35,7 @@ import java.util.Objects;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.databinding.FragmentContactUsBinding;
 import dp.schoolandroid.service.model.global.ContactInfoResponseModel;
 import dp.schoolandroid.viewmodel.ContactUsActivityViewModel;
@@ -69,6 +70,7 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
     }
 
     private void setupViewModel() {
+        SharedUtils.getInstance().showProgressDialog(this);
         viewModel = ViewModelProviders.of(this).get(ContactUsActivityViewModel.class);
         binding.setViewModel(viewModel);
         observeViewModel();

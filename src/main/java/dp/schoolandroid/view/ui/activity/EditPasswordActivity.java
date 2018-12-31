@@ -11,6 +11,7 @@ import android.view.View;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityEditPasswordBinding;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -39,6 +40,7 @@ public class EditPasswordActivity extends AppCompatActivity {
         if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
                 &&ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
                 && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleChangePasswordTeacher();
             observeTeacherChangeasswordDataViewModel(viewModel);
         } else {

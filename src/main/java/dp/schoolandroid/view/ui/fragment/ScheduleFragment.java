@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.databinding.FragmentScheduleBinding;
 import dp.schoolandroid.service.model.global.TeacherSchedule;
 import dp.schoolandroid.view.ui.activity.HomeActivity;
@@ -53,6 +54,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        SharedUtils.getInstance().showProgressDialog(getContext());
         final ScheduleFragmentViewModel viewModel = ViewModelProviders.of(this).get(ScheduleFragmentViewModel.class);
         observeViewModel(viewModel);
     }

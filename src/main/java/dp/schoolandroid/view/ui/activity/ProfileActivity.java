@@ -24,8 +24,16 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
+        setupToolbar();
         setUiData();
         initializePasswordConstraintLayout();
+    }
+
+    private void setupToolbar() {
+        binding.profileToolbar.setNavigationIcon(R.drawable.ic_action_back);
+        binding.profileToolbar.setNavigationOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void setUiData() {

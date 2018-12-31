@@ -13,6 +13,7 @@ import android.view.Window;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityParentLoginBinding;
 import dp.schoolandroid.viewmodel.ParentLoginActivityViewModel;
@@ -43,6 +44,7 @@ public class ParentLoginActivity extends AppCompatActivity {
     public void parentLogin(View view) {
         if (ValidationUtils.validateTexts(binding.parentPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)
                 && ValidationUtils.validateTexts(binding.parentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleloginParent();
             observeParentLoginDataViewModel(viewModel);
         } else {
@@ -71,6 +73,7 @@ public class ParentLoginActivity extends AppCompatActivity {
 
     public void forgetPasswordParentValidation(View view) {
         if (ValidationUtils.validateTexts(binding.parentPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleForgetPasswordParent();
             ObserverParentForgetPasswordViewModel(viewModel);
         } else {

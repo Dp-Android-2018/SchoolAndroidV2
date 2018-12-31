@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityForgetPasswordBinding;
 import dp.schoolandroid.viewmodel.ForgetPasswordViewModel;
@@ -59,6 +60,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     public void checkCode(View view) {
         if (ValidationUtils.validateTexts(binding.codeEditText.getText().toString(), ValidationUtils.TYPE_PHONE)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleCheckCode(membershipType, phoneNumber);
             observeCheckViewModel(viewModel);
         } else {

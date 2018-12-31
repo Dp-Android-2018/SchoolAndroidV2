@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.global.ContactInfoResponseModel;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.response.ContactUsResponse;
@@ -31,7 +32,10 @@ public class ContactUsRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).getContactInfoForTeacher(bearerToken, ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(contactUsResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(contactUsResponseResponse);
+                });
         return data;
     }
 

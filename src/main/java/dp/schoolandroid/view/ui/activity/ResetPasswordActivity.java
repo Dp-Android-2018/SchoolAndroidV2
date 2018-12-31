@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityResetPasswordBinding;
 import dp.schoolandroid.viewmodel.ResetPasswordActivityViewModel;
@@ -46,6 +47,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         if (ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
                 && ValidationUtils.validateTexts(binding.confirmNewPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
             if (binding.newPasswordEditText.getText().toString().equals(binding.confirmNewPasswordEditText.getText().toString())) {
+                SharedUtils.getInstance().showProgressDialog(this);
                 viewModel.handleConfirmPassword(membershipType, apiToken, phoneNumber);
                 observeCheckViewModel(viewModel);
             } else {

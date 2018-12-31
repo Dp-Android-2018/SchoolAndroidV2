@@ -5,6 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.ParentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -33,7 +34,10 @@ public class ParentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsParent(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, parentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(parentResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(parentResponseResponse);
+                });
         return data;
     }
 
@@ -44,7 +48,10 @@ public class ParentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordParent(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(forgetPasswordResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(forgetPasswordResponseResponse);
+                });
         return data;
     }
 

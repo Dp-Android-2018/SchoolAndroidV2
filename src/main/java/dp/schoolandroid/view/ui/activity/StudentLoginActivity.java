@@ -14,6 +14,7 @@ import android.view.Window;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityStudentLoginBinding;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -48,6 +49,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     public void checkDataValidation(View view) {
         if (ValidationUtils.validateTexts(binding.studentPhoneEditText.getText().toString(), ValidationUtils.TYPE_TEXT)
                 && ValidationUtils.validateTexts(binding.studentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleloginStudent();
             ObserverStudentLoginViewModel(viewModel);
         } else {
@@ -77,6 +79,7 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     public void forgetPasswordStudentValidation(View view) {
         if (ValidationUtils.validateTexts(binding.studentPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)) {
+            SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleFofgetPasswordStudent();
             ObserverStudentForgetPasswordViewModel(viewModel);
         } else {

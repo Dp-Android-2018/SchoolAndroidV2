@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
+import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.request.ChangePasswordRequest;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.TeacherRequest;
@@ -37,7 +38,10 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, teacherLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(teacherResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(teacherResponseResponse);
+                });
         return data;
     }
 
@@ -48,7 +52,10 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(forgetPasswordResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(forgetPasswordResponseResponse);
+                });
         return data;
     }
 
@@ -61,7 +68,10 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).changePasswordTeacher(bearerToken,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, changePasswordTeacherRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(forgetPasswordResponseResponse -> {
+                    SharedUtils.getInstance().cancelDialog();
+                    data.setValue(forgetPasswordResponseResponse);
+                });
         return data;
     }
 

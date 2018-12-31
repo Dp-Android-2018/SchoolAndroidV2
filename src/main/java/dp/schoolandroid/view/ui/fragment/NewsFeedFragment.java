@@ -1,6 +1,7 @@
 package dp.schoolandroid.view.ui.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,9 +21,13 @@ import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentNewsFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
+import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
 import dp.schoolandroid.view.ui.activity.HomeActivity;
+import dp.schoolandroid.view.ui.activity.MainActivity;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.BaseFragmentWithDataViewModel;
 import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
@@ -51,6 +56,7 @@ public class NewsFeedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        SharedUtils.getInstance().showProgressDialog(getContext());
         final NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
         observeViewModel(viewModel);
     }
@@ -59,6 +65,7 @@ public class NewsFeedFragment extends Fragment {
         viewModel.getData().observe(this, feedsResponseResponse -> {
             if (feedsResponseResponse != null) {
                 if (feedsResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                    SharedUtils.getInstance().cancelDialog();
                     if (feedsResponseResponse.body() != null) {
                         ArrayList<FeedModel> feedModels = feedsResponseResponse.body().getNewsFeedResponseData();
                         initializeRecyclerViewAdapter(feedModels);

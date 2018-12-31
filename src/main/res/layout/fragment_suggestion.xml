@@ -1,3 +1,6 @@
+<layout>
+
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,23 +9,44 @@
     android:layout_height="match_parent"
     tools:context="dp.schoolandroid.view.ui.activity.SuggestionActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/suggestionToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tb_collected_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/menu_suggestions"
+            android:textColor="@color/colorWhite"
+            android:textSize="17.7sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="55dp"
         android:background="@drawable/et_quiz_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/suggestionToolbar">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title"
-            android:paddingEnd="@dimen/dp5w"
             android:paddingStart="@dimen/dp10w"
             android:paddingTop="@dimen/dp5h"
+            android:paddingEnd="@dimen/dp5w"
             android:textColorHint="@color/colorBlack"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -91,3 +115,4 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 </android.support.constraint.ConstraintLayout>
+</layout>

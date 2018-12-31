@@ -2,9 +2,11 @@ package dp.schoolandroid.view.ui.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+
 import javax.inject.Inject;
+
 import dp.schoolandroid.view.ui.fragment.NewsFeedFragment;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.CustomUtils;
@@ -78,13 +84,27 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initializeDrawerandNavigationView() {
         drawer = binding.mainActivity;
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
+        ConstraintLayout content = binding.content;
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close) {
+            private float scaleFactor = 6f;
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                float slideX = drawerView.getWidth() * slideOffset;
+                content.setTranslationX(slideX);
+                content.setScaleX(1 - (slideOffset / scaleFactor));
+                content.setScaleY(1 - (slideOffset / scaleFactor));
+            }
+        };
+        drawer.setScrimColor(Color.TRANSPARENT);
+        drawer.setDrawerElevation(0f);
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView = binding.nv;
     }
 
     private void setNavigationItemSelectedListener() {
+        navigationView = binding.nv;
         navigationView.setNavigationItemSelectedListener(item -> {
             closeDrawer();
             makeActionOnNavigationItem(item.getItemId());
@@ -108,6 +128,9 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.menu_picture_gallery:
                 openIntent(PictureGalleryActivity.class);
+                break;
+            case R.id.menu_videos:
+                openIntent(VideosActivity.class);
                 break;
             case R.id.menu_suggestions:
                 openIntent(SuggestionActivity.class);

@@ -23,16 +23,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDMgu01yqga2ma844kZP5lUUNCdfCSjyE8" />
+
         <activity android:name=".view.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDMgu01yqga2ma844kZP5lUUNCdfCSjyE8"/>
         <activity android:name=".view.ui.activity.StudentLoginActivity" />
         <activity android:name=".view.ui.activity.ParentLoginActivity" />
         <activity android:name=".view.ui.activity.TeacherLoginActivity" />
@@ -43,20 +43,19 @@
         <activity android:name=".view.ui.activity.ConnectionErrorActivity" />
         <activity android:name=".view.ui.activity.ClassActivity" />
         <activity android:name=".view.ui.activity.CalendarActivity" />
-        <activity
-            android:name=".view.ui.activity.ChatActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".view.ui.activity.ChatActivity" />
         <activity android:name=".view.ui.activity.ParentHomeActivity" />
         <activity android:name=".view.ui.activity.ProfileActivity" />
         <activity android:name=".view.ui.activity.StudentsActivity" />
         <activity android:name=".view.ui.activity.StudentGradeActivity" />
         <activity android:name=".view.ui.activity.EditPasswordActivity" />
         <activity android:name=".view.ui.activity.ForgetPasswordActivity" />
-        <activity android:name=".view.ui.activity.ResetPasswordActivity"/>
+        <activity android:name=".view.ui.activity.ResetPasswordActivity" />
         <activity android:name=".view.ui.activity.AboutUsActivity" />
-        <activity android:name=".view.ui.activity.ContactUsActivity"/>
+        <activity android:name=".view.ui.activity.ContactUsActivity" />
         <activity android:name=".view.ui.activity.PictureGalleryActivity" />
         <activity android:name=".view.ui.activity.SuggestionActivity" />
+        <activity android:name=".view.ui.activity.VideosActivity" />
     </application>
 
 </manifest>

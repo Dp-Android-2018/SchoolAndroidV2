@@ -23,5 +23,13 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        binding.chatToolbar.setNavigationIcon(R.drawable.ic_action_back);
+        binding.chatToolbar.setNavigationOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 }
