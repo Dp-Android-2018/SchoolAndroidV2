@@ -9,6 +9,7 @@ import dp.schoolandroid.service.model.request.TeacherRequest;
 import dp.schoolandroid.service.model.response.ContactUsResponse;
 import dp.schoolandroid.service.model.response.FeedsResponse;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
+import dp.schoolandroid.service.model.response.GalleryResponse;
 import dp.schoolandroid.service.model.response.parentresponse.ParentResponse;
 import dp.schoolandroid.service.model.response.studentresponse.StudentResponse;
 import dp.schoolandroid.service.model.response.teacherresponse.TeacherResponse;
@@ -19,13 +20,21 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterfaces {
 
     //*********** Global endpoints *********
     @GET("/api/feed")
     Observable<Response<FeedsResponse>> getNewsFeed(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
+
+    @GET("/api/gallery")
+    Observable<Response<GalleryResponse>> getGallleryImages(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept,@Query("page") int pageNumber);
+
+    @GET("/api/gallery")
+    Observable<Response<GalleryResponse>> loadMoreGallleryImages(@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept,@Path("pageNumber") String pageNumber);
 
     //*********** Teacher endpoints *********
     @POST("/api/teacher/login")

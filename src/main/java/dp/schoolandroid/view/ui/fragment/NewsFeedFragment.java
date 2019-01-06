@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,6 @@ import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
 
 
 public class NewsFeedFragment extends Fragment {
-    NewsFeedRecyclerViewAdapter newsFeedRecyclerViewAdapter;
     FragmentNewsFeedBinding binding;
 
     @Inject
@@ -80,9 +80,11 @@ public class NewsFeedFragment extends Fragment {
     }
 
     private void initializeRecyclerViewAdapter(ArrayList<FeedModel> feedModels) {
-        newsFeedRecyclerViewAdapter = new NewsFeedRecyclerViewAdapter(feedModels);
+        NewsFeedRecyclerViewAdapter newsFeedRecyclerViewAdapter= new NewsFeedRecyclerViewAdapter(feedModels);
         binding.newsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
         binding.newsFeedRecyclerView.setAdapter(newsFeedRecyclerViewAdapter);
     }
+
+
 
 }

@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/tab_feeds"
+            android:text="@string/tab_home"
             android:textColor="@color/colorWhite"
             android:textSize="17.7sp"
             android:textStyle="bold" />

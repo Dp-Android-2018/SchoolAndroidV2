@@ -72,6 +72,7 @@ public class BaseFragmentWithData extends Fragment {
     private void setupCollapsingToolbarTitle() {
         binding.collapsingToolbar.setTitle(binding.tvTeacherName.getText().toString());
         binding.collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.colorWhite));
+        binding.collapsingToolbar.setCollapsedTitleGravity(View.TEXT_ALIGNMENT_CENTER);
         binding.collapsingToolbar.setExpandedTitleColor(View.INVISIBLE);
     }
 

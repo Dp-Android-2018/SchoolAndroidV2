@@ -13,7 +13,7 @@ public class ResponseData {
     @SerializedName("gender")
     private String gender;
 
-    @SerializedName("birth_date")
+    @SerializedName("birthday")
     private String birthDate;
 
     @SerializedName("api_token")

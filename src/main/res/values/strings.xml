@@ -35,7 +35,7 @@
     <string name="hint_code" translatable="false">Code</string>
     <string name="msg_have_sms">You have a sms message on this number</string>
     <string name="title_students">Students</string>
-    <string name="tab_feeds">Feeds</string>
+    <string name="tab_feeds">News Feed</string>
     <string name="tab_schedule">Schedule</string>
     <string name="tab_home">Home</string>
     <string name="tab_top_student">Student</string>
@@ -110,7 +110,7 @@
     <string name="item_1" translatable="false">Home</string>
     <string name="item_2" translatable="false">Schedule</string>
     <string name="item_3" translatable="false">Top Student</string>
-    <string name="item_4" translatable="false">Feeds</string>
+    <string name="item_4" translatable="false">News Feed</string>
     <string name="picker" translatable="false">picker</string>
     <string name="explode_java" translatable="false">Explode java</string>
     <string name="title" translatable="false">Title</string>
@@ -140,5 +140,6 @@
     <string name="menu_logout" translatable="false">LogOut</string>
     <string name="menu_home" translatable="false">Home</string>
     <string name="mohamed_said_mail" translatable="false">mohamed_said250@yahoo.com</string>
+    <string name="tt">TODO</string>
 
 </resources>

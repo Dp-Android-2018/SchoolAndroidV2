@@ -17,7 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -54,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private Fragment selectedFragment;
+    private CustomUtils customUtils;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -69,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initializeViewModel() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        customUtils = new CustomUtils(getApplication());
     }
 
     private void setupDaggerFragmentComponent() {
@@ -76,7 +82,6 @@ public class HomeActivity extends AppCompatActivity {
         component.inject(this);
     }
 
-    //this function is to setup navigetion drawer
     public void setNavigationDrawer() {
         initializeDrawerandNavigationView();
         setNavigationItemSelectedListener();
@@ -104,12 +109,22 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setNavigationItemSelectedListener() {
-        navigationView = binding.nv;
-        navigationView.setNavigationItemSelectedListener(item -> {
+        setupHeaderData();
+        binding.nv.setNavigationItemSelectedListener(item -> {
             closeDrawer();
             makeActionOnNavigationItem(item.getItemId());
             return true;
         });
+    }
+
+    private void setupHeaderData() {
+        View header = binding.nv.getHeaderView(0);
+        ImageView teacherPhoto= (ImageView) header.findViewById(R.id.student_photo);
+        Picasso.get().load(customUtils.getSavedTeacherData().getTeacherData().getImage()).into(teacherPhoto);
+        TextView teacherName = (TextView) header.findViewById(R.id.tv_teacher_name);
+        teacherName.setText(customUtils.getSavedTeacherData().getTeacherData().getName());
+        TextView teacherMail = (TextView) header.findViewById(R.id.tv_teacher_email);
+        teacherMail.setText(customUtils.getSavedTeacherData().getTeacherData().getEmail());
     }
 
     private void makeActionOnNavigationItem(int itemId) {
@@ -156,7 +171,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void clearSharedPreferences() {
-        CustomUtils customUtils = new CustomUtils(getApplication());
         customUtils.clearSharedPref();
     }
 
@@ -194,16 +208,13 @@ public class HomeActivity extends AppCompatActivity {
     private void setSelectedFragment(int itemId) {
         switch (itemId) {
             case R.id.action_item1:
-                selectedFragment = baseFragmentWithData;
+                selectedFragment = newsFeedFragment;
                 break;
             case R.id.action_item2:
                 selectedFragment = scheduleFragment;
                 break;
             case R.id.action_item3:
                 selectedFragment = topStudentFragment;
-                break;
-            case R.id.action_item4:
-                selectedFragment = newsFeedFragment;
                 break;
         }
 
@@ -217,7 +228,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void manuallyDisplayFirstFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, baseFragmentWithData);
+        transaction.replace(R.id.frame_layout, newsFeedFragment);
         transaction.commit();
     }
 }
