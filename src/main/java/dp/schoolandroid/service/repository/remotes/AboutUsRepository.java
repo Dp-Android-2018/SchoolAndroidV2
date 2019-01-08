@@ -7,29 +7,26 @@ import android.arch.lifecycle.MutableLiveData;
 
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
-import dp.schoolandroid.Utility.utils.SharedUtils;
-import dp.schoolandroid.service.model.global.ContactInfoResponseModel;
-import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
+import dp.schoolandroid.service.model.response.AboutUsResponse;
 import dp.schoolandroid.service.model.response.ContactUsResponse;
-import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class ContactUsRepository {
+public class AboutUsRepository {
     private String bearerToken;
 
-    private static ContactUsRepository instance;
+    private static AboutUsRepository instance;
 
-    public static ContactUsRepository getInstance() {
-        return new ContactUsRepository();
+    public static AboutUsRepository getInstance() {
+        return new AboutUsRepository();
     }
 
     @SuppressLint("CheckResult")
-    public LiveData<Response<ContactUsResponse>> getContactInfoForTeacher(final Application application) {
+    public LiveData<Response<AboutUsResponse>> getAboutUsInfo(final Application application) {
         setBearerToken(application);
-        final MutableLiveData<Response<ContactUsResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).getContactInfoForTeacher(ConfigurationFile.Constants.API_KEY,bearerToken, ConfigurationFile.Constants.CONTENT_TYPE,
+        final MutableLiveData<Response<AboutUsResponse>> data = new MutableLiveData<>();
+        GetApiInterfaces.getInstance().getApiInterfaces(application).getAboutUsData(ConfigurationFile.Constants.API_KEY,bearerToken, ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data::setValue);

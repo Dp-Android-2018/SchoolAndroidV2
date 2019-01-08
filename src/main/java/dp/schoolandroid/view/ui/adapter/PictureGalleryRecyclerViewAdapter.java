@@ -2,24 +2,20 @@ package dp.schoolandroid.view.ui.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
 import dp.schoolandroid.R;
-import dp.schoolandroid.databinding.ItemFeedBinding;
 import dp.schoolandroid.databinding.ItemPictureLayoutBinding;
-import dp.schoolandroid.service.model.global.FeedModel;
-import dp.schoolandroid.view.ui.viewholder.NewsFeedViewHolder;
 import dp.schoolandroid.view.ui.viewholder.PictureGalleryViewHolder;
 
 public class PictureGalleryRecyclerViewAdapter extends RecyclerView.Adapter<PictureGalleryViewHolder> {
-    private ArrayList<String> pageImages;
+    private List<String> pageImages;
 
-    public PictureGalleryRecyclerViewAdapter(ArrayList<String> pageImages) {
-        this.pageImages=pageImages;
+    public PictureGalleryRecyclerViewAdapter() {
     }
 
     @NonNull
@@ -41,5 +37,9 @@ public class PictureGalleryRecyclerViewAdapter extends RecyclerView.Adapter<Pict
         }else {
             return 0;
         }
+    }
+
+    public void setPageImages(List<String> pageImages) {
+        this.pageImages = pageImages;
     }
 }

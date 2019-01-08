@@ -31,7 +31,7 @@ public class ParentLoginRepository {
     public LiveData<Response<ParentResponse>> loginAsParent(final Application application, String phone, String password) {
         final MutableLiveData<Response<ParentResponse>> data = new MutableLiveData<>();
         ParentRequest parentLoginRequest = getParenttLoginRequest(phone, password);
-        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsParent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, parentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(parentResponseResponse -> {
@@ -45,7 +45,7 @@ public class ParentLoginRepository {
     public LiveData<Response<ForgetPasswordResponse>> forgetPasswordParent(final Application application, final String phoneNumber) {
         ForgetPasswordRequest forgetPasswordRequest = getParentPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordParent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {

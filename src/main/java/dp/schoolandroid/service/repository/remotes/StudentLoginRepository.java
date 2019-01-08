@@ -31,7 +31,7 @@ public class StudentLoginRepository {
     public LiveData<Response<StudentResponse>> loginAsStudent(final Application application, String ssn, String password) {
         final MutableLiveData<Response<StudentResponse>> data = new MutableLiveData<>();
         StudentRequest studentLoginRequest = getStudentLoginRequest(ssn, password);
-        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, studentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(studentResponseResponse -> {
@@ -46,7 +46,7 @@ public class StudentLoginRepository {
 
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {

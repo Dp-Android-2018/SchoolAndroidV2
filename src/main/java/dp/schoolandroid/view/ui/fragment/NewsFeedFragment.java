@@ -1,5 +1,6 @@
 package dp.schoolandroid.view.ui.fragment;
 
+import android.app.Application;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -17,11 +18,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentNewsFeedBinding;
@@ -72,11 +75,24 @@ public class NewsFeedFragment extends Fragment {
                     } else {
                         Snackbar.make(binding.getRoot(), R.string.no_classes, Snackbar.LENGTH_SHORT).show();
                     }
-                } else {
-                    Snackbar.make(binding.getRoot(), R.string.error_code + feedsResponseResponse.code(), Snackbar.LENGTH_SHORT).show();
+                } else if (feedsResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                    SharedUtils.getInstance().cancelDialog();
+                    logout();
                 }
             }
         });
+    }
+
+    private void logout() {
+        clearSharedPreferences();
+        Intent intent=new Intent(getContext(),MainActivity.class);
+        startActivity(intent);
+        Objects.requireNonNull(getActivity()).finish();
+    }
+
+    private void clearSharedPreferences() {
+        CustomUtils customUtils = new CustomUtils(Objects.requireNonNull(getActivity()).getApplication());
+        customUtils.clearSharedPref();
     }
 
     private void initializeRecyclerViewAdapter(ArrayList<FeedModel> feedModels) {

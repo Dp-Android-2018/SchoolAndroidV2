@@ -1,54 +1,38 @@
 package dp.schoolandroid.view.ui.activity;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.TextUtils;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import java.util.ArrayList;
-
+import java.util.List;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
+import dp.schoolandroid.Utility.utils.GridSpacingItemDecoration;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.databinding.FragmentPictureGalleryBinding;
-import dp.schoolandroid.service.model.global.FeedModel;
-import dp.schoolandroid.service.model.global.LinksModel;
-import dp.schoolandroid.service.model.global.MetaDataModel;
-import dp.schoolandroid.service.model.response.GalleryResponse;
-import dp.schoolandroid.service.repository.remotes.PictureGalleryRepository;
-import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.view.ui.adapter.PictureGalleryRecyclerViewAdapter;
-import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
 import dp.schoolandroid.viewmodel.PictureGalleryViewModel;
-import retrofit2.Response;
 
 
 public class PictureGalleryActivity extends AppCompatActivity {
 
     FragmentPictureGalleryBinding binding;
     PictureGalleryViewModel viewModel;
-    private int visibleThreshold = 5;
+    private String pageId = ConfigurationFile.Constants.PAGE_ID;
+    PictureGalleryRecyclerViewAdapter pictureGalleryRecyclerViewAdapter;
+    private List<String> pageImagesList;
+    private String nextPageUrl = null;
+    private boolean isLoading = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -58,10 +42,17 @@ public class PictureGalleryActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.fragment_picture_gallery);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupToolbar();
+        initVariables();
         SharedUtils.getInstance().showProgressDialog(this);
         viewModel = ViewModelProviders.of(this).get(PictureGalleryViewModel.class);
         viewModel.executeGetImages(1);
         observeViewModel(viewModel);
+        initializeRecyclerViewAdapter();
+    }
+
+    public void initVariables() {
+        pageImagesList = new ArrayList<>();
+        pictureGalleryRecyclerViewAdapter = new PictureGalleryRecyclerViewAdapter();
     }
 
     private void setupToolbar() {
@@ -76,29 +67,72 @@ public class PictureGalleryActivity extends AppCompatActivity {
             if (galleryResponseResponse != null) {
                 if (galleryResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     SharedUtils.getInstance().cancelDialog();
-                    if (galleryResponseResponse.body() != null) {
-                        ArrayList<String> pageImages = galleryResponseResponse.body().getPageImages();
-                        MetaDataModel metaData = galleryResponseResponse.body().getMetaData();
-                        initializeRecyclerViewAdapter(pageImages,metaData);
-                    } else {
-                        Snackbar.make(binding.getRoot(), R.string.no_classes, Snackbar.LENGTH_SHORT).show();
+                    if (pageId.equals(ConfigurationFile.Constants.PAGE_ID)) {
+                        resetRecyclerViewAdapter();
                     }
-                } else {
-                    Snackbar.make(binding.getRoot(), R.string.error_code + galleryResponseResponse.code(), Snackbar.LENGTH_SHORT).show();
+                    if (galleryResponseResponse.body() != null) {
+                        if (!TextUtils.isEmpty(galleryResponseResponse.body().getPageLinks().getNextPageLink())) {
+                            nextPageUrl = galleryResponseResponse.body().getPageLinks().getNextPageLink();
+                            pageId = nextPageUrl.substring(nextPageUrl.length() - 1);
+                        } else {
+                            nextPageUrl = null;
+                        }
+                    }
+                    isLoading = false;
+                    if (galleryResponseResponse.body() != null) {
+                        pageImagesList.addAll(galleryResponseResponse.body().getPageImages());
+                    }
+                    pictureGalleryRecyclerViewAdapter.notifyDataSetChanged();
+                }else if (galleryResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                    SharedUtils.getInstance().cancelDialog();
+                    logout();
                 }
             }
         });
     }
 
-    private void initializeRecyclerViewAdapter(ArrayList<String> pageImages,MetaDataModel metaData) {
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 2);
-        binding.rvPicture.setLayoutManager(mGridLayoutManager);
-        PictureGalleryRecyclerViewAdapter pictureGalleryRecyclerViewAdapter = new PictureGalleryRecyclerViewAdapter(pageImages);
-        binding.rvPicture.setAdapter(pictureGalleryRecyclerViewAdapter);
-        makeScrollListenerOnRecyclerView(metaData,pageImages);
+    private void logout() {
+        clearSharedPreferences();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
-    private void makeScrollListenerOnRecyclerView(MetaDataModel metaData, ArrayList<String> pageImages) {
-        binding.rvPicture.addOnScrollListener(PictureGalleryRepository.getInstance().onScrollListener(getApplication(),metaData,pageImages));
+    private void clearSharedPreferences() {
+        CustomUtils customUtils = new CustomUtils(this.getApplication());
+        customUtils.clearSharedPref();
+    }
+    private void resetRecyclerViewAdapter() {
+        pageImagesList.clear();
+        pictureGalleryRecyclerViewAdapter.setPageImages(pageImagesList);
+        binding.rvPicture.setAdapter(pictureGalleryRecyclerViewAdapter);
+    }
+
+    private void initializeRecyclerViewAdapter() {
+        int spanCount = 3;
+        int spacing =16;
+        binding.rvPicture.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
+        binding.rvPicture.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.rvPicture.addOnScrollListener(onScrollListener());
+        pictureGalleryRecyclerViewAdapter.setPageImages(pageImagesList);
+        binding.rvPicture.setAdapter(pictureGalleryRecyclerViewAdapter);
+    }
+
+    public RecyclerView.OnScrollListener onScrollListener() {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (((GridLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() == (pageImagesList.size() - 1)) {
+                    if (!TextUtils.isEmpty(nextPageUrl) && !isLoading) {
+                        isLoading = true;
+                        viewModel.executeGetImages(Integer.parseInt(pageId));
+                        observeViewModel(viewModel);
+                    }
+                }
+            }
+        };
     }
 }
+
+

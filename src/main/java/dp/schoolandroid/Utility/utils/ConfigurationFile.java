@@ -41,7 +41,9 @@ public class ConfigurationFile {
         public static final String BEARER = "Bearer ";
         public static final String TYPE = "TYPE";
         public static final String DATA = "DATA";
+            public static final String PAGE_ID = "0";
         public static final int SUCCESS_CODE = 200;
+        public static final int UNAUTHANTICATED_CODE = 401;
         public static final int TEACHER_ACTIVITY_CODE = 1;
         public static final int PARENT_ACTIVITY_CODE = 2;
         public static final int STUDENT_ACTIVITY_CODE = 3;

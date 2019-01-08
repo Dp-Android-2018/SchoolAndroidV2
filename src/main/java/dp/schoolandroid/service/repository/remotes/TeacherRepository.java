@@ -35,7 +35,7 @@ public class TeacherRepository {
     public LiveData<Response<TeacherResponse>> loginAsTeacher(final Application application, String phoneNumber, String password) {
         TeacherRequest teacherLoginRequest = getTeacherLoginRequest(phoneNumber, password);
         final MutableLiveData<Response<TeacherResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, teacherLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(teacherResponseResponse -> {
@@ -49,7 +49,7 @@ public class TeacherRepository {
     public LiveData<Response<ForgetPasswordResponse>> forgetPasswordTeacher(final Application application, final String phoneNumber) {
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {
@@ -65,7 +65,7 @@ public class TeacherRepository {
         setBearerToken(application);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
         ChangePasswordRequest changePasswordTeacherRequest = getTeacherChangePasswordRequest(oldPassword,newPassword,newPasswordConfirmation);
-        GetApiInterfaces.getInstance().getApiInterfaces(application).changePasswordTeacher(bearerToken,ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).changePasswordTeacher(ConfigurationFile.Constants.API_KEY,bearerToken,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, changePasswordTeacherRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {

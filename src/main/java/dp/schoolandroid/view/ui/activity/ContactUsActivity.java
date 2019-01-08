@@ -26,8 +26,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.databinding.FragmentContactUsBinding;
@@ -71,15 +74,29 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
         viewModel.getData().observe(this, contactInfoResponseModelResponse -> {
             if (contactInfoResponseModelResponse != null) {
                 if (contactInfoResponseModelResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                    SharedUtils.getInstance().cancelDialog();
                     if (contactInfoResponseModelResponse.body() != null) {
                         contactInfoResponseModel = contactInfoResponseModelResponse.body().getContactInfo();
                         initializeUiWithData();
                     }
-                } else {
-                    Snackbar.make(binding.getRoot(), R.string.error, Snackbar.LENGTH_SHORT).show();
+                } else if (contactInfoResponseModelResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                    SharedUtils.getInstance().cancelDialog();
+                    logout();
                 }
             }
         });
+    }
+
+    private void logout() {
+        clearSharedPreferences();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void clearSharedPreferences() {
+        CustomUtils customUtils = new CustomUtils(this.getApplication());
+        customUtils.clearSharedPref();
     }
 
     private void initializeUiWithData() {

@@ -28,13 +28,10 @@ public class TeacherGetScheduleRepository {
     public LiveData<Response<TeacherScheduleResponse>> getTeacherSchedule(final Application application) {
         setBearerToken(application);
         final MutableLiveData<Response<TeacherScheduleResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).getTeacherSchedule(bearerToken,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).getTeacherSchedule(ConfigurationFile.Constants.API_KEY,bearerToken,
                 ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(teacherScheduleResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(teacherScheduleResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 

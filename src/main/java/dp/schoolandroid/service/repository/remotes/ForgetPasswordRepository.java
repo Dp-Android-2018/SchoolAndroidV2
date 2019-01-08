@@ -41,7 +41,7 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenTeacher(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenTeacher(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {
@@ -55,7 +55,7 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenParent(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenParent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {
@@ -69,7 +69,7 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenStudent(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenStudent(ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(forgetPasswordResponseResponse -> {
