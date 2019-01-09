@@ -23,12 +23,22 @@ public class EditPasswordActivity extends AppCompatActivity {
 
     ActivityEditPasswordBinding binding;
     EditPasswordViewModel viewModel;
+    private String memberType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_password);
+        memberType = getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
+        setupToolbar();
         initializingViewModel();
+    }
+
+    private void setupToolbar() {
+        binding.profileToolbar.setNavigationIcon(R.drawable.ic_action_back);
+        binding.profileToolbar.setNavigationOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void initializingViewModel() {
@@ -37,20 +47,41 @@ public class EditPasswordActivity extends AppCompatActivity {
     }
 
     public void sendToChangePassword(View view) {
+        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)) {
+            changePasswordTeacher();
+        } else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)) {
+            changePasswordStudent();
+        }
+    }
+
+    private void changePasswordTeacher() {
         if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                &&ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
                 && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
             SharedUtils.getInstance().showProgressDialog(this);
             viewModel.handleChangePasswordTeacher();
-            observeTeacherChangeasswordDataViewModel(viewModel);
+            observeChangeasswordDataViewModel(viewModel);
         } else {
             Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private void observeTeacherChangeasswordDataViewModel(EditPasswordViewModel viewModel) {
+    private void changePasswordStudent() {
+        if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+            SharedUtils.getInstance().showProgressDialog(this);
+            viewModel.handleChangePasswordStudent();
+            observeChangeasswordDataViewModel(viewModel);
+        } else {
+            Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    private void observeChangeasswordDataViewModel(EditPasswordViewModel viewModel) {
         viewModel.getChangePasswordResponseLiveData().observe(this, forgetPasswordResponseResponse -> {
             if (forgetPasswordResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     if (forgetPasswordResponseResponse.body() != null) {
                         Snackbar.make(binding.getRoot(), forgetPasswordResponseResponse.body().getForgetPasswordResponseMessage(), Snackbar.LENGTH_LONG).show();

@@ -13,8 +13,7 @@ import javax.inject.Inject;
 
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.FragmentTopStudentBinding;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
-import dp.schoolandroid.viewmodel.MyCustomBarViewModel;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 
 public class TopStudentFragment extends Fragment {
     FragmentTopStudentBinding binding;
@@ -33,6 +32,6 @@ public class TopStudentFragment extends Fragment {
 
     private void setupToolbar() {
         binding.topStudentFragmentToolbar.setNavigationIcon(R.drawable.ic_action_menu);
-        binding.topStudentFragmentToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
+        binding.topStudentFragmentToolbar.setNavigationOnClickListener(v -> TeacherHomeActivity.drawer.openDrawer(GravityCompat.START));
     }
 }

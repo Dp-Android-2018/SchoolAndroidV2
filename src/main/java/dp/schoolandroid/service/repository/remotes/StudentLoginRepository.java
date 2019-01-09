@@ -5,7 +5,9 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.service.model.request.ChangePasswordRequest;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
@@ -15,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class StudentLoginRepository {
+    private String bearerToken;
     private static StudentLoginRepository instance;
 
     private StudentLoginRepository() {
@@ -34,10 +37,7 @@ public class StudentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, studentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(studentResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(studentResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -49,11 +49,29 @@ public class StudentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public LiveData<Response<ForgetPasswordResponse>> changePasswordStudent(final Application application
+            , final String oldPassword, final String newPassword, final String newPasswordConfirmation) {
+        setBearerToken(application);
+        final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
+        ChangePasswordRequest changePasswordStudentRequest = getStudentChangePasswordRequest(oldPassword,newPassword,newPasswordConfirmation);
+        GetApiInterfaces.getInstance().getApiInterfaces(application).changePasswordTeacher(ConfigurationFile.Constants.API_KEY,bearerToken,ConfigurationFile.Constants.CONTENT_TYPE,
+                ConfigurationFile.Constants.ACCEPT, changePasswordStudentRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data::setValue);
+        return data;
+    }
+
+    private ChangePasswordRequest getStudentChangePasswordRequest(String oldPassword, String newPassword, String newPasswordConfirmation) {
+        ChangePasswordRequest changePasswordRequest=new ChangePasswordRequest();
+        changePasswordRequest.setOldPassword(oldPassword);
+        changePasswordRequest.setNewPassword(newPassword);
+        changePasswordRequest.setNewPasswordConfirmation(newPasswordConfirmation);
+        return changePasswordRequest;
     }
 
     private ForgetPasswordRequest getStudentPasswordRequest(String phoneNumber) {
@@ -67,5 +85,10 @@ public class StudentLoginRepository {
         studentLoginRequest.setStudentSSN(ssn);
         studentLoginRequest.setStudentPassword(password);
         return studentLoginRequest;
+    }
+
+    private void setBearerToken(Application application) {
+        CustomUtils customUtils=new CustomUtils(application);
+        this.bearerToken = ConfigurationFile.Constants.BEARER+customUtils.getSavedTeacherData().getTeacherData().getApiToken();
     }
 }

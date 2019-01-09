@@ -113,7 +113,6 @@
     <string name="item_4" translatable="false">News Feed</string>
     <string name="picker" translatable="false">picker</string>
     <string name="explode_java" translatable="false">Explode java</string>
-    <string name="title" translatable="false">Title</string>
     <string name="Open" translatable="false">open</string>
     <string name="Close" translatable="false">close</string>
     <string name="base_url" translatable="false">http://dp-itc.com:4322</string>
@@ -121,6 +120,7 @@
     <string name="mohammed_said" translatable="false">mohammed_said</string>
     <string name="on_this_number" translatable="false">on this number </string>
     <string name="error_phone_or_password" translatable="false">Error Phone or Password</string>
+    <string name="error_title_or_describtion" translatable="false">Title or Describtion is Empty !</string>
     <string name="error" translatable="false">Error :</string>
     <string name="error_phone_number" translatable="false">Error Phone number</string>
     <string name="error_password" translatable="false">Password must be at min 6 characters</string>
@@ -140,6 +140,14 @@
     <string name="menu_logout" translatable="false">LogOut</string>
     <string name="menu_home" translatable="false">Home</string>
     <string name="mohamed_said_mail" translatable="false">mohamed_said250@yahoo.com</string>
-    <string name="tt">TODO</string>
+    <string name="tt" translatable="false">TODO</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="suggesstion_headline" translatable="false">Suggesstion Headline</string>
+    <string name="description" translatable="false">Description</string>
+    <string name="suggestion_description" translatable="false">Suggestion Description</string>
+    <string name="change_password" translatable="false">Change Password</string>
+    <string name="starts" translatable="false">*******</string>
+    <string name="must_have_8_character" translatable="false">Must have 8 character</string>
+    <string name="should_be_same_password" translatable="false">Should be same password</string>
 
 </resources>

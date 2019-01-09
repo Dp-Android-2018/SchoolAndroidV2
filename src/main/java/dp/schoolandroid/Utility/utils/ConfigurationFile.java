@@ -41,12 +41,16 @@ public class ConfigurationFile {
         public static final String BEARER = "Bearer ";
         public static final String TYPE = "TYPE";
         public static final String DATA = "DATA";
+        public static final String MEMBER_Key = "MEMBER";
+        public static final String STUDENT_Key_VALUE = "2";
+        public static final String TEACHER_Key_VALUE = "1";
             public static final String PAGE_ID = "0";
         public static final int SUCCESS_CODE = 200;
         public static final int UNAUTHANTICATED_CODE = 401;
         public static final int TEACHER_ACTIVITY_CODE = 1;
         public static final int PARENT_ACTIVITY_CODE = 2;
         public static final int STUDENT_ACTIVITY_CODE = 3;
+        public static final String STUDENT_PHONE_NUMBER_MESSAGE = "Your phone Number :)";
         public static final int SUCCESS_CODE_SECOND = 201;
         public static final int INVALED_DATA_CODE = 422;
         public static final int INVALED_EMAIL_PASSWORD = 401;

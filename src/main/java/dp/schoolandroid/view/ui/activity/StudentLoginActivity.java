@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
@@ -62,8 +63,12 @@ public class StudentLoginActivity extends AppCompatActivity {
             LiveData<Response<StudentResponse>> studentLoginResponseLiveData = viewModel.getStudentLoginResponseLiveData();
             studentLoginResponseLiveData.observe(this, studentResponseResponse -> {
                 if (studentResponseResponse != null) {
+                    SharedUtils.getInstance().cancelDialog();
                     if (studentResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                         moveToHomeActivity();
+                        if (studentResponseResponse.body() != null) {
+                            saveStudentDataToSharedPreferences(studentResponseResponse.body());
+                        }
                     }else {
                         Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                     }
@@ -71,8 +76,15 @@ public class StudentLoginActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void saveStudentDataToSharedPreferences(StudentResponse body) {
+        CustomUtils customUtils = new CustomUtils(getApplication());
+        customUtils.clearSharedPref();
+        customUtils.saveStudentDataToPrefs(body);
+    }
+
     private void moveToHomeActivity() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, StudentHomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -92,6 +104,7 @@ public class StudentLoginActivity extends AppCompatActivity {
             LiveData<Response<ForgetPasswordResponse>> studentLoginResponseLiveData = viewModel.getForgetPasswordResponseLiveData();
             studentLoginResponseLiveData.observe(this, forgetPasswordResponseResponse -> {
                 if (forgetPasswordResponseResponse != null) {
+                    SharedUtils.getInstance().cancelDialog();
                     if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                         moveToPasswordActivity();
                     } else {
@@ -105,7 +118,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void moveToPasswordActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE);
-        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, "Your phone Number :)");
+        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, ConfigurationFile.Constants.STUDENT_PHONE_NUMBER_MESSAGE);
         startActivity(intent);
         finish();
     }

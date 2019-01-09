@@ -14,7 +14,10 @@ public class ResponseData {
     private String gender;
 
     @SerializedName("birthday")
-    private String birthDate;
+    private String teacherBirthDate;
+
+    @SerializedName("birth_date")
+    private String studentBirthDate;
 
     @SerializedName("api_token")
     private String apiToken;
@@ -73,12 +76,20 @@ public class ResponseData {
         return gender;
     }
 
-    public void setBirthDate(String birthDate){
-        this.birthDate = birthDate;
+    public String getTeacherBirthDate() {
+        return teacherBirthDate;
     }
 
-    public String getBirthDate(){
-        return birthDate;
+    public void setTeacherBirthDate(String teacherBirthDate) {
+        this.teacherBirthDate = teacherBirthDate;
+    }
+
+    public String getStudentBirthDate() {
+        return studentBirthDate;
+    }
+
+    public void setStudentBirthDate(String studentBirthDate) {
+        this.studentBirthDate = studentBirthDate;
     }
 
     public void setApiToken(String apiToken){

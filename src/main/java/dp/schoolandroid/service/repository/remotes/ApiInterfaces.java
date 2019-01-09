@@ -5,6 +5,7 @@ import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.request.ParentRequest;
 import dp.schoolandroid.service.model.request.ResetPasswordRequest;
 import dp.schoolandroid.service.model.request.StudentRequest;
+import dp.schoolandroid.service.model.request.SuggestionRequest;
 import dp.schoolandroid.service.model.request.TeacherRequest;
 import dp.schoolandroid.service.model.response.AboutUsResponse;
 import dp.schoolandroid.service.model.response.ContactUsResponse;
@@ -41,6 +42,9 @@ public interface ApiInterfaces {
     @GET("/api/about-us")
     Observable<Response<AboutUsResponse>> getAboutUsData(@Header("x-api-key") String xApiKey, @Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept);
 
+    @POST("/api/suggest")
+    Observable<Response<AboutUsResponse>> createNewSuggestion(@Header("x-api-key") String xApiKey, @Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept, @Body SuggestionRequest suggestionRequest);
+
     //*********** Teacher endpoints *********
     @POST("/api/teacher/login")
     Observable<Response<TeacherResponse>> loginAsTeacher(@Header("x-api-key") String xApiKey,@Header("Content-Type") String contentType, @Header("Accept") String accept, @Body TeacherRequest teacherLoginRequest);
@@ -75,6 +79,9 @@ public interface ApiInterfaces {
 
     @POST("/api/student/forget/reset/{token}")
     Observable<Response<ForgetPasswordResponse>> resetPasswordStudent(@Header("x-api-key") String xApiKey,@Header("Content-Type") String contentType, @Header("Accept") String accept, @Path("token") String token, @Body ResetPasswordRequest resetPasswordRequest);
+
+    @POST("/api/student/change-password")
+    Observable<Response<ForgetPasswordResponse>> changePasswordStudent(@Header("x-api-key") String xApiKey,@Header("Authorization") String authorization, @Header("Content-Type") String contentType, @Header("Accept") String accept, @Body ChangePasswordRequest changePasswordRequest);
 
     //*********** Parent endpoints *********
     @POST("/api/parent/login")

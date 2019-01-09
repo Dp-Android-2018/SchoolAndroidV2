@@ -18,21 +18,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-import dp.schoolandroid.view.ui.fragment.NewsFeedFragment;
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.databinding.ActivityHomeBinding;
 import dp.schoolandroid.di.component.DaggerFragmentComponent;
 import dp.schoolandroid.di.component.FragmentComponent;
 import dp.schoolandroid.view.ui.fragment.BaseFragmentWithData;
+import dp.schoolandroid.view.ui.fragment.NewsFeedFragment;
 import dp.schoolandroid.view.ui.fragment.ScheduleFragment;
 import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
 
@@ -42,10 +42,8 @@ import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
  * make actions when clicking on Bottom navigation view
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class StudentHomeActivity extends AppCompatActivity {
 
-    @Inject
-    BaseFragmentWithData baseFragmentWithData;
     @Inject
     ScheduleFragment scheduleFragment;
     @Inject
@@ -59,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Fragment selectedFragment;
     private CustomUtils customUtils;
+    private String memberType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -120,17 +119,17 @@ public class HomeActivity extends AppCompatActivity {
     private void setupHeaderData() {
         View header = binding.nv.getHeaderView(0);
         ImageView teacherPhoto= (ImageView) header.findViewById(R.id.student_photo);
-        Picasso.get().load(customUtils.getSavedTeacherData().getTeacherData().getImage()).into(teacherPhoto);
+        Picasso.get().load(customUtils.getSavedStudentData().getStudentResponseData().getImage()).into(teacherPhoto);
         TextView teacherName = (TextView) header.findViewById(R.id.tv_teacher_name);
-        teacherName.setText(customUtils.getSavedTeacherData().getTeacherData().getName());
+        teacherName.setText(customUtils.getSavedStudentData().getStudentResponseData().getName());
         TextView teacherMail = (TextView) header.findViewById(R.id.tv_teacher_email);
-        teacherMail.setText(customUtils.getSavedTeacherData().getTeacherData().getEmail());
+        teacherMail.setText(customUtils.getSavedStudentData().getStudentResponseData().getEmail());
     }
 
     private void makeActionOnNavigationItem(int itemId) {
         switch (itemId) {
             case R.id.menu_home:
-                openIntent(HomeActivity.class);
+                openIntent(StudentHomeActivity.class);
                 break;
             case R.id.menu_edit_profile:
                 openIntent(ProfileActivity.class);
@@ -160,7 +159,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void openIntent(Class activityClass) {
-        Intent intent = new Intent(HomeActivity.this, activityClass);
+        Intent intent = new Intent(StudentHomeActivity.this, activityClass);
+        intent.putExtra(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.STUDENT_Key_VALUE);
         startActivity(intent);
     }
 
@@ -208,16 +208,23 @@ public class HomeActivity extends AppCompatActivity {
     private void setSelectedFragment(int itemId) {
         switch (itemId) {
             case R.id.action_item1:
-                selectedFragment = newsFeedFragment;
+                setFragmentBundleData(newsFeedFragment);
                 break;
             case R.id.action_item2:
-                selectedFragment = scheduleFragment;
+                setFragmentBundleData(scheduleFragment);
                 break;
             case R.id.action_item3:
-                selectedFragment = topStudentFragment;
+                setFragmentBundleData(topStudentFragment);
                 break;
         }
 
+    }
+
+    private void setFragmentBundleData(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, ConfigurationFile.Constants.STUDENT_Key_VALUE);
+        fragment.setArguments(bundle);
+        selectedFragment = fragment;
     }
 
     private void openSelectedFragment() {
@@ -227,6 +234,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void manuallyDisplayFirstFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, ConfigurationFile.Constants.STUDENT_Key_VALUE);
+        newsFeedFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, newsFeedFragment);
         transaction.commit();

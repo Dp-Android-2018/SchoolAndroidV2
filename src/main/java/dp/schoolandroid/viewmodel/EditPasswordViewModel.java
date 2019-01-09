@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
+import dp.schoolandroid.service.repository.remotes.StudentLoginRepository;
 import dp.schoolandroid.service.repository.remotes.TeacherRepository;
 import retrofit2.Response;
 
@@ -31,6 +32,10 @@ public class EditPasswordViewModel extends AndroidViewModel {
 
     public void handleChangePasswordTeacher(){
         changePasswordResponseLiveData=TeacherRepository.getInstance().changePasswordTeacher(application,oldPassword.get(),newPassword.get(),newPasswordConfirmation.get());
+    }
+
+    public void handleChangePasswordStudent(){
+        changePasswordResponseLiveData=StudentLoginRepository.getInstance().changePasswordStudent(application,oldPassword.get(),newPassword.get(),newPasswordConfirmation.get());
     }
 
     public LiveData<Response<ForgetPasswordResponse>> getChangePasswordResponseLiveData() {

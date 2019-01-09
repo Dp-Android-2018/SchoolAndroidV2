@@ -1,6 +1,5 @@
 package dp.schoolandroid.view.ui.fragment;
 
-import android.app.Application;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +24,18 @@ import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
-import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentNewsFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
-import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
+import dp.schoolandroid.view.ui.activity.StudentHomeActivity;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 import dp.schoolandroid.view.ui.activity.MainActivity;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
-import dp.schoolandroid.viewmodel.BaseFragmentWithDataViewModel;
 import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
 
 
 public class NewsFeedFragment extends Fragment {
     FragmentNewsFeedBinding binding;
+    private String memberType;
 
     @Inject
     public NewsFeedFragment() {
@@ -48,12 +45,17 @@ public class NewsFeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_feed, container, false);
+        memberType = Objects.requireNonNull(getArguments()).getString(ConfigurationFile.Constants.MEMBER_Key);
         setupToolbar();
         return binding.getRoot();
     }
     private void setupToolbar() {
         binding.newsFeedToolbar.setNavigationIcon(R.drawable.ic_action_menu);
-        binding.newsFeedToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
+        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)){
+            binding.newsFeedToolbar.setNavigationOnClickListener(v -> TeacherHomeActivity.drawer.openDrawer(GravityCompat.START));
+        }else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)){
+            binding.newsFeedToolbar.setNavigationOnClickListener(v -> StudentHomeActivity.drawer.openDrawer(GravityCompat.START));
+        }
     }
 
     @Override
@@ -61,14 +63,15 @@ public class NewsFeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         SharedUtils.getInstance().showProgressDialog(getContext());
         final NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
+        viewModel.handleGetNewsFeed(memberType);
         observeViewModel(viewModel);
     }
 
     private void observeViewModel(NewsFeedFragmentViewModel viewModel) {
         viewModel.getData().observe(this, feedsResponseResponse -> {
             if (feedsResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (feedsResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
-                    SharedUtils.getInstance().cancelDialog();
                     if (feedsResponseResponse.body() != null) {
                         ArrayList<FeedModel> feedModels = feedsResponseResponse.body().getNewsFeedResponseData();
                         initializeRecyclerViewAdapter(feedModels);
@@ -100,7 +103,5 @@ public class NewsFeedFragment extends Fragment {
         binding.newsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
         binding.newsFeedRecyclerView.setAdapter(newsFeedRecyclerViewAdapter);
     }
-
-
 
 }

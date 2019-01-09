@@ -23,6 +23,14 @@ public class FeedDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeUi();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        binding.suggestionToolbar.setNavigationIcon(R.drawable.ic_action_back);
+        binding.suggestionToolbar.setNavigationOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void initializeUi() {

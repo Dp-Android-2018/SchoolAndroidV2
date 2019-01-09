@@ -9,11 +9,16 @@ import dp.schoolandroid.service.repository.remotes.NewsFeedRepository;
 import retrofit2.Response;
 
 public class NewsFeedFragmentViewModel extends AndroidViewModel {
-    private final LiveData<Response<FeedsResponse>> data;
+    private LiveData<Response<FeedsResponse>> data;
+    private Application application;
 
     public NewsFeedFragmentViewModel(@NonNull Application application) {
         super(application);
-        data = NewsFeedRepository.getInstance().getNewsFeed(application);
+        this.application=application;
+    }
+
+    public void handleGetNewsFeed(String memberType){
+        data = NewsFeedRepository.getInstance().getNewsFeed(application,memberType);
     }
 
     public LiveData<Response<FeedsResponse>> getData() {

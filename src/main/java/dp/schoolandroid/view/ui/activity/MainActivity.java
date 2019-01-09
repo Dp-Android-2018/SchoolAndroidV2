@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (checkSharedPreferences()){
-            Intent intent=new Intent(MainActivity.this,HomeActivity.class);
+            Intent intent=new Intent(MainActivity.this,TeacherHomeActivity.class);
             startActivity(intent);
         }
             super.onCreate(savedInstanceState);

@@ -34,10 +34,7 @@ public class ParentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, parentLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(parentResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(parentResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -48,10 +45,7 @@ public class ParentLoginRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 

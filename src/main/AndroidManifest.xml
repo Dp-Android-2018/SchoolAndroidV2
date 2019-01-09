@@ -38,7 +38,7 @@
         <activity android:name=".view.ui.activity.TeacherLoginActivity" />
         <activity android:name=".view.ui.activity.TopStudentDetailsActivity" />
         <activity android:name=".view.ui.activity.FeedDetailsActivity" />
-        <activity android:name=".view.ui.activity.HomeActivity" />
+        <activity android:name=".view.ui.activity.TeacherHomeActivity" />
         <activity android:name=".view.ui.activity.PaymentActivity" />
         <activity android:name=".view.ui.activity.ConnectionErrorActivity" />
         <activity android:name=".view.ui.activity.ClassActivity" />
@@ -56,6 +56,7 @@
         <activity android:name=".view.ui.activity.PictureGalleryActivity" />
         <activity android:name=".view.ui.activity.SuggestionActivity" />
         <activity android:name=".view.ui.activity.VideosActivity" />
+        <activity android:name=".view.ui.activity.StudentHomeActivity" />
     </application>
 
 </manifest>

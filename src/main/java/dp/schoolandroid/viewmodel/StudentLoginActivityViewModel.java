@@ -28,7 +28,7 @@ public class StudentLoginActivityViewModel extends AndroidViewModel {
         ssn = new ObservableField<>();
         ssn.set("0482539377");
         password = new ObservableField<>();
-        password.set("qwe123");
+        password.set("qwerty");
     }
 
     public void handleloginStudent() {

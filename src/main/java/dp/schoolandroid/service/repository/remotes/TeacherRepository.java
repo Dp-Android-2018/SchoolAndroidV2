@@ -38,10 +38,7 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).loginAsTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, teacherLoginRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(teacherResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(teacherResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -52,10 +49,7 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).forgetPasswordTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -68,10 +62,7 @@ public class TeacherRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).changePasswordTeacher(ConfigurationFile.Constants.API_KEY,bearerToken,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, changePasswordTeacherRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 

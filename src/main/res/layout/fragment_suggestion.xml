@@ -1,10 +1,10 @@
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="dp.schoolandroid.view.ui.activity.SuggestionActivity">
@@ -41,9 +41,10 @@
         app:layout_constraintTop_toBottomOf="@+id/suggestionToolbar">
 
         <EditText
+            android:id="@+id/suggestionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:hint="@string/title"
             android:paddingStart="@dimen/dp10w"
             android:paddingTop="@dimen/dp5h"
             android:paddingEnd="@dimen/dp5w"
@@ -56,28 +57,28 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="2dp"
-        android:text="Chapter 1,revision"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/suggesstion_headline"
         android:textColor="@color/colorGray"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/suggestionDescribtion"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp120h"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/et_quiz_background"
         android:gravity="start"
-        android:hint="Description"
+        android:hint="@string/description"
         android:padding="@dimen/dp5h"
-        android:paddingEnd="@dimen/dp5w"
         android:paddingStart="@dimen/dp10w"
         android:paddingTop="@dimen/dp5h"
+        android:paddingEnd="@dimen/dp5w"
         android:textColorHint="@color/colorBlack"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -89,21 +90,22 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="2dp"
-        android:text="Notes for students"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/suggestion_description"
         android:textColor="@color/colorGray"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/suggestionDescribtion" />
 
     <Button
+        android:onClick="sndSuggestion"
         android:id="@+id/btn_send"
         android:layout_width="@dimen/dp120h"
         android:layout_height="@dimen/dp35h"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/btn_rounded_assignment"
         android:gravity="center"
         android:text="@string/send"

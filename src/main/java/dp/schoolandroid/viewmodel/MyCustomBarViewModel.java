@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
 import dp.schoolandroid.view.ui.activity.ChatActivity;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 
 public class MyCustomBarViewModel {
     private Context context;
@@ -15,7 +15,7 @@ public class MyCustomBarViewModel {
     }
 
     public void actionMenuImageClicked(View view) {
-        HomeActivity.drawer.openDrawer(GravityCompat.START);
+        TeacherHomeActivity.drawer.openDrawer(GravityCompat.START);
     }
 
     public void chatMenuImageClicked(View view) {

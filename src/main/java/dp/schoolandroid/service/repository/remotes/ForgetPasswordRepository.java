@@ -44,10 +44,7 @@ public class ForgetPasswordRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -58,10 +55,7 @@ public class ForgetPasswordRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 
@@ -72,10 +66,7 @@ public class ForgetPasswordRepository {
         GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(forgetPasswordResponseResponse -> {
-                    SharedUtils.getInstance().cancelDialog();
-                    data.setValue(forgetPasswordResponseResponse);
-                });
+                .subscribe(data::setValue);
         return data;
     }
 

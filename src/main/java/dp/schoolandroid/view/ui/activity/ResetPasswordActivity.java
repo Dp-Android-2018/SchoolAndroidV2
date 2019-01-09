@@ -61,6 +61,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void observeCheckViewModel(ResetPasswordActivityViewModel viewModel) {
         viewModel.getResetPasswordResponseLiveData().observe(this, forgetPasswordResponseResponse -> {
             if (forgetPasswordResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (forgetPasswordResponseResponse.code() == 200) {
                     if (forgetPasswordResponseResponse.body() != null) {
                         moveToLoginActivity();

@@ -1,7 +1,6 @@
 package dp.schoolandroid.view.ui.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,14 +25,10 @@ import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
-import dp.schoolandroid.Utility.utils.ValidationUtils;
-import dp.schoolandroid.databinding.ActivityConnectionErrorBinding;
 import dp.schoolandroid.databinding.FragmentBaseWithDataBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
-import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
-import dp.schoolandroid.view.ui.activity.HomeActivity;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 import dp.schoolandroid.view.ui.adapter.ClassRecyclerViewAdapter;
-import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.BaseFragmentWithDataViewModel;
 
 /*
@@ -66,7 +61,7 @@ public class BaseFragmentWithData extends Fragment {
 
     private void setupToolbar() {
         binding.baseFragmentToolbar.setNavigationIcon(R.drawable.ic_action_menu);
-        binding.baseFragmentToolbar.setNavigationOnClickListener(v -> HomeActivity.drawer.openDrawer(GravityCompat.START));
+        binding.baseFragmentToolbar.setNavigationOnClickListener(v -> TeacherHomeActivity.drawer.openDrawer(GravityCompat.START));
     }
 
     private void setupCollapsingToolbarTitle() {
@@ -89,12 +84,13 @@ public class BaseFragmentWithData extends Fragment {
         super.onActivityCreated(savedInstanceState);
         SharedUtils.getInstance().showProgressDialog(getContext());
         final BaseFragmentWithDataViewModel viewModel = ViewModelProviders.of(this).get(BaseFragmentWithDataViewModel.class);
-        observeViewModel(viewModel);
+//        observeViewModel(viewModel);
     }
 
-    private void observeViewModel(BaseFragmentWithDataViewModel viewModel) {
+   /* private void observeViewModel(BaseFragmentWithDataViewModel viewModel) {
         viewModel.getData().observe(this, feedsResponseResponse -> {
             if (feedsResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (feedsResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     if (feedsResponseResponse.body() != null) {
                         ArrayList<FeedModel> feedModels = feedsResponseResponse.body().getNewsFeedResponseData();
@@ -108,7 +104,7 @@ public class BaseFragmentWithData extends Fragment {
             }
         });
     }
-
+*/
     private void initializeRecyclerViewAdapter(ArrayList<FeedModel> feedModels) {
         classRecyclerViewAdapter = new ClassRecyclerViewAdapter(feedModels);
         binding.baseClassRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));

@@ -55,6 +55,7 @@ public class ParentLoginActivity extends AppCompatActivity {
     private void observeParentLoginDataViewModel(ParentLoginActivityViewModel viewModel) {
         viewModel.getParentLoginResponseLiveData().observe(this, parentResponseResponse -> {
             if (parentResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (parentResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToHomeActivity();
                 }else {
@@ -65,7 +66,7 @@ public class ParentLoginActivity extends AppCompatActivity {
     }
 
     private void moveToHomeActivity(){
-        Intent intent=new Intent(this,HomeActivity.class);
+        Intent intent=new Intent(this,TeacherHomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -84,6 +85,7 @@ public class ParentLoginActivity extends AppCompatActivity {
     private void ObserverParentForgetPasswordViewModel(ParentLoginActivityViewModel viewModel) {
         viewModel.getForgetPasswordResponseLiveData().observe(this, forgetPasswordResponseResponse -> {
             if (forgetPasswordResponseResponse != null) {
+                SharedUtils.getInstance().cancelDialog();
                 if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToPasswordActivity();
                 } else{
