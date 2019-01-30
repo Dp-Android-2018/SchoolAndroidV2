@@ -71,6 +71,14 @@ public class SharedPreferenceHandler {
         return gson.fromJson(json, objectClass);
     }
 
+    public void saveMemberTypeSharedPreferences(String savedObjectName, String memberType) {
+        editor.putString(savedObjectName, memberType);
+        editor.commit();
+    }
+
+    public String getSavedMemberTypeObject(String savedObjectName) {
+        return prefs.getString(savedObjectName, "");
+    }
     public void clearToken() {
         editor.clear();
         editor.apply();

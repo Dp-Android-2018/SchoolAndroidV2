@@ -18,14 +18,17 @@ import android.view.ViewGroup;
 import java.util.Objects;
 
 import javax.inject.Inject;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentScheduleBinding;
 import dp.schoolandroid.service.model.global.TeacherSchedule;
-import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
+import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
 import dp.schoolandroid.view.ui.activity.MainActivity;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 import dp.schoolandroid.view.ui.adapter.TeacherSchedulePageViewAdapter;
 import dp.schoolandroid.viewmodel.ScheduleFragmentViewModel;
 
@@ -33,6 +36,7 @@ import dp.schoolandroid.viewmodel.ScheduleFragmentViewModel;
 public class ScheduleFragment extends Fragment {
     private final int PAGE_lIMIT = 1;
     FragmentScheduleBinding binding;
+    private String memberType;
 
     @Inject
     public ScheduleFragment() {
@@ -47,6 +51,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false);
+        memberType = Objects.requireNonNull(getArguments()).getString(ConfigurationFile.Constants.MEMBER_Key);
         setupToolbar();
         return binding.getRoot();
     }
@@ -59,9 +64,15 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        SharedUtils.getInstance().showProgressDialog(getContext());
-        final ScheduleFragmentViewModel viewModel = ViewModelProviders.of(this).get(ScheduleFragmentViewModel.class);
-        observeViewModel(viewModel);
+
+        if (ValidationUtils.isConnectingToInternet(Objects.requireNonNull(getContext()))) {
+            SharedUtils.getInstance().showProgressDialog(getContext());
+            final ScheduleFragmentViewModel viewModel = ViewModelProviders.of(this).get(ScheduleFragmentViewModel.class);
+            observeViewModel(viewModel);
+        } else {
+            Intent intent = new Intent(getContext(), ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void observeViewModel(ScheduleFragmentViewModel viewModel) {
@@ -75,7 +86,7 @@ public class ScheduleFragment extends Fragment {
                     } else {
                         Snackbar.make(binding.scheduleFragmentConstraintLayout, getString(R.string.no_week_data), Snackbar.LENGTH_SHORT).show();
                     }
-                } else if (teacherScheduleResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                } else if (teacherScheduleResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE) {
                     SharedUtils.getInstance().cancelDialog();
                     logout();
                 }
@@ -86,7 +97,7 @@ public class ScheduleFragment extends Fragment {
 
     private void logout() {
         clearSharedPreferences();
-        Intent intent=new Intent(getContext(),MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         Objects.requireNonNull(getActivity()).finish();
     }

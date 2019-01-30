@@ -43,13 +43,18 @@ public class TeacherLoginActivity extends AppCompatActivity {
 
 
     public void teacherLogin(View view) {
-        if (ValidationUtils.validateTexts(binding.teacherPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)
-                && ValidationUtils.validateTexts(binding.teacherPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleloginTeacher();
-            observeTeacherLoginDataViewModel(viewModel);
-        } else {
-            Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.teacherPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)
+                    && ValidationUtils.validateTexts(binding.teacherPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleloginTeacher();
+                observeTeacherLoginDataViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
+            }
+        }else {
+            Intent intent=new Intent(this,ConnectionErrorActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -72,11 +77,13 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private void saveTeacherDataToSharedPreferences(TeacherResponse body) {
         CustomUtils customUtils = new CustomUtils(getApplication());
         customUtils.clearSharedPref();
+        customUtils.saveMemberTypeToPrefs(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.TEACHER_Key_VALUE);
         customUtils.saveTeacherDataToPrefs(body);
     }
 
     private void moveToHomeActivity() {
         Intent intent = new Intent(this, TeacherHomeActivity.class);
+        intent.putExtra(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.TEACHER_Key_VALUE);
         startActivity(intent);
         finish();
     }

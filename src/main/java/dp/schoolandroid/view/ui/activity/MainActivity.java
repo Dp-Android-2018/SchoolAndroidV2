@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.databinding.ActivityMainBinding;
 /*
@@ -21,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private final int TEACHER_SELECTOR = 1, STUDENT_SELECTOR = 2, PARENT_SELECTOR = 3;
     private ActivityMainBinding mBinding = null;
     private int mSelectedTab = -1;
+    CustomUtils customUtils;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (checkSharedPreferences()){
             Intent intent=new Intent(MainActivity.this,TeacherHomeActivity.class);
+            intent.putExtra(ConfigurationFile.Constants.MEMBER_Key,customUtils.getSavedMemberTypeObject(ConfigurationFile.Constants.MEMBER_Key));
             startActivity(intent);
         }
             super.onCreate(savedInstanceState);
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             handleSelectionTypeEvent();
     }
     private boolean checkSharedPreferences() {
-        CustomUtils customUtils = new CustomUtils(getApplication());
+        customUtils = new CustomUtils(getApplication());
         return customUtils.getSavedTeacherData() != null;
     }
 

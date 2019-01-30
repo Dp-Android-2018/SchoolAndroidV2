@@ -5,9 +5,11 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -24,15 +26,15 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
+import dp.schoolandroid.Utility.utils.ClearCache;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
+import dp.schoolandroid.databinding.ActivityTeacherHomeBinding;
 import dp.schoolandroid.view.ui.fragment.NewsFeedFragment;
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
-import dp.schoolandroid.databinding.ActivityHomeBinding;
 import dp.schoolandroid.di.component.DaggerFragmentComponent;
 import dp.schoolandroid.di.component.FragmentComponent;
-import dp.schoolandroid.view.ui.fragment.BaseFragmentWithData;
 import dp.schoolandroid.view.ui.fragment.ScheduleFragment;
 import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
 
@@ -45,20 +47,19 @@ import dp.schoolandroid.view.ui.fragment.TopStudentFragment;
 public class TeacherHomeActivity extends AppCompatActivity {
 
     @Inject
-    BaseFragmentWithData baseFragmentWithData;
-    @Inject
     ScheduleFragment scheduleFragment;
     @Inject
     TopStudentFragment topStudentFragment;
     @Inject
     NewsFeedFragment newsFeedFragment;
 
-    ActivityHomeBinding binding;
+    ActivityTeacherHomeBinding binding;
     public static DrawerLayout drawer;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private NavigationView navigationView;
     private Fragment selectedFragment;
     private CustomUtils customUtils;
+    String memberType;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -73,7 +74,8 @@ public class TeacherHomeActivity extends AppCompatActivity {
     }
 
     private void initializeViewModel() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_teacher_home);
+        memberType = getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         customUtils = new CustomUtils(getApplication());
     }
 
@@ -118,13 +120,25 @@ public class TeacherHomeActivity extends AppCompatActivity {
     }
 
     private void setupHeaderData() {
-        View header = binding.nv.getHeaderView(0);
-        ImageView teacherPhoto= (ImageView) header.findViewById(R.id.student_photo);
-        Picasso.get().load(customUtils.getSavedTeacherData().getTeacherData().getImage()).into(teacherPhoto);
-        TextView teacherName = (TextView) header.findViewById(R.id.tv_teacher_name);
-        teacherName.setText(customUtils.getSavedTeacherData().getTeacherData().getName());
-        TextView teacherMail = (TextView) header.findViewById(R.id.tv_teacher_email);
-        teacherMail.setText(customUtils.getSavedTeacherData().getTeacherData().getEmail());
+        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)) {
+            View header = binding.nv.getHeaderView(0);
+            ImageView teacherPhoto = (ImageView) header.findViewById(R.id.student_photo);
+            TextView teacherName = (TextView) header.findViewById(R.id.tv_teacher_name);
+            TextView teacherMail = (TextView) header.findViewById(R.id.tv_teacher_email);
+            Picasso.get().load(customUtils.getSavedTeacherData().getTeacherData().getImage())
+                    .error(R.drawable.img_connection_error).into(teacherPhoto);
+            teacherName.setText(customUtils.getSavedTeacherData().getTeacherData().getName());
+            teacherMail.setText(customUtils.getSavedTeacherData().getTeacherData().getEmail());
+        } else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)) {
+            View header = binding.nv.getHeaderView(0);
+            ImageView teacherPhoto = (ImageView) header.findViewById(R.id.student_photo);
+            TextView teacherName = (TextView) header.findViewById(R.id.tv_teacher_name);
+            TextView teacherMail = (TextView) header.findViewById(R.id.tv_teacher_email);
+            Picasso.get().load(customUtils.getSavedStudentData().getStudentResponseData().getImage())
+                    .error(R.drawable.img_connection_error).into(teacherPhoto);
+            teacherName.setText(customUtils.getSavedStudentData().getStudentResponseData().getName());
+            teacherMail.setText(customUtils.getSavedStudentData().getStudentResponseData().getEmail());
+        }
     }
 
     private void makeActionOnNavigationItem(int itemId) {
@@ -161,7 +175,7 @@ public class TeacherHomeActivity extends AppCompatActivity {
 
     private void openIntent(Class activityClass) {
         Intent intent = new Intent(TeacherHomeActivity.this, activityClass);
-        intent.putExtra(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.TEACHER_Key_VALUE);
+        intent.putExtra(ConfigurationFile.Constants.MEMBER_Key, memberType);
         startActivity(intent);
     }
 
@@ -186,9 +200,17 @@ public class TeacherHomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             closeDrawer();
-        } else {
-            super.onBackPressed();
+            return;
+        } else if (doubleBackToExitPressedOnce) {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+            return;
         }
+        this.doubleBackToExitPressedOnce = true;
+        Snackbar.make(binding.getRoot(), R.string.press_back_again_message, Snackbar.LENGTH_SHORT).show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
     private void closeDrawer() {
@@ -223,7 +245,7 @@ public class TeacherHomeActivity extends AppCompatActivity {
 
     private void setFragmentBundleData(Fragment fragment) {
         Bundle bundle = new Bundle();
-        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, ConfigurationFile.Constants.TEACHER_Key_VALUE);
+        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, memberType);
         fragment.setArguments(bundle);
         selectedFragment = fragment;
     }
@@ -236,7 +258,7 @@ public class TeacherHomeActivity extends AppCompatActivity {
 
     private void manuallyDisplayFirstFragment() {
         Bundle bundle = new Bundle();
-        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, ConfigurationFile.Constants.TEACHER_Key_VALUE);
+        bundle.putString(ConfigurationFile.Constants.MEMBER_Key, memberType);
         newsFeedFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, newsFeedFragment);

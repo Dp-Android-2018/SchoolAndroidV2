@@ -15,7 +15,9 @@ import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.global.MetaDataModel;
 import dp.schoolandroid.service.model.response.GalleryResponse;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
@@ -34,20 +36,44 @@ public class PictureGalleryRepository {
     }
 
     @SuppressLint("CheckResult")
-    public LiveData<Response<GalleryResponse>> getGallleryImages(final Application application, int pageNumber) {
-        setBearerToken(application);
+    public LiveData<Response<GalleryResponse>> getGallleryImages(final Application application, int pageNumber, String memberType) {
+        setBearerToken(application, memberType);
         final MutableLiveData<Response<GalleryResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).getGallleryImages(ConfigurationFile.Constants.API_KEY,bearerToken, ConfigurationFile.Constants.CONTENT_TYPE
-                , ConfigurationFile.Constants.ACCEPT,pageNumber)
+        GetApiInterfaces.getInstance().getApiInterfaces(application).getGallleryImages(ConfigurationFile.Constants.API_KEY, bearerToken, ConfigurationFile.Constants.CONTENT_TYPE
+                , ConfigurationFile.Constants.ACCEPT, pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue, throwable -> {
+                .subscribe(new Observer<Response<GalleryResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Response<GalleryResponse> galleryResponseResponse) {
+                        data.setValue(galleryResponseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
                 });
         return data;
     }
-    private void setBearerToken(Application application) {
-        CustomUtils customUtils = new CustomUtils(application);
-        this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedTeacherData().getTeacherData().getApiToken();
+
+    private void setBearerToken(Application application, String memberType) {
+        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)) {
+            CustomUtils customUtils = new CustomUtils(application);
+            this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedTeacherData().getTeacherData().getApiToken();
+        } else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)) {
+            CustomUtils customUtils = new CustomUtils(application);
+            this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedStudentData().getStudentResponseData().getApiToken();
+        }
     }
 }

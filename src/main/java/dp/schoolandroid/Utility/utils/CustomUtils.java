@@ -28,6 +28,14 @@ public class CustomUtils {
         prefrenceUtils.saveObjectToSharedPreferences(ConfigurationFile.SharedPrefConstants.SHARED_PREF_NAME, data);
     }
 
+    public void saveMemberTypeToPrefs(String objName,String objValue){
+        prefrenceUtils.saveMemberTypeSharedPreferences(objName,objValue);
+    }
+
+    public String getSavedMemberTypeObject(String objName){
+        return prefrenceUtils.getSavedMemberTypeObject(objName);
+    }
+
     public StudentResponse getSavedStudentData() {
         return (StudentResponse) prefrenceUtils.getSavedObject(ConfigurationFile.SharedPrefConstants.SHARED_PREF_NAME, StudentResponse.class);
     }

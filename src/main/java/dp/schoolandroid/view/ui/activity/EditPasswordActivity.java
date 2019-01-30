@@ -2,7 +2,9 @@ package dp.schoolandroid.view.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -55,26 +57,35 @@ public class EditPasswordActivity extends AppCompatActivity {
     }
 
     private void changePasswordTeacher() {
-        if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleChangePasswordTeacher();
-            observeChangeasswordDataViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                    && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                    && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleChangePasswordTeacher();
+                observeChangeasswordDataViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
+            }
         } else {
-            Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ConnectionErrorActivity.class);
+            startActivity(intent);
         }
     }
 
     private void changePasswordStudent() {
-        if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleChangePasswordStudent();
-            observeChangeasswordDataViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.oldPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                    && ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                    && ValidationUtils.validateTexts(binding.confirmPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleChangePasswordStudent();
+                observeChangeasswordDataViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
+            }
         } else {
-            Snackbar.make(binding.getRoot(), R.string.error_password, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), R.string.there_is_no_internet, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -84,7 +95,9 @@ public class EditPasswordActivity extends AppCompatActivity {
                 SharedUtils.getInstance().cancelDialog();
                 if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     if (forgetPasswordResponseResponse.body() != null) {
-                        Snackbar.make(binding.getRoot(), forgetPasswordResponseResponse.body().getForgetPasswordResponseMessage(), Snackbar.LENGTH_LONG).show();
+                        new Handler().postDelayed(() ->
+                                        Snackbar.make(binding.getRoot(), forgetPasswordResponseResponse.body().getForgetPasswordResponseMessage(), Snackbar.LENGTH_LONG).show()
+                                , 2000);
                         onBackPressed();
                     }
                 } else {

@@ -10,7 +10,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorPrimaryTransparent">#ae3d4b58</color>
     <color name="colorYellow">#d9c44f</color>
-    <color name="colorLightGray">#eeeff3</color>
+    <color name="colorLightGray">#efefef</color>
     <color name="float_transparent">#00000000</color>
     <color name="gray_btn_bg_color">#D0D0D0</color>
 

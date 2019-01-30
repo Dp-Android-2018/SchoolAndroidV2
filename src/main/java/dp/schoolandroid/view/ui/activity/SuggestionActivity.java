@@ -35,20 +35,23 @@ public class SuggestionActivity extends AppCompatActivity {
 
     FragmentSuggestionBinding binding;
     SuggestionActivityViewModel viewModel;
+    private String memberType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
-        binding=DataBindingUtil.setContentView(this,R.layout.fragment_suggestion);
+        binding = DataBindingUtil.setContentView(this, R.layout.fragment_suggestion);
+        memberType=getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupToolbar();
         setupViewModel();
     }
 
     private void setupViewModel() {
-        viewModel=ViewModelProviders.of(this).get(SuggestionActivityViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(SuggestionActivityViewModel.class);
+        viewModel.setMemberType(memberType);
     }
 
     private void setupToolbar() {
@@ -59,12 +62,16 @@ public class SuggestionActivity extends AppCompatActivity {
     }
 
     public void sndSuggestion(View view) {
-        if ( !(TextUtils.isEmpty(binding.suggestionTitle.getText().toString()) && TextUtils.isEmpty(binding.suggestionDescribtion.getText().toString()))) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleSuggestionRequest(binding.suggestionTitle.getText().toString(), binding.suggestionDescribtion.getText().toString());
-            observeCheckViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (!(TextUtils.isEmpty(binding.suggestionTitle.getText().toString()) && TextUtils.isEmpty(binding.suggestionDescribtion.getText().toString()))) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleSuggestionRequest(binding.suggestionTitle.getText().toString(), binding.suggestionDescribtion.getText().toString());
+                observeCheckViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_title_or_describtion, Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Snackbar.make(binding.getRoot(), R.string.error_title_or_describtion, Toast.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), R.string.there_is_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -81,8 +88,8 @@ public class SuggestionActivity extends AppCompatActivity {
                 } else if (aboutUsResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE) {
                     SharedUtils.getInstance().cancelDialog();
                     logout();
-                }else {
-                    Snackbar.make(binding.getRoot(), R.string.error_code+aboutUsResponseResponse.code(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(binding.getRoot(), R.string.error_code + aboutUsResponseResponse.code(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

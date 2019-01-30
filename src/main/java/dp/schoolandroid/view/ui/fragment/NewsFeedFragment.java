@@ -24,11 +24,12 @@ import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentNewsFeedBinding;
 import dp.schoolandroid.service.model.global.FeedModel;
-import dp.schoolandroid.view.ui.activity.StudentHomeActivity;
-import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
+import dp.schoolandroid.view.ui.activity.ConnectionErrorActivity;
 import dp.schoolandroid.view.ui.activity.MainActivity;
+import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 import dp.schoolandroid.view.ui.adapter.NewsFeedRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.NewsFeedFragmentViewModel;
 
@@ -49,36 +50,49 @@ public class NewsFeedFragment extends Fragment {
         setupToolbar();
         return binding.getRoot();
     }
+
     private void setupToolbar() {
-        binding.newsFeedToolbar.setNavigationIcon(R.drawable.ic_action_menu);
-        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)){
-            binding.newsFeedToolbar.setNavigationOnClickListener(v -> TeacherHomeActivity.drawer.openDrawer(GravityCompat.START));
-        }else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)){
-            binding.newsFeedToolbar.setNavigationOnClickListener(v -> StudentHomeActivity.drawer.openDrawer(GravityCompat.START));
-        }
+        binding.teacherNewsFeedToolbar.setNavigationIcon(R.drawable.ic_action_menu);
+        binding.teacherNewsFeedToolbar.setNavigationOnClickListener(v -> TeacherHomeActivity.drawer.openDrawer(GravityCompat.START));
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        SharedUtils.getInstance().showProgressDialog(getContext());
-        final NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
-        viewModel.handleGetNewsFeed(memberType);
-        observeViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(Objects.requireNonNull(getContext()))) {
+            chooseBetweenMemberTypes();
+        } else {
+            Intent intent = new Intent(getContext(), ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void chooseBetweenMemberTypes() {
+        if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)) {
+            SharedUtils.getInstance().showProgressDialog(getContext());
+            NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
+            viewModel.handleGetTeacherNewsFeed();
+            observeViewModel(viewModel);
+        }else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)){
+            SharedUtils.getInstance().showProgressDialog(getContext());
+            NewsFeedFragmentViewModel viewModel = ViewModelProviders.of(this).get(NewsFeedFragmentViewModel.class);
+            viewModel.handleGetStudentNewsFeed();
+            observeViewModel(viewModel);
+        }
     }
 
     private void observeViewModel(NewsFeedFragmentViewModel viewModel) {
         viewModel.getData().observe(this, feedsResponseResponse -> {
             if (feedsResponseResponse != null) {
-                SharedUtils.getInstance().cancelDialog();
                 if (feedsResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
+                    SharedUtils.getInstance().cancelDialog();
                     if (feedsResponseResponse.body() != null) {
                         ArrayList<FeedModel> feedModels = feedsResponseResponse.body().getNewsFeedResponseData();
                         initializeRecyclerViewAdapter(feedModels);
                     } else {
                         Snackbar.make(binding.getRoot(), R.string.no_classes, Snackbar.LENGTH_SHORT).show();
                     }
-                } else if (feedsResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                } else if (feedsResponseResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE) {
                     SharedUtils.getInstance().cancelDialog();
                     logout();
                 }
@@ -88,7 +102,7 @@ public class NewsFeedFragment extends Fragment {
 
     private void logout() {
         clearSharedPreferences();
-        Intent intent=new Intent(getContext(),MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         Objects.requireNonNull(getActivity()).finish();
     }
@@ -99,9 +113,9 @@ public class NewsFeedFragment extends Fragment {
     }
 
     private void initializeRecyclerViewAdapter(ArrayList<FeedModel> feedModels) {
-        NewsFeedRecyclerViewAdapter newsFeedRecyclerViewAdapter= new NewsFeedRecyclerViewAdapter(feedModels);
-        binding.newsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
-        binding.newsFeedRecyclerView.setAdapter(newsFeedRecyclerViewAdapter);
+        NewsFeedRecyclerViewAdapter newsFeedRecyclerViewAdapter = new NewsFeedRecyclerViewAdapter(feedModels);
+        binding.teacherNewsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
+        binding.teacherNewsFeedRecyclerView.setAdapter(newsFeedRecyclerViewAdapter);
     }
 
 }

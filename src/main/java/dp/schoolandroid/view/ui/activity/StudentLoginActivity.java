@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
@@ -48,13 +49,18 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void checkDataValidation(View view) {
-        if (ValidationUtils.validateTexts(binding.studentPhoneEditText.getText().toString(), ValidationUtils.TYPE_TEXT)
-                && ValidationUtils.validateTexts(binding.studentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleloginStudent();
-            ObserverStudentLoginViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.studentPhoneEditText.getText().toString(), ValidationUtils.TYPE_TEXT)
+                    && ValidationUtils.validateTexts(binding.studentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleloginStudent();
+                ObserverStudentLoginViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_ssn_or_password, Snackbar.LENGTH_SHORT).show();
+            }
         } else {
-            Snackbar.make(binding.getRoot(), R.string.error_ssn_or_password, Snackbar.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ConnectionErrorActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -69,7 +75,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                         if (studentResponseResponse.body() != null) {
                             saveStudentDataToSharedPreferences(studentResponseResponse.body());
                         }
-                    }else {
+                    } else {
                         Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                     }
                 }
@@ -80,11 +86,13 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void saveStudentDataToSharedPreferences(StudentResponse body) {
         CustomUtils customUtils = new CustomUtils(getApplication());
         customUtils.clearSharedPref();
+        customUtils.saveMemberTypeToPrefs(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.STUDENT_Key_VALUE);
         customUtils.saveStudentDataToPrefs(body);
     }
 
     private void moveToHomeActivity() {
-        Intent intent = new Intent(this, StudentHomeActivity.class);
+        Intent intent = new Intent(this, TeacherHomeActivity.class);
+        intent.putExtra(ConfigurationFile.Constants.MEMBER_Key,ConfigurationFile.Constants.STUDENT_Key_VALUE);
         startActivity(intent);
         finish();
     }
@@ -118,7 +126,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private void moveToPasswordActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         intent.putExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, ConfigurationFile.Constants.STUDENT_ACTIVITY_CODE);
-        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, ConfigurationFile.Constants.STUDENT_PHONE_NUMBER_MESSAGE);
+        intent.putExtra(ConfigurationFile.Constants.PHONE_NUMBER, binding.studentPhoneEditText.getText().toString());
         startActivity(intent);
         finish();
     }

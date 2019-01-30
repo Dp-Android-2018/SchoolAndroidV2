@@ -17,4 +17,9 @@
         <item name="android:textStyle">bold</item>
 
     </style>
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">#19adb9</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.ItemPictureLayoutBinding;
@@ -29,9 +31,9 @@ public class PictureGalleryViewHolder extends RecyclerView.ViewHolder implements
     public void onClick(View v) {
         AlertDialog.Builder alertadd = new AlertDialog.Builder(binding.getRoot().getContext());
         LayoutInflater factory = LayoutInflater.from(binding.getRoot().getContext());
-        final View view = factory.inflate(R.layout.picture_layout_view, null);
+        View view = factory.inflate(R.layout.picture_layout_view, null);
         ImageView imgView = (ImageView)view.findViewById(R.id.dialog_imageview);
-        Picasso.get().load(pageImage).into(imgView);
+        imgView.setImageDrawable(binding.galleryPicture.getDrawable());
         alertadd.setView(view);
         alertadd.show();
     }

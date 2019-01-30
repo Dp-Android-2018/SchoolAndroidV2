@@ -37,22 +37,71 @@ public class NewsFeedRepository {
     }
 
     @SuppressLint("CheckResult")
-    public LiveData<Response<FeedsResponse>> getNewsFeed(final Application application,String memberType) {
-        setBearerToken(application,memberType);
+    public LiveData<Response<FeedsResponse>> getTeacherNewsFeed(final Application application) {
+        setTeacherBearerToken(application);
         final MutableLiveData<Response<FeedsResponse>> data = new MutableLiveData<>();
         GetApiInterfaces.getInstance().getApiInterfaces(application).getNewsFeed(ConfigurationFile.Constants.API_KEY,bearerToken,
                 ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(data::setValue);
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<FeedsResponse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Response<FeedsResponse> feedsResponseResponse) {
+                    data.setValue(feedsResponseResponse);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                    e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
         return data;
     }
 
-    private void setBearerToken(Application application, String memberType) {
-        if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)){
-            customUtils = new CustomUtils(application);
-            this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedStudentData().getStudentResponseData().getApiToken();
-        }else if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)){
-            customUtils = new CustomUtils(application);
-            this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedTeacherData().getTeacherData().getApiToken();
-        }
+    private void setTeacherBearerToken(Application application) {
+        customUtils = new CustomUtils(application);
+        this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedTeacherData().getTeacherData().getApiToken();
+    }
+
+    @SuppressLint("CheckResult")
+    public LiveData<Response<FeedsResponse>> getStudentNewsFeed(final Application application) {
+        setStudentBearerToken(application);
+        final MutableLiveData<Response<FeedsResponse>> data = new MutableLiveData<>();
+        GetApiInterfaces.getInstance().getApiInterfaces(application).getNewsFeed(ConfigurationFile.Constants.API_KEY,bearerToken,
+                ConfigurationFile.Constants.CONTENT_TYPE, ConfigurationFile.Constants.ACCEPT).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<FeedsResponse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Response<FeedsResponse> feedsResponseResponse) {
+                data.setValue(feedsResponseResponse);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+        return data;
+    }
+    private void setStudentBearerToken(Application application) {
+        customUtils = new CustomUtils(application);
+        this.bearerToken = ConfigurationFile.Constants.BEARER + customUtils.getSavedStudentData().getStudentResponseData().getApiToken();
     }
 }

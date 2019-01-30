@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 
+import dp.schoolandroid.R;
+
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
@@ -46,6 +48,13 @@ public class UIUtils {
             }
         });
     }
+
+    /*public static void showSweetAlertDialog(Context context, int type, String message){
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, type);
+        pDialog.setConfirmText(context.getResources().getString(R.string.action_close));
+        pDialog.setContentText(message);
+        pDialog.show();
+    }*/
 
     /*public static void  startMoveAnimation(Context context , ArrayList<View> animatedViews) {
         Animation animation;

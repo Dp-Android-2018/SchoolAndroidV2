@@ -3,11 +3,12 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_imageview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_star_on"
+    android:layout_width="329dp"
+    android:layout_height="329dp"
+    android:contentDescription="@string/tt"
+    android:scaleType="center"
+    android:src="@drawable/temp_students"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:contentDescription="@string/tt" />
+    app:layout_constraintTop_toTopOf="parent" />

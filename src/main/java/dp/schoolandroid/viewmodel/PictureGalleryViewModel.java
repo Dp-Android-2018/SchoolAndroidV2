@@ -13,6 +13,7 @@ import retrofit2.Response;
 public class PictureGalleryViewModel extends AndroidViewModel {
     private LiveData<Response<GalleryResponse>> data;
     private Application application;
+    private String memberType;
 
     public PictureGalleryViewModel(@NonNull Application application) {
         super(application);
@@ -20,9 +21,13 @@ public class PictureGalleryViewModel extends AndroidViewModel {
     }
 
     public void executeGetImages(int pageNumber){
-        data=PictureGalleryRepository.getInstance().getGallleryImages(application,pageNumber);
+        data=PictureGalleryRepository.getInstance().getGallleryImages(application,pageNumber,memberType);
     }
     public LiveData<Response<GalleryResponse>> getData() {
         return data;
+    }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 }

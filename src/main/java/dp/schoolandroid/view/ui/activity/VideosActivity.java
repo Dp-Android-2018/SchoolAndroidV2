@@ -21,12 +21,10 @@ import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.GridSpacingItemDecoration;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
-import dp.schoolandroid.databinding.FragmentPictureGalleryBinding;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentVideosBinding;
 import dp.schoolandroid.service.model.global.VideosModel;
-import dp.schoolandroid.view.ui.adapter.PictureGalleryRecyclerViewAdapter;
 import dp.schoolandroid.view.ui.adapter.VideosRecyclerViewAdapter;
-import dp.schoolandroid.viewmodel.PictureGalleryViewModel;
 import dp.schoolandroid.viewmodel.VideosActivityViewModel;
 
 
@@ -39,6 +37,7 @@ public class VideosActivity extends AppCompatActivity {
     private List<VideosModel> pageVideosList;
     private String nextPageUrl = null;
     private boolean isLoading = false;
+    private String memberType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -46,14 +45,25 @@ public class VideosActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         binding=DataBindingUtil.setContentView(this,R.layout.fragment_videos);
+        memberType=getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupToolbar();
         initVariables();
+        initViewModel();
+    }
+
+    private void initViewModel() {
+        if (ValidationUtils.isConnectingToInternet(this)){
         SharedUtils.getInstance().showProgressDialog(this);
         viewModel = ViewModelProviders.of(this).get(VideosActivityViewModel.class);
+        viewModel.setMemberType(memberType);
         viewModel.executeGetVideos(1);
         observeViewModel(viewModel);
         initializeRecyclerViewAdapter();
+        }else {
+            Intent intent=new Intent(this,ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void initVariables() {

@@ -1,5 +1,9 @@
 package dp.schoolandroid.Utility.utils;
 
+import android.text.format.DateFormat;
+
+import java.util.Date;
+
 public class ConfigurationFile {
 
     public static class UrlConstants {
@@ -41,9 +45,22 @@ public class ConfigurationFile {
         public static final String BEARER = "Bearer ";
         public static final String TYPE = "TYPE";
         public static final String DATA = "DATA";
+        public static final String STUDENTS = "Students";
+        public static final String ANNONCEMENTS = "Announcements";
+        public static final String QUIZZES = "Quizzes";
         public static final String MEMBER_Key = "MEMBER";
+        public static final String SESSIONTIMEMODEL = "sectionTimeModel";
+        public static final String SESSIONTYPE = "SessionType";
+        public static final String NEWSESSION = "2";
+        public static final String HISTORYSESSION = "1";
+        public static final String SESSIONID = "sessionId";
+        public static final String ASSIGNMENTData = "Assignment";
+        public static final String QUIZDETAILS = "QuizDetails";
         public static final String STUDENT_Key_VALUE = "2";
         public static final String TEACHER_Key_VALUE = "1";
+        static final String name = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
+        public static final String QUIZZES_DIRECTORY_NAME = name+"_Quizz";
+        public static final String ANNONCEMENTS_DIRECTORY_NAME = name+"_Annoncement";
             public static final String PAGE_ID = "0";
         public static final int SUCCESS_CODE = 200;
         public static final int UNAUTHANTICATED_CODE = 401;

@@ -30,6 +30,7 @@
         <activity android:name=".view.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -41,7 +42,7 @@
         <activity android:name=".view.ui.activity.TeacherHomeActivity" />
         <activity android:name=".view.ui.activity.PaymentActivity" />
         <activity android:name=".view.ui.activity.ConnectionErrorActivity" />
-        <activity android:name=".view.ui.activity.ClassActivity" />
+        <activity android:name=".view.ui.activity.TeacherSessionActivity" />
         <activity android:name=".view.ui.activity.CalendarActivity" />
         <activity android:name=".view.ui.activity.ChatActivity" />
         <activity android:name=".view.ui.activity.ParentHomeActivity" />
@@ -56,7 +57,9 @@
         <activity android:name=".view.ui.activity.PictureGalleryActivity" />
         <activity android:name=".view.ui.activity.SuggestionActivity" />
         <activity android:name=".view.ui.activity.VideosActivity" />
-        <activity android:name=".view.ui.activity.StudentHomeActivity" />
+        <activity android:name=".view.ui.activity.TeacherAssignmentActivity" />
+        <activity android:name=".view.ui.activity.TeacherAssignmentDetailsActivity" />
+        <activity android:name=".view.ui.activity.SessionhistoryActivity" />
     </application>
 
 </manifest>

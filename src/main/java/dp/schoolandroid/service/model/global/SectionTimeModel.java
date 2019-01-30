@@ -1,8 +1,11 @@
 package dp.schoolandroid.service.model.global;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class SectionTimeModel {
+public class SectionTimeModel implements Parcelable {
 
     @SerializedName("id")
     private String arrayId;
@@ -80,4 +83,39 @@ public class SectionTimeModel {
     public void setTo(String to) {
         this.to = to;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.arrayId);
+        dest.writeString(this.className);
+        dest.writeString(this.teacherName);
+        dest.writeString(this.grade);
+        dest.writeString(this.studentsCount);
+        dest.writeString(this.from);
+        dest.writeString(this.to);
+    }
+    public SectionTimeModel(Parcel in) {
+        arrayId = in.readString();
+        className = in.readString();
+        teacherName = in.readString();
+        grade = in.readString();
+        studentsCount = in.readString();
+        from = in.readString();
+        to = in.readString();
+    }
+    public static final Creator<SectionTimeModel> CREATOR = new Creator<SectionTimeModel>() {
+        @Override
+        public SectionTimeModel createFromParcel(Parcel in) {
+            return new SectionTimeModel(in);
+        }
+        @Override
+        public SectionTimeModel[] newArray(int size) {
+            return new SectionTimeModel[size];
+        }
+    };
 }

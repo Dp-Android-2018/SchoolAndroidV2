@@ -12,6 +12,7 @@ import dp.schoolandroid.R;
 
 public class SharedUtils {
     private Dialog dialog=null;
+    private boolean isStudentOfDayIsSelected;
 
     private static  SharedUtils sharedUtils=null;
     public static SharedUtils getInstance(){
@@ -33,5 +34,13 @@ public class SharedUtils {
 
     public void cancelDialog(){
         dialog.dismiss();
+    }
+
+    public boolean isStudentOfDayIsSelected() {
+        return isStudentOfDayIsSelected;
+    }
+
+    public void setStudentOfDayIsSelected(boolean studentOfDayIsSelected) {
+        isStudentOfDayIsSelected = studentOfDayIsSelected;
     }
 }

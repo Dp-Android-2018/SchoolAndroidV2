@@ -1,159 +1,187 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="dp.schoolandroid.view.ui.fragment.StudentQuizFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/firstConstraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/et_quiz_background"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/title"
-            android:textColorHint="@color/colorBlack"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="3dp"
-        android:text="Chapter 1,revision"
-        android:textColor="@color/colorGray"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstConstraintLayout" />
-
-    <EditText
-        android:id="@+id/editText2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp120h"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/et_quiz_background"
-        android:gravity="start"
-        android:hint="Description"
-        android:padding="@dimen/dp5h"
-        android:textColorHint="@color/colorBlack"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="4dp"
-        android:text="Notes for students"
-        android:textColor="@color/colorGray"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
-
-    <TextView
-        android:id="@+id/tv_file_upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_finish_assignment"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="39dp"
-        android:text="@string/file_upload"
-        android:textColor="@color/colorBlack"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <Button
-        android:id="@+id/btn_upload"
-        android:layout_width="@dimen/dp70h"
-        android:layout_height="@dimen/dp20h"
-        android:layout_below="@+id/tv_finish_assignment"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="34dp"
-        android:layout_toEndOf="@+id/tv_file_upload"
-        android:background="@drawable/btn_rounded_assignment"
-        android:text="@string/upload"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tv_file_upload"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="38dp"
-        android:background="@drawable/et_quiz_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_file_upload">
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="250dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Final Grade"
-            android:textColorHint="@color/colorBlack"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:background="@color/colorWhite"
+            tools:context="dp.schoolandroid.view.ui.fragment.StudentQuizFragment">
 
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="4dp"
-        android:text="Quiz Grade"
-        android:textColor="@color/colorGray"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/firstConstraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="112dp"
+                android:background="@drawable/et_quiz_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_send"
-        android:layout_width="@dimen/dp120h"
-        android:layout_height="@dimen/dp35h"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/btn_rounded_assignment"
-        android:gravity="center"
-        android:text="@string/send"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                <EditText
+                    android:id="@+id/quizTitleEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title"
+                    android:textColorHint="@color/colorBlack"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/chapter_1_revision"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstConstraintLayout" />
+
+            <EditText
+                android:id="@+id/quizDescribtionEditText"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp120h"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/et_quiz_background"
+                android:gravity="start"
+                android:hint="@string/description"
+                android:padding="@dimen/dp5h"
+                android:textColorHint="@color/colorBlack"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/notes_for_students"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quizDescribtionEditText" />
+
+            <TextView
+                android:id="@+id/tv_file_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="39dp"
+                android:text="@string/file_upload"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="@dimen/dp70h"
+                android:layout_height="@dimen/dp20h"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="34dp"
+                android:layout_toEndOf="@+id/tv_file_upload"
+                android:background="@drawable/btn_rounded_assignment"
+                android:text="@string/upload"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_file_upload"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <ImageView
+                android:id="@+id/view_done"
+                android:layout_width="@dimen/dp20h"
+                android:layout_height="@dimen/dp20h"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/circle_black"
+                android:contentDescription="@string/done"
+                android:src="@drawable/ic_check_circle_white_24dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_upload"
+                app:layout_constraintStart_toEndOf="@+id/btn_upload"
+                app:layout_constraintTop_toTopOf="@+id/btn_upload" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="112dp"
+                android:background="@drawable/et_quiz_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_file_upload">
+
+                <EditText
+                    android:id="@+id/gradeEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/final_grade"
+                    android:inputType="number"
+                    android:textColorHint="@color/colorBlack"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/quiz_grade"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="@dimen/dp120h"
+                android:layout_height="@dimen/dp35h"
+                android:layout_marginTop="23dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/btn_rounded_assignment"
+                android:gravity="center"
+                android:text="@string/send"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

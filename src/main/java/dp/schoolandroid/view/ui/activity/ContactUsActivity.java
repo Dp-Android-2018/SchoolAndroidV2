@@ -33,6 +33,7 @@ import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentContactUsBinding;
 import dp.schoolandroid.service.model.global.ContactInfoResponseModel;
 import dp.schoolandroid.viewmodel.ContactUsActivityViewModel;
@@ -42,6 +43,7 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
     private ContactInfoResponseModel contactInfoResponseModel;
     private ContactUsActivityViewModel viewModel;
     private LatLng schoolLocation;
+    private String memberType;
     FragmentContactUsBinding binding;
     SupportMapFragment map;
 
@@ -51,9 +53,10 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.fragment_contact_us);
+        memberType = getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
-        setupViewModel();
         setupToolbar();
+        setupViewModel();
     }
 
     private void setupToolbar() {
@@ -64,10 +67,21 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
     }
 
     private void setupViewModel() {
-        SharedUtils.getInstance().showProgressDialog(this);
         viewModel = ViewModelProviders.of(this).get(ContactUsActivityViewModel.class);
-        binding.setViewModel(viewModel);
-        observeViewModel();
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (memberType.equals(ConfigurationFile.Constants.TEACHER_Key_VALUE)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.executeGetTeacherContactInfo();
+                observeViewModel();
+            } else if (memberType.equals(ConfigurationFile.Constants.STUDENT_Key_VALUE)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.executeGetStudentContactInfo();
+                observeViewModel();
+            }
+        } else {
+            Intent intent = new Intent(this, ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void observeViewModel() {
@@ -79,7 +93,7 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
                         contactInfoResponseModel = contactInfoResponseModelResponse.body().getContactInfo();
                         initializeUiWithData();
                     }
-                } else if (contactInfoResponseModelResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE){
+                } else if (contactInfoResponseModelResponse.code() == ConfigurationFile.Constants.UNAUTHANTICATED_CODE) {
                     SharedUtils.getInstance().cancelDialog();
                     logout();
                 }
@@ -89,7 +103,7 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
 
     private void logout() {
         clearSharedPreferences();
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -102,18 +116,22 @@ public class ContactUsActivity extends AppCompatActivity implements GoogleApiCli
     private void initializeUiWithData() {
         initializePhoneNumbers();
         initializeLatLng();
-        facebookClicked();
-        twitterClicked();
-        instagramClicked();
-        linkedinClicked();
+        if (contactInfoResponseModel.getCompanySocialNetworks() != null) {
+            facebookClicked();
+            twitterClicked();
+            instagramClicked();
+            linkedinClicked();
+        }
     }
 
     private void initializePhoneNumbers() {
-        StringBuilder phoneNumbers = new StringBuilder();
-        for (int i = 0; i < contactInfoResponseModel.getCompanyPhoneNumbers().size(); i++) {
-            phoneNumbers.append(contactInfoResponseModel.getCompanyPhoneNumbers().get(i)).append("\n");
+        if (contactInfoResponseModel.getCompanyPhoneNumbers() != null) {
+            StringBuilder phoneNumbers = new StringBuilder();
+            for (int i = 0; i < contactInfoResponseModel.getCompanyPhoneNumbers().size(); i++) {
+                phoneNumbers.append(contactInfoResponseModel.getCompanyPhoneNumbers().get(i)).append("\n");
+            }
+            binding.tvContactUsPhones.setText(phoneNumbers.toString());
         }
-        binding.tvContactUsPhones.setText(phoneNumbers.toString());
     }
 
     private void initializeLatLng() {

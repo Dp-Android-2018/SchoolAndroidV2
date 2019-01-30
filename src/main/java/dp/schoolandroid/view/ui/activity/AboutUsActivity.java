@@ -2,6 +2,7 @@ package dp.schoolandroid.view.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
@@ -16,6 +17,7 @@ import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentAboutUsBinding;
 import dp.schoolandroid.service.model.response.AboutUsResponse;
 import dp.schoolandroid.viewmodel.AboutUsActivityViewModel;
@@ -26,6 +28,7 @@ import retrofit2.Response;
 public class AboutUsActivity extends AppCompatActivity {
     FragmentAboutUsBinding binding;
     private AboutUsActivityViewModel viewModel;
+    private String memberType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -33,15 +36,22 @@ public class AboutUsActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.fragment_about_us);
+        memberType=getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupViewModel();
         setupToolbar();
     }
 
     private void setupViewModel() {
-        SharedUtils.getInstance().showProgressDialog(this);
-        viewModel = ViewModelProviders.of(this).get(AboutUsActivityViewModel.class);
-        observeViewModel();
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            SharedUtils.getInstance().showProgressDialog(this);
+            viewModel = ViewModelProviders.of(this).get(AboutUsActivityViewModel.class);
+            viewModel.executeGetAboutUsInfo(memberType);
+            observeViewModel();
+        }else {
+            Intent intent=new Intent(this,ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void observeViewModel() {

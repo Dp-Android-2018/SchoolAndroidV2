@@ -9,14 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dp.schoolandroid.R;
+import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.databinding.FragmentTopStudentBinding;
 import dp.schoolandroid.view.ui.activity.TeacherHomeActivity;
 
 public class TopStudentFragment extends Fragment {
     FragmentTopStudentBinding binding;
+    private String memberType;
 
     @Inject
     public TopStudentFragment() {
@@ -26,6 +30,7 @@ public class TopStudentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_top_student,container,false);
+        memberType = Objects.requireNonNull(getArguments()).getString(ConfigurationFile.Constants.MEMBER_Key);
         setupToolbar();
         return binding.getRoot();
     }

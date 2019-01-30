@@ -11,16 +11,18 @@ import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.service.model.request.ForgetPasswordRequest;
 import dp.schoolandroid.service.model.response.ForgetPasswordResponse;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 /*
-* this class is responsible for initialize Forget Password Repository
-* generating Password Reset Token for Teacher
-* generating Password Reset Token for parent
-* generating Password Reset Token for student
-* */
+ * this class is responsible for initialize Forget Password Repository
+ * generating Password Reset Token for Teacher
+ * generating Password Reset Token for parent
+ * generating Password Reset Token for student
+ * */
 
 public class ForgetPasswordRepository {
 
@@ -41,10 +43,30 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenTeacher(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenTeacher(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenTeacher(ConfigurationFile.Constants.API_KEY, ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(new Observer<Response<ForgetPasswordResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ForgetPasswordResponse> forgetPasswordResponseResponse) {
+                        data.setValue(forgetPasswordResponseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         return data;
     }
 
@@ -52,10 +74,30 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenParent(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getTeacherPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenParent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenParent(ConfigurationFile.Constants.API_KEY, ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(new Observer<Response<ForgetPasswordResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ForgetPasswordResponse> forgetPasswordResponseResponse) {
+                        data.setValue(forgetPasswordResponseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         return data;
     }
 
@@ -63,10 +105,30 @@ public class ForgetPasswordRepository {
     public LiveData<Response<ForgetPasswordResponse>> generatePasswordResetTokenStudent(final Application application, final String phoneNumber, final String code) {
         ForgetPasswordRequest forgetPasswordRequest = getStudentPasswordRequest(phoneNumber, code);
         final MutableLiveData<Response<ForgetPasswordResponse>> data = new MutableLiveData<>();
-        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenStudent(ConfigurationFile.Constants.API_KEY,ConfigurationFile.Constants.CONTENT_TYPE,
+        GetApiInterfaces.getInstance().getApiInterfaces(application).generatePasswordResetTokenStudent(ConfigurationFile.Constants.API_KEY, ConfigurationFile.Constants.CONTENT_TYPE,
                 ConfigurationFile.Constants.ACCEPT, forgetPasswordRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data::setValue);
+                .subscribe(new Observer<Response<ForgetPasswordResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ForgetPasswordResponse> forgetPasswordResponseResponse) {
+                        data.setValue(forgetPasswordResponseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         return data;
     }
 

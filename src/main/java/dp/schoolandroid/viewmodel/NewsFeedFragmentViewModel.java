@@ -17,8 +17,12 @@ public class NewsFeedFragmentViewModel extends AndroidViewModel {
         this.application=application;
     }
 
-    public void handleGetNewsFeed(String memberType){
-        data = NewsFeedRepository.getInstance().getNewsFeed(application,memberType);
+    public void handleGetTeacherNewsFeed(){
+        data = NewsFeedRepository.getInstance().getTeacherNewsFeed(application);
+    }
+
+    public void handleGetStudentNewsFeed(){
+        data = NewsFeedRepository.getInstance().getStudentNewsFeed(application);
     }
 
     public LiveData<Response<FeedsResponse>> getData() {

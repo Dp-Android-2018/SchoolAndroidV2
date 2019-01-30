@@ -12,12 +12,16 @@ import dp.schoolandroid.service.repository.remotes.ContactUsRepository;
 import retrofit2.Response;
 
 public class AboutUsActivityViewModel extends AndroidViewModel {
-    private final LiveData<Response<AboutUsResponse>> data;
+    private Application application;
+    private LiveData<Response<AboutUsResponse>> data;
 
     public AboutUsActivityViewModel(@NonNull Application application) {
         super(application);
-        data = AboutUsRepository.getInstance().getAboutUsInfo(application);
+        this.application=application;
     }
+   public void executeGetAboutUsInfo(String memberType){
+       data = AboutUsRepository.getInstance().getAboutUsInfo(application,memberType);
+   }
 
     public LiveData<Response<AboutUsResponse>> getData() {
         return data;

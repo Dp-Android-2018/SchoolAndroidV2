@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+
 import dp.schoolandroid.R;
 import dp.schoolandroid.Utility.utils.ConfigurationFile;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
@@ -17,6 +18,7 @@ import dp.schoolandroid.Utility.utils.SharedUtils;
 import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.ActivityParentLoginBinding;
 import dp.schoolandroid.viewmodel.ParentLoginActivityViewModel;
+
 /*
  * this class is responsible for get and set up Parent Login
  * make actions when clicking on login
@@ -42,13 +44,18 @@ public class ParentLoginActivity extends AppCompatActivity {
     }
 
     public void parentLogin(View view) {
-        if (ValidationUtils.validateTexts(binding.parentPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)
-                && ValidationUtils.validateTexts(binding.parentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleloginParent();
-            observeParentLoginDataViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.parentPhoneEditText.getText().toString(), ValidationUtils.TYPE_PHONE)
+                    && ValidationUtils.validateTexts(binding.parentPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleloginParent();
+                observeParentLoginDataViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
+            }
         } else {
-            Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ConnectionErrorActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -58,15 +65,15 @@ public class ParentLoginActivity extends AppCompatActivity {
                 SharedUtils.getInstance().cancelDialog();
                 if (parentResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToHomeActivity();
-                }else {
+                } else {
                     Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Snackbar.LENGTH_SHORT).show();
                 }
             }
-    });
+        });
     }
 
-    private void moveToHomeActivity(){
-        Intent intent=new Intent(this,TeacherHomeActivity.class);
+    private void moveToHomeActivity() {
+        Intent intent = new Intent(this, TeacherHomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -88,7 +95,7 @@ public class ParentLoginActivity extends AppCompatActivity {
                 SharedUtils.getInstance().cancelDialog();
                 if (forgetPasswordResponseResponse.code() == ConfigurationFile.Constants.SUCCESS_CODE) {
                     moveToPasswordActivity();
-                } else{
+                } else {
                     Snackbar.make(binding.getRoot(), R.string.please_wait, Snackbar.LENGTH_SHORT).show();
                 }
             }

@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import dp.schoolandroid.R;
 import dp.schoolandroid.databinding.ActivityAssignementDescribtionLayoutBinding;
+import dp.schoolandroid.databinding.ActivityTopStudentDetailsBinding;
 
 public class TopStudentDetailsActivity extends AppCompatActivity {
-    ActivityAssignementDescribtionLayoutBinding binding;
+    ActivityTopStudentDetailsBinding binding;
     Button btn_send;
 
     @Override
@@ -19,12 +20,7 @@ public class TopStudentDetailsActivity extends AppCompatActivity {
     }
 
     private void iniyializeUi() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_assignement_describtion_layout);
-        btn_send = binding.btnSend;
-        btn_send.setOnClickListener(v -> {
-            Intent intent = new Intent(TopStudentDetailsActivity.this, FeedDetailsActivity.class);
-            startActivity(intent);
-        });
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_top_student_details);
     }
 
 }

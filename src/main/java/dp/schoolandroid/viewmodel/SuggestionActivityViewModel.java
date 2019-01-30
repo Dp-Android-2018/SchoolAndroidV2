@@ -13,6 +13,7 @@ import retrofit2.Response;
 public class SuggestionActivityViewModel extends AndroidViewModel {
     private LiveData<Response<AboutUsResponse>> data;
     private Application application;
+    private String memberType;
 
     public SuggestionActivityViewModel(@NonNull Application application) {
         super(application);
@@ -20,7 +21,11 @@ public class SuggestionActivityViewModel extends AndroidViewModel {
     }
 
     public void handleSuggestionRequest(String title, String describtion) {
-        data = SuggestionRepository.getInstance().createNewSuggestion(application,title,describtion);
+        data = SuggestionRepository.getInstance().createNewSuggestion(application,title,describtion,memberType);
+    }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 
     public LiveData<Response<AboutUsResponse>> getData() {

@@ -44,17 +44,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     public void confrimPassword(View view) {
-        if (ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
-                && ValidationUtils.validateTexts(binding.confirmNewPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
-            if (binding.newPasswordEditText.getText().toString().equals(binding.confirmNewPasswordEditText.getText().toString())) {
-                SharedUtils.getInstance().showProgressDialog(this);
-                viewModel.handleConfirmPassword(membershipType, apiToken, phoneNumber);
-                observeCheckViewModel(viewModel);
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.newPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)
+                    && ValidationUtils.validateTexts(binding.confirmNewPasswordEditText.getText().toString(), ValidationUtils.TYPE_PASSWORD)) {
+                if (binding.newPasswordEditText.getText().toString().equals(binding.confirmNewPasswordEditText.getText().toString())) {
+                    SharedUtils.getInstance().showProgressDialog(this);
+                    viewModel.handleConfirmPassword(membershipType, apiToken, phoneNumber);
+                    observeCheckViewModel(viewModel);
+                } else {
+                    Snackbar.make(binding.getRoot(), R.string.password_not_match, Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Snackbar.make(binding.getRoot(), R.string.password_not_match, Toast.LENGTH_SHORT).show();
+                Snackbar.make(binding.getRoot(), R.string.error_password, Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Snackbar.make(binding.getRoot(), R.string.error_password, Toast.LENGTH_SHORT).show();
+        }else {
+            Snackbar.make(binding.getRoot(), R.string.there_is_no_internet, Snackbar.LENGTH_SHORT).show();
         }
     }
 

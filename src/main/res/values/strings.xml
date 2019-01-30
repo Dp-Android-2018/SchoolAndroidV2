@@ -96,7 +96,6 @@
     <string name="done" translatable="false">done</string>
     <string name="back_arrow" translatable="false">back_arrow</string>
     <string name="mohamed_said" translatable="false">Mohamed Said</string>
-    <string name="_30_student" translatable="false">30 Student</string>
     <string name="_10_points" translatable="false">10 Points</string>
     <string name="_4_points" translatable="false">4 Points</string>
     <string name="_2_points" translatable="false">2 Points</string>
@@ -132,6 +131,7 @@
     <string name="top_student" translatable="false">Top Student</string>
     <string name="contact_us" translatable="false">Contact Us</string>
     <string name="no_classes" translatable="false">There is no classes at that day</string>
+    <string name="press_back_again_message" translatable="false">Please click BACK again to exit !</string>
     <string name="no_week_data" translatable="false">There is no Data at that week</string>
     <string name="menu_edit_profile" translatable="false">Edit Profile</string>
     <string name="menu_gallery" translatable="false">Picture gallery</string>
@@ -143,11 +143,52 @@
     <string name="tt" translatable="false">TODO</string>
     <string name="title" translatable="false">Title</string>
     <string name="suggesstion_headline" translatable="false">Suggesstion Headline</string>
-    <string name="description" translatable="false">Description</string>
     <string name="suggestion_description" translatable="false">Suggestion Description</string>
     <string name="change_password" translatable="false">Change Password</string>
     <string name="starts" translatable="false">*******</string>
     <string name="must_have_8_character" translatable="false">Must have 8 character</string>
     <string name="should_be_same_password" translatable="false">Should be same password</string>
+    <string name="class_name_1" translatable="false">Class name #1</string>
+    <string name="class_level" translatable="false">Class Level</string>
+    <string name="start_new_session" translatable="false">Start New Session</string>
+    <string name="sessions_history" translatable="false">Sessions History</string>
+    <string name="students" translatable="false">Students</string>
+    <string name="announcements" translatable="false">Announcements</string>
+    <string name="assignment" translatable="false">Assignment</string>
+    <string name="assignments" translatable="false">Assignments</string>
+    <string name="save" translatable="false">Save</string>
+    <string name="class_number_one" translatable="false">Class Number One</string>
+    <string name="student_name" translatable="false">Student Name</string>
+    <string name="attendence" translatable="false">Attendence</string>
+    <string name="attendence_and_absence_for_student" translatable="false">attendence and absence for student</string>
+    <string name="student_of_day" translatable="false">Student of day</string>
+    <string name="choose_the_best_student" translatable="false">Choose The best Student</string>
+    <string name="permission" translatable="false">Permission</string>
+    <string name="there_is_a_permission_for_an_excuse" translatable="false">There is a permission for an excuse</string>
+    <string name="chapter_1_revision" translatable="false">Chapter 1,revision</string>
+    <string name="notes_for_students" translatable="false">Notes for students</string>
+    <string name="final_grade" translatable="false">Final Grade</string>
+    <string name="quiz_grade" translatable="false">Quiz Grade</string>
+    <string name="description" translatable="false">Describtion</string>
+    <string name="selected_student_of_day" translatable="false">You have selected student of Day before :(</string>
+    <string name="uploaded" translatable="false">Uploaded </string>
+    <string name="percentage" translatable="false">%...</string>
+    <string name="there_is_no_file" translatable="false">Ther is no file.!!</string>
+    <string name="there_is_no_internet" translatable="false">Ther is no internet connection.!!</string>
+    <string name="file_uploaded" translatable="false">File Uploaded Successfully :)</string>
+    <string name="select_file" translatable="false">Select File ,please</string>
+    <string name="uploading" translatable="false">Uploading</string>
+    <string name="please_full_all_data" translatable="false">Please fill all data :)</string>
+    <string name="title_activities" translatable="false">Title Activities</string>
+    <string name="activities" translatable="false">Activities</string>
+    <string name="session_history" translatable="false">Session History</string>
+    <string name="session_1" translatable="false">Session #1</string>
+    <string name="_12_1_2019" translatable="false">12/1/2019</string>
+    <string name="_30_student" translatable="false">30 Student</string>
+    <string name="forget_password" translatable="false">Forget Password!</string>
+    <string name="grade_" translatable="false">Grade : </string>
+    <string name="grad_50" translatable="false"> 50</string>
+    <string name="assignment_grade" translatable="false">Assignment Grade</string>
+    <string name="_0" translatable="false">0</string>
 
 </resources>

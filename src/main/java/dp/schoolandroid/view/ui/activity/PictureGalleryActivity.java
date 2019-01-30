@@ -19,6 +19,7 @@ import dp.schoolandroid.Utility.utils.CustomUtils;
 import dp.schoolandroid.Utility.utils.GridSpacingItemDecoration;
 import dp.schoolandroid.Utility.utils.SetupAnimation;
 import dp.schoolandroid.Utility.utils.SharedUtils;
+import dp.schoolandroid.Utility.utils.ValidationUtils;
 import dp.schoolandroid.databinding.FragmentPictureGalleryBinding;
 import dp.schoolandroid.view.ui.adapter.PictureGalleryRecyclerViewAdapter;
 import dp.schoolandroid.viewmodel.PictureGalleryViewModel;
@@ -33,6 +34,7 @@ public class PictureGalleryActivity extends AppCompatActivity {
     private List<String> pageImagesList;
     private String nextPageUrl = null;
     private boolean isLoading = false;
+    private String memberType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -40,14 +42,25 @@ public class PictureGalleryActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.fragment_picture_gallery);
+        memberType=getIntent().getStringExtra(ConfigurationFile.Constants.MEMBER_Key);
         SetupAnimation.getInstance().setUpAnimation(getWindow(), getResources());
         setupToolbar();
         initVariables();
-        SharedUtils.getInstance().showProgressDialog(this);
-        viewModel = ViewModelProviders.of(this).get(PictureGalleryViewModel.class);
-        viewModel.executeGetImages(1);
-        observeViewModel(viewModel);
-        initializeRecyclerViewAdapter();
+        initViewModel();
+    }
+
+    private void initViewModel() {
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            SharedUtils.getInstance().showProgressDialog(this);
+            viewModel = ViewModelProviders.of(this).get(PictureGalleryViewModel.class);
+            viewModel.setMemberType(memberType);
+            viewModel.executeGetImages(1);
+            observeViewModel(viewModel);
+            initializeRecyclerViewAdapter();
+        }else {
+            Intent intent=new Intent(this,ConnectionErrorActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void initVariables() {

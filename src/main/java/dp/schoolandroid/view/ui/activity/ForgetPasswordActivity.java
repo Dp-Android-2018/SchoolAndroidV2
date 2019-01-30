@@ -37,7 +37,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private void initializeUi() {
         membershipType = getIntent().getIntExtra(ConfigurationFile.Constants.ACTIVITY_NUMBER, 0);
         phoneNumber = getIntent().getStringExtra(ConfigurationFile.Constants.PHONE_NUMBER);
-        binding.numberTextView.setText(phoneNumber);
+        binding.numberTextView.setText(ConfigurationFile.Constants.STUDENT_PHONE_NUMBER_MESSAGE);
         initializeViewModel();
         initializeForgetPasswordImage();
     }
@@ -59,12 +59,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     public void checkCode(View view) {
-        if (ValidationUtils.validateTexts(binding.codeEditText.getText().toString(), ValidationUtils.TYPE_PHONE)) {
-            SharedUtils.getInstance().showProgressDialog(this);
-            viewModel.handleCheckCode(membershipType, phoneNumber);
-            observeCheckViewModel(viewModel);
-        } else {
-            Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Toast.LENGTH_SHORT).show();
+        if (ValidationUtils.isConnectingToInternet(this)) {
+            if (ValidationUtils.validateTexts(binding.codeEditText.getText().toString(), ValidationUtils.TYPE_PHONE)) {
+                SharedUtils.getInstance().showProgressDialog(this);
+                viewModel.handleCheckCode(membershipType, phoneNumber);
+                observeCheckViewModel(viewModel);
+            } else {
+                Snackbar.make(binding.getRoot(), R.string.error_phone_or_password, Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            Snackbar.make(binding.getRoot(), R.string.there_is_no_internet, Snackbar.LENGTH_SHORT).show();
         }
     }
 

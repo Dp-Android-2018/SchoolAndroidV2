@@ -14,6 +14,7 @@ import retrofit2.Response;
 public class VideosActivityViewModel extends AndroidViewModel {
     private LiveData<Response<VideosResponse>> data;
     private Application application;
+    private String memberType;
 
     public VideosActivityViewModel(@NonNull Application application) {
         super(application);
@@ -21,8 +22,13 @@ public class VideosActivityViewModel extends AndroidViewModel {
     }
 
     public void executeGetVideos(int pageNumber){
-        data=VideosRepository.getInstance().getAllTheVideos(application,pageNumber);
+        data=VideosRepository.getInstance().getAllTheVideos(application,pageNumber,memberType);
     }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
+    }
+
     public LiveData<Response<VideosResponse>> getData() {
         return data;
     }
